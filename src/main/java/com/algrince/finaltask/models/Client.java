@@ -32,7 +32,7 @@ public class Client {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @NotEmpty(message = "Email should not be empty")
     @Email
     private String email;
