@@ -17,6 +17,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/home").permitAll()
+                        .requestMatchers("/registration").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,5 +22,10 @@ public class ClientsService {
 
     public List<Client> findAll() {
         return clientsRepository.findAll();
+    }
+
+    public Optional<Client> loadUserByEmail(String email) {
+        Optional<Client> client = clientsRepository.findByEmail(email);
+        return client;
     }
 }
