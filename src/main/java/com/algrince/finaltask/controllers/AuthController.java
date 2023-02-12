@@ -1,7 +1,7 @@
 package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.models.Client;
-import com.algrince.finaltask.services.RegistrationService;
+import com.algrince.finaltask.services.ClientsService;
 import com.algrince.finaltask.utils.ClientValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
 
     private final ClientValidator clientValidator;
-    private final RegistrationService registrationService;
+    private final ClientsService clientsService;
 
     @Autowired
-    public AuthController(ClientValidator clientValidator, RegistrationService registrationService) {
+    public AuthController(ClientValidator clientValidator, ClientsService clientsService) {
         this.clientValidator = clientValidator;
-        this.registrationService = registrationService;
+        this.clientsService = clientsService;
     }
 
     @GetMapping("/login")
@@ -37,7 +37,12 @@ public class AuthController {
     public String makeRegistration(@ModelAttribute("client") @Valid Client client,
                                    BindingResult bindingResult) {
         clientValidator.validate(client, bindingResult);
-        registrationService.register(client);
+
+        if (bindingResult.hasErrors()) {
+            return "auth/registration";
+        }
+
+       clientsService.register(client);
 
         return "redirect:/login";
     }

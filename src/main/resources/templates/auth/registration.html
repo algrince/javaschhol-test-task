@@ -18,34 +18,36 @@
         <div class="col-md-6 mb-3">
           <label for="name" class="form-label">Name</label>
           <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name errors</div>
         </div>
 
         <div class="col-md-6 mb-3">
           <label for="surname" class="form-label">Surname</label>
           <input type="text" class="form-control" th:field="*{surname}" id="surname" placeholder="Surname">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname errors</div>
         </div>
 
         <div class="col-12 mb-3">
           <label for="email" class="form-label">Email</label>
           <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email">
           <div id="emailHelp" class="form-text">Your email will be used to sign in as a username</div>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email errors</div>
         </div>
 
         <div class="col-12 mb-3">
           <label for="date_of_birth" class="form-label">Date of birth</label>
           <input type="text" class="form-control" th:field="*{dateOfBirth}" id="date_of_birth" placeholder="Date of birth">
           <div id="dateHelp" class="form-text">Enter your date of birth in dd/MM/yyyy format</div>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Date of birth errors</div>
         </div>
 
         <div class="col-12 mb-3">
           <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="Password">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password errors</div>
         </div>
       <button type="submit" class="btn btn-primary col-md-6">Sign up</button>
 
-      <div th:if="${param.error}">
-        Wrong password or email
-      </div>
       </div>
     </form>
   </div>
