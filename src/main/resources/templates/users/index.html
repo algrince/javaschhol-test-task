@@ -6,8 +6,8 @@
 </head>
 <body>
 
-<div th:each="client : ${clients}">
-     <p th:text="${client.getName() + ' ' + client.getSurname()}">VALUE</p>
+<div th:each="user : ${clients}">
+     <p th:text="${user.getName() + ' ' + user.getSurname()}">VALUE</p>
 </div>
 
 </body>

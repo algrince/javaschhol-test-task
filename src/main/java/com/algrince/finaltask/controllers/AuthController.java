@@ -1,8 +1,8 @@
 package com.algrince.finaltask.controllers;
 
-import com.algrince.finaltask.models.Client;
-import com.algrince.finaltask.services.ClientsService;
-import com.algrince.finaltask.utils.ClientValidator;
+import com.algrince.finaltask.models.User;
+import com.algrince.finaltask.services.UsersService;
+import com.algrince.finaltask.utils.UserValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AuthController {
 
-    private final ClientValidator clientValidator;
-    private final ClientsService clientsService;
+    private final UserValidator userValidator;
+    private final UsersService usersService;
 
     @Autowired
-    public AuthController(ClientValidator clientValidator, ClientsService clientsService) {
-        this.clientValidator = clientValidator;
-        this.clientsService = clientsService;
+    public AuthController(UserValidator userValidator, UsersService usersService) {
+        this.userValidator = userValidator;
+        this.usersService = usersService;
     }
 
     @GetMapping("/login")
@@ -29,20 +29,20 @@ public class AuthController {
     }
 
     @GetMapping("/registration")
-    public String registrationPage(@ModelAttribute("client") Client client) {
+    public String registrationPage(@ModelAttribute("user") User user) {
         return "auth/registration";
     }
 
     @PostMapping("/registration")
-    public String makeRegistration(@ModelAttribute("client") @Valid Client client,
+    public String makeRegistration(@ModelAttribute("user") @Valid User user,
                                    BindingResult bindingResult) {
-        clientValidator.validate(client, bindingResult);
+        userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "auth/registration";
         }
 
-       clientsService.register(client);
+       usersService.register(user);
 
         return "redirect:/login";
     }

@@ -13,11 +13,11 @@ import java.util.Date;
 @Entity
 @Table(name = "clients")
 @Data
-public class Client {
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     @NotEmpty(message = "{email.notempty}")

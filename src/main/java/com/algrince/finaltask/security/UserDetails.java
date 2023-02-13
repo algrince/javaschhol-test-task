@@ -1,34 +1,33 @@
 package com.algrince.finaltask.security;
 
-import com.algrince.finaltask.models.Client;
+import com.algrince.finaltask.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class ClientDetails implements UserDetails {
-    private final Client client;
+public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+    private final User user;
 
-    public ClientDetails(Client client) {
-        this.client = client;
+    public UserDetails(User user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(client.getRole()));
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
     public String getPassword() {
-        return this.client.getPassword();
+        return this.user.getPassword();
     }
 
     // Uses unique email as username
     @Override
     public String getUsername() {
-        return this.client.getEmail();
+        return this.user.getEmail();
     }
 
     @Override
