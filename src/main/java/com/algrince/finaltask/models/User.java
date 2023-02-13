@@ -5,14 +5,18 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "clients")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
     @Id
     @Column(name = "id")
@@ -49,7 +53,6 @@ public class User {
     private String role;
 
     @Column(name = "deleted")
-//    @NotEmpty
     private boolean isDeleted;
 
 }

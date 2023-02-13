@@ -3,23 +3,21 @@ package com.algrince.finaltask.services;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.UsersRepository;
 import com.algrince.finaltask.security.UserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final UsersRepository usersRepository;
 
-    @Autowired
-    public UserDetailsService(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-    }
-
     @Override
+    @Transactional
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> user = usersRepository.findByEmail(email);
 
