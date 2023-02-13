@@ -34,6 +34,7 @@ public class ClientsService {
 
     public void register(Client client) {
         client.setPassword(passwordEncoder.encode(client.getPassword()));
+        client.setRole("ROLE_USER");
         clientsRepository.save(client);
     }
 }

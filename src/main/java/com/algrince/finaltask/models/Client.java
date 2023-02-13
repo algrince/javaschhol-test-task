@@ -20,8 +20,8 @@ public class Client {
     private long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "Name should not be empty")
-    @Size(min = 2, max = 45, message = "Name should be between 2 and 45 characters")
+    @NotEmpty(message = "{email.notempty}")
+    @Size(min = 2, max = 45, message = "{name.size}")
     private String name;
 
     @Column(name = "surname")
@@ -45,11 +45,8 @@ public class Client {
     @NotEmpty(message = "Password should not be empty")
     private String password;
 
-    // ENUM usage gives NumberFormatException
     @Column(name = "role")
-    @Enumerated(EnumType.ORDINAL)
- //   @NotEmpty
-    private ClientRole role;
+    private String role;
 
     @Column(name = "deleted")
 //    @NotEmpty
