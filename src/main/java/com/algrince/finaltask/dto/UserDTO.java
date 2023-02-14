@@ -1,28 +1,25 @@
-package com.algrince.finaltask.models;
+package com.algrince.finaltask.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "clients")
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
-public class User {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+@RequiredArgsConstructor
+public class UserDTO {
     @Column(name = "name")
     @NotEmpty(message = "{email.notempty}")
     @Size(min = 2, max = 45, message = "{name.size}")
@@ -47,11 +44,4 @@ public class User {
     @Column(name = "password")
     @NotEmpty(message = "Password should not be empty")
     private String password;
-
-    @Column(name = "role")
-    private String role;
-
-    @Column(name = "deleted")
-    private boolean isDeleted;
-
 }

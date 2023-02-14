@@ -1,28 +1,25 @@
 package com.algrince.finaltask.controllers;
 
 
+import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UsersController {
 
     private final UsersService usersService;
 
-    @Autowired
-    public UsersController(UsersService usersService) {
-        this.usersService = usersService;
-    }
-
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("users", usersService.findAll());
-        return "users/index";
+    public List<User> userIndex() {
+        return usersService.findAll();
     }
 
 }
