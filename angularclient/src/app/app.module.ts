@@ -8,11 +8,13 @@ import { UserListComponent } from './user-list/user-list.component';
 import {UserService} from './service/user.service'
 
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserListComponent
+    UserListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
