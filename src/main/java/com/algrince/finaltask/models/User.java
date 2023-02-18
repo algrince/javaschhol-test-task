@@ -24,7 +24,7 @@ public class User {
     private Long id;
 
     @Column(name = "name")
-    @NotEmpty(message = "{email.notempty}")
+    @NotEmpty(message = "{name.notempty}")
     @Size(min = 2, max = 45, message = "{name.size}")
     private String name;
 
