@@ -58,8 +58,8 @@ public class SecurityConfig {
     }
 
     // Look more after
-    @Bean
-    public ProviderManager authenticationManagerBean(AuthenticationProvider provider){
-        return new ProviderManager(provider);
-    }
+    // @Bean
+    // public ProviderManager authenticationManagerBean(AuthenticationProvider provider){
+    //    return new ProviderManager(provider);
+    // }
 }

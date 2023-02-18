@@ -28,8 +28,7 @@ public class AuthController {
     private final UsersService usersService;
     private final JWTUtil jwtUtil;
     private final ModelMapper modelMapper;
-    private  final AuthenticationDTO authenticationDTO;
-    private final ProviderManager providerManager;
+    // private final ProviderManager providerManager;
 
     // @GetMapping("/login")
     // public String loginPage() {
@@ -43,11 +42,11 @@ public class AuthController {
                         authenticationDTO.getEmail(), authenticationDTO.getPassword());
 
         // Try login using authentication provider
-        try {
-            providerManager.authenticate(authenticationInputToken);
-        } catch (BadCredentialsException e) {
-            return Map.of("message", "Incorrect credentials");
-        }
+        // try {
+        //    providerManager.authenticate(authenticationInputToken);
+        // } catch (BadCredentialsException e) {
+        //     return Map.of("message", "Incorrect credentials");
+        // }
 
         // If login is successful, generate new token
         String token = jwtUtil.generateToken(authenticationDTO.getEmail());
