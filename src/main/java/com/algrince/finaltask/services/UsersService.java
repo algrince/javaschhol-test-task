@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,10 @@ public class UsersService {
     @Transactional
     public void register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Temporally set date on registration
+        // Remove when correct form in angular application is set
+        Date date = new Date("01/01/2000");
+        user.setDateOfBirth(date);
         user.setRole("ROLE_USER");
         usersRepository.save(user);
     }
