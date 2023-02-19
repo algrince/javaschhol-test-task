@@ -4,10 +4,7 @@ package com.algrince.finaltask.controllers;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,4 +21,9 @@ public class UsersController {
         return usersService.findAll();
     }
 
+
+    @PostMapping()
+    void addUser(@RequestBody User user) {
+        usersService.register(user);
+    }
 }

@@ -36,6 +36,7 @@ public class AuthController {
     // }
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:4200")
     public Map<String, String> makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
         UsernamePasswordAuthenticationToken authenticationInputToken =
                 new UsernamePasswordAuthenticationToken(
@@ -59,6 +60,7 @@ public class AuthController {
     // }
 
     @PostMapping("/registration")
+    @CrossOrigin(origins = "http://localhost:4200")
     public Map<String, String> makeRegistration(@RequestBody @Valid UserDTO userDTO,
                                    BindingResult bindingResult) {
         User user = convertToUser(userDTO);
