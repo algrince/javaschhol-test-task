@@ -1,11 +1,11 @@
 package com.algrince.finaltask.config;
 
+import com.algrince.finaltask.services.UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -57,9 +57,12 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Look more after
-    // @Bean
-    // public ProviderManager authenticationManagerBean(AuthenticationProvider provider){
-    //    return new ProviderManager(provider);
-    // }
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity httpSecurity,
+                                                       UserDetailsService userDetailsService,
+                                                       BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        return authenticationManagerBuilder.build();
+    }
 }

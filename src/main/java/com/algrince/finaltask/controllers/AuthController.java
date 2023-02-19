@@ -9,8 +9,8 @@ import com.algrince.finaltask.utils.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.validation.BindingResult;
@@ -28,12 +28,8 @@ public class AuthController {
     private final UsersService usersService;
     private final JWTUtil jwtUtil;
     private final ModelMapper modelMapper;
-    // private final ProviderManager providerManager;
+    private final AuthenticationManager authenticationManager;
 
-    // @GetMapping("/login")
-    // public String loginPage() {
-    //     return "auth/login";
-    // }
 
     @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:4200")
@@ -42,22 +38,20 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(
                         authenticationDTO.getEmail(), authenticationDTO.getPassword());
 
+        System.out.println(authenticationInputToken);
+
         // Try login using authentication provider
-        // try {
-        //    providerManager.authenticate(authenticationInputToken);
-        // } catch (BadCredentialsException e) {
-        //     return Map.of("message", "Incorrect credentials");
-        // }
+        try {
+           authenticationManager.authenticate(authenticationInputToken);
+        } catch (BadCredentialsException e) {
+            return Map.of("message", "Incorrect credentials");
+        }
 
         // If login is successful, generate new token
         String token = jwtUtil.generateToken(authenticationDTO.getEmail());
         return Map.of("jwt-token", token);
     }
 
-    // @GetMapping("/registration")
-    // public String registrationPage(@ModelAttribute("user") User user) {
-    //     return "auth/registration";
-    // }
 
     @PostMapping("/registration")
     @CrossOrigin(origins = "http://localhost:4200")
