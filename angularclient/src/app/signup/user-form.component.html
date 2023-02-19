@@ -1,10 +1,11 @@
 <div class="card my-5">
-  <div class="card-body">
-    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+  <div class="card-body row d-flex justify-content-center">
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="col-md-4 col-sm-4 col-xs-12">
+
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name" class="form-label">Name</label>
         <input type="text" [(ngModel)]="user.name"
-               class="form-control"
+               class="form-control col-md-6 mb-3"
                id="name"
                name="name"
                placeholder="Enter your name"
@@ -13,9 +14,9 @@
       <!-- <div [hidden]="!name.pristine" class="alert alert-danger">Name is required</div> -->
 
       <div class="form-group">
-        <label for="surname">Surname</label>
+        <label for="surname" class="form-label">Surname</label>
         <input type="text" [(ngModel)]="user.surname"
-               class="form-control"
+               class="form-control col-md-6 mb-3"
                id="surname"
                name="surname"
                placeholder="Enter your surname"
@@ -24,9 +25,9 @@
       <!-- <div [hidden]="!surname.pristine" class="alert alert-danger">Surname is required</div> -->
 
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email" class="form-label">Email</label>
         <input type="text" [(ngModel)]="user.email"
-               class="form-control"
+               class="form-control col-md-6 mb-3"
                id="email"
                name="email"
                placeholder="Enter your email address"
@@ -48,9 +49,9 @@
       -->
 
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password" class="form-label">Password</label>
         <input type="password" [(ngModel)]="user.password"
-               class="form-control"
+               class="form-control col-md-6 mb-3"
                id="password"
                name="password"
                placeholder="Enter your password"
@@ -59,7 +60,7 @@
       </div>
 
       <button type="submit"
-              class="btn btn-info">Submit</button>
+              class="btn btn-info col-md-3">Submit</button>
       <!-- [disabled]="!userForm.form.valid" -->
     </form>
   </div>

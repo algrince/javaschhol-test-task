@@ -4,5 +4,5 @@ export class User {
     surname: string;
     email: string;
     password: string;
-    /* dateOfBirth: string; */
+    dateOfBirth: string;
 }

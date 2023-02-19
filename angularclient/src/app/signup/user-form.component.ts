@@ -14,17 +14,18 @@ export class UserFormComponent {
 
   constructor(
     private route: ActivatedRoute,
-      private router: Router,
-        private userService: UserService) {
+    private router: Router,
+    private userService: UserService) {
     this.user = new User();
   }
 
+  /* Set password confirmation later */
   onSubmit() {
     this.userService.save(this.user).subscribe(result => this.gotoUserList());
   }
 
   gotoUserList() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/users']);
   }
 
 }

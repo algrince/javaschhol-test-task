@@ -9,14 +9,16 @@ import { UserService } from './service/user.service'
 
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { UserFormComponent } from './user-form/user-form.component';
+import { UserFormComponent } from './signup/user-form.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
     HomeComponent,
-    UserFormComponent
+    UserFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

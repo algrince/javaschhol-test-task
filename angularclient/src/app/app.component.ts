@@ -12,4 +12,5 @@ export class AppComponent {
   constructor() {
     this.title = 'The Store';
   }
+
 }
