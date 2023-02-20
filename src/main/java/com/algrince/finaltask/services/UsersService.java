@@ -37,6 +37,7 @@ public class UsersService {
         Date date = new Date("01/01/2000");
         user.setDateOfBirth(date);
         user.setRole("ROLE_USER");
+        user.setDeleted(false);
         usersRepository.save(user);
     }
 }

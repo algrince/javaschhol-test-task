@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.security.Provider;
 
 @Configuration
 @EnableWebSecurity
@@ -32,23 +31,11 @@ public class SecurityConfig {
                     .requestMatchers("/registration").permitAll()
                     .anyRequest().permitAll()
             )
-            .formLogin(form -> form
-                    .loginPage("/login")
-                    .loginProcessingUrl("/process_login")
-                    .defaultSuccessUrl("/home", true)
-                    .failureUrl("/login?error")
-                    .permitAll()
-            )
-            .logout(logout -> logout
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
-                    .invalidateHttpSession(true)
-            )
             .sessionManagement(session -> session
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        http.cors();
+        //http.cors();
         return http.build();
     }
 

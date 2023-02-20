@@ -39,10 +39,12 @@ public class AuthController {
                         authenticationDTO.getEmail(), authenticationDTO.getPassword());
 
         // Try login using authentication provider
+        // Move logic
         try {
            authenticationManager.authenticate(authenticationInputToken);
         } catch (BadCredentialsException e) {
             log.info("Incorrect credentials given by the user");
+            // Response.entity
             return Map.of("message", "Incorrect credentials");
         }
 
