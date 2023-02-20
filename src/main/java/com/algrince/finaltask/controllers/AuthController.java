@@ -8,6 +8,7 @@ import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
     private final UserValidator userValidator;
@@ -29,8 +31,6 @@ public class AuthController {
     private final JWTUtil jwtUtil;
     private final ModelMapper modelMapper;
     private final AuthenticationManager authenticationManager;
-
-
     @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:4200")
     public Map<String, String> makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
@@ -38,14 +38,15 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(
                         authenticationDTO.getEmail(), authenticationDTO.getPassword());
 
-        System.out.println(authenticationInputToken);
-
         // Try login using authentication provider
         try {
            authenticationManager.authenticate(authenticationInputToken);
         } catch (BadCredentialsException e) {
+            log.info("Incorrect credentials given by the user");
             return Map.of("message", "Incorrect credentials");
         }
+
+        log.info("The user has correct credentials, proceeding to token generation");
 
         // If login is successful, generate new token
         String token = jwtUtil.generateToken(authenticationDTO.getEmail());
@@ -61,14 +62,16 @@ public class AuthController {
 
         userValidator.validate(user, bindingResult);
 
+
         if (bindingResult.hasErrors()) {
+            log.warn("There was a problem during user validation");
             return Map.of("message", "error");
         }
+        log.info("The user has been validated successfully");
+        usersService.register(user);
 
-       usersService.register(user);
-
-       String token = jwtUtil.generateToken(user.getEmail());
-       return Map.of("jwt-token", token);
+        String token = jwtUtil.generateToken(user.getEmail());
+        return Map.of("jwt-token", token);
     }
 
     public User convertToUser(UserDTO userDTO) {
