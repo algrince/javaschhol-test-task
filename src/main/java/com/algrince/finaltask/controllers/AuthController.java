@@ -4,12 +4,14 @@ import com.algrince.finaltask.dto.AuthenticationDTO;
 import com.algrince.finaltask.dto.UserDTO;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.security.JWTUtil;
+import com.algrince.finaltask.services.AuthService;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,29 +32,12 @@ public class AuthController {
     private final UsersService usersService;
     private final JWTUtil jwtUtil;
     private final ModelMapper modelMapper;
-    private final AuthenticationManager authenticationManager;
+    private final AuthService authService;
+
     @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:4200")
-    public Map<String, String> makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
-        UsernamePasswordAuthenticationToken authenticationInputToken =
-                new UsernamePasswordAuthenticationToken(
-                        authenticationDTO.getEmail(), authenticationDTO.getPassword());
-
-        // Try login using authentication provider
-        // Move logic
-        try {
-           authenticationManager.authenticate(authenticationInputToken);
-        } catch (BadCredentialsException e) {
-            log.info("Incorrect credentials given by the user");
-            // Response.entity
-            return Map.of("message", "Incorrect credentials");
-        }
-
-        log.info("The user has correct credentials, proceeding to token generation");
-
-        // If login is successful, generate new token
-        String token = jwtUtil.generateToken(authenticationDTO.getEmail());
-        return Map.of("jwt-token", token);
+    public ResponseEntity makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
+        return authService.login(authenticationDTO);
     }
 
 

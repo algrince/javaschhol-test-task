@@ -10,14 +10,20 @@ export class UserService {
 
   private usersUrl: string;
   private loginUrl: string;
+  private oneUserUrl: string;
 
   constructor(private http: HttpClient) {
       this.usersUrl = 'http://localhost:8080/users';
+      this.oneUserUrl = 'http://localhost:8080/users/{id}'
       this.loginUrl = 'http://localhost:8080/login';
   }
 
   public findAll(): Observable<User[]> {
       return this.http.get<User[]>(this.usersUrl);
+  }
+
+  public findOne(id: number): Observable<User> {
+  return this.http.get<User>(this.oneUserUrl)
   }
 
   public save(user: User) {

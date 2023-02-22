@@ -55,7 +55,7 @@ public class User {
     @Column(name = "deleted")
     private boolean isDeleted;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade={CascadeType.ALL})
     private List<Address> addresses;
 
 }

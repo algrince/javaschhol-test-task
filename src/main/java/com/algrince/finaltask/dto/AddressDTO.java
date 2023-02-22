@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 public class AddressDTO {
 
-    
+
     @NotEmpty
     private String country;
 

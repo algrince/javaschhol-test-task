@@ -40,4 +40,10 @@ public class UsersService {
         user.setDeleted(false);
         usersRepository.save(user);
     }
+
+    @Transactional
+    public User findOne(Long id) {
+        Optional<User> foundUser = usersRepository.findById(id);
+        return foundUser.orElse(null);
+    }
 }

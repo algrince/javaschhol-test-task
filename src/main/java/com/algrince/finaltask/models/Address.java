@@ -52,7 +52,8 @@ public class Address {
     @Column(name = "deleted")
     private boolean isDeleted;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    // Column name is due to the current naming of MySQL database
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
     private User owner;
 }
