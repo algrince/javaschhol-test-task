@@ -24,7 +24,7 @@ export class UserPageComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
 
-    this.userService.findOne(this.id).subscribe(data => {
+    this.userService.findOneUser(this.id).subscribe(data => {
       this.user = data;
     });
   }

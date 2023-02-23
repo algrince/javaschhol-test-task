@@ -19,11 +19,11 @@ export class UserService {
   }
 
   public findAll(): Observable<User[]> {
-      return this.http.get<User[]>(this.usersUrl);
+    return this.http.get<User[]>(this.usersUrl);
   }
 
-  public findOne(id: number): Observable<User> {
-  return this.http.get<User>(this.oneUserUrl)
+  public findOneUser(id: number): Observable<User> {
+    return this.http.get<User>(this.oneUserUrl)
   }
 
   public save(user: User) {
