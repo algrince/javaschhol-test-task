@@ -10,11 +10,9 @@ export class UserService {
 
   private usersUrl: string;
   private loginUrl: string;
-  private oneUserUrl: string;
 
   constructor(private http: HttpClient) {
       this.usersUrl = 'http://localhost:8080/users';
-      this.oneUserUrl = 'http://localhost:8080/users/{id}'
       this.loginUrl = 'http://localhost:8080/login';
   }
 
@@ -23,7 +21,8 @@ export class UserService {
   }
 
   public findOneUser(id: number): Observable<User> {
-    return this.http.get<User>(this.oneUserUrl)
+    const url = `${this.usersUrl}/${id}`
+    return this.http.get<User>(url)
   }
 
   public save(user: User) {
