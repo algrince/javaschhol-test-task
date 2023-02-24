@@ -27,5 +27,8 @@ public class AddressesService {
     }
 
     @Transactional
-    public Address update()
+    public void softDelete(Address address) {
+        address.setDeleted(true);
+        addressesRepository.save(address);
+    }
 }

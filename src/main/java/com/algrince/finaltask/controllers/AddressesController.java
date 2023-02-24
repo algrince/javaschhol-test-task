@@ -48,4 +48,13 @@ public class AddressesController {
         return ResponseEntity.ok().body(newAddressDTO);
     }
 
+
+    // Should soft delete be put mapping?
+    @PutMapping("{id}")
+    public ResponseEntity<String> deleteAddress (@PathVariable(value = "id") Long addressId) {
+        Address addressToDelete = addressesService.findById(addressId);
+        addressesService.softDelete(addressToDelete);
+        return new ResponseEntity<>("User is deleted", HttpStatus.OK);
+    }
+
 }
