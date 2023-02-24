@@ -1,6 +1,7 @@
 package com.algrince.finaltask.controllers;
 
 
+import com.algrince.finaltask.dto.DetailedUserDTO;
 import com.algrince.finaltask.dto.UserListDTO;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
@@ -34,9 +35,10 @@ public class UsersController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+    public ResponseEntity<DetailedUserDTO> getUser(@PathVariable("id") Long id) {
         User foundUser = usersService.findOne(id);
+        DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
         // TODO introduce user not found handling
-        return ResponseEntity.ok().body(foundUser);
+        return ResponseEntity.ok().body(foundUserDTO);
     }
 }

@@ -14,47 +14,31 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 public class AuthController {
 
-    private final UserValidator userValidator;
-    private final UsersService usersService;
-    private final JWTUtil jwtUtil;
-    private final DTOMapper dtoMapper;
     private final AuthService authService;
 
-    @PostMapping("/login")
+    @PostMapping("login")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
         return authService.login(authenticationDTO);
     }
 
 
-    @PostMapping("/registration")
+    @PostMapping("registration")
     @CrossOrigin(origins = "http://localhost:4200")
-    public Map<String, String> makeRegistration(@RequestBody @Valid RegistrationUserDTO registrationUserDTO,
-                                   BindingResult bindingResult) {
-        User user = dtoMapper.mapClass(registrationUserDTO, User.class);
-
-        userValidator.validate(user, bindingResult);
-
-
-        if (bindingResult.hasErrors()) {
-            log.warn("There was a problem during user validation");
-            return Map.of("message", "error");
-        }
-        log.info("The user has been validated successfully");
-        usersService.register(user);
-
-        String token = jwtUtil.generateToken(user.getEmail());
-        return Map.of("jwt-token", token);
+    public ResponseEntity<String> makeRegistration(@RequestBody @Valid RegistrationUserDTO registrationUserDTO,
+                                   BindingResult bindingResult) throws MethodArgumentNotValidException {
+        return authService.signup(registrationUserDTO, bindingResult);
     }
 
 }
