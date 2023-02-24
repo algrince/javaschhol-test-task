@@ -1,6 +1,5 @@
 package com.algrince.finaltask.dto;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
@@ -15,7 +14,7 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class UserDTO {
+public class RegistrationUserDTO {
 
     @NotEmpty(message = "{name.notempty}")
     @Size(min = 2, max = 45, message = "{name.size}")
