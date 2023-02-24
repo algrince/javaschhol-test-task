@@ -7,7 +7,6 @@ import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

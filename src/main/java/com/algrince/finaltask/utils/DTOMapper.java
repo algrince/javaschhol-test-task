@@ -23,4 +23,9 @@ public class DTOMapper {
         return modelMapper.map(sourceClass, targetClass);
     }
 
+
+    public <S, T> void mapProperties (S sourceClass, T targetClass) {
+        modelMapper.map(sourceClass, targetClass);
+    }
+
 }

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.util.Map;
 
 @Slf4j
 @Service
@@ -60,7 +59,10 @@ public class AuthService {
         userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
+
+
             log.warn("There was a problem during user validation");
+            //TODO handle exception
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
         log.info("The user has been validated successfully");
