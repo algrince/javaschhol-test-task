@@ -5,6 +5,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './signup/user-form.component';
 import { LoginComponent } from './login/login.component';
 import { UserPageComponent} from './user-page/user-page.component';
+import { AddressFormComponent } from './address-form/address-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'users', component: UserListComponent },
   { path: 'registration', component: UserFormComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'users/:id', component: UserPageComponent }
+  { path: 'users/:id', component: UserPageComponent },
+  { path: 'addresses', component: AddressFormComponent }
 ];
 
 @NgModule({

@@ -3,7 +3,6 @@ package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.AddressDTO;
 import com.algrince.finaltask.models.Address;
-import com.algrince.finaltask.repositories.AddressesRepository;
 import com.algrince.finaltask.services.AddressesService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
@@ -21,9 +20,8 @@ public class AddressesController {
 
     private final AddressesService addressesService;
     private final DTOMapper dtoMapper;
-    private final ModelMapper modelMapper;
 
-
+    // TODO add user security (principal?)
     @PostMapping
     public void addAddress(@Valid @RequestBody AddressDTO addressDTO) {
         Address address = dtoMapper.mapClass(addressDTO, Address.class);
@@ -54,7 +52,7 @@ public class AddressesController {
     public ResponseEntity<String> deleteAddress (@PathVariable(value = "id") Long addressId) {
         Address addressToDelete = addressesService.findById(addressId);
         addressesService.softDelete(addressToDelete);
-        return new ResponseEntity<>("User is deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Address is deleted", HttpStatus.OK);
     }
 
 }

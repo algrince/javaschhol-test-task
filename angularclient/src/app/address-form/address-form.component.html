@@ -1,0 +1,76 @@
+<div class="card my-5">
+    <div class="card-body row d-flex justify-content-center">
+        <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="col-md-4 col-sm-4 col-xs-12">
+
+            <div class="form-group">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" [(ngModel)]="address.country"
+                       class="form-control col-md-6 mb-3"
+                       id="country"
+                       name="country"
+                       placeholder="Spain"
+                       required #country="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="city" class="form-label">City</label>
+                <input type="text" [(ngModel)]="address.city"
+                       class="form-control col-md-6 mb-3"
+                       id="city"
+                       name="city"
+                       placeholder="Madrid"
+                       required #city="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="postalCode" class="form-label">Postal Code</label>
+                <input type="number" [(ngModel)]="address.postalCode"
+                       class="form-control col-md-6 mb-3"
+                       id="postalCode"
+                       name="postalCode"
+                       placeholder="23000"
+                       required #postalCode="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="street" class="form-label">Street</label>
+                <input type="text" [(ngModel)]="address.street"
+                       class="form-control col-md-6 mb-3"
+                       id="street"
+                       name="street"
+                       placeholder="Av. Central"
+                       required #street="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="home" class="form-label">Home</label>
+                <input type="number" [(ngModel)]="address.home"
+                       class="form-control col-md-6 mb-3"
+                       id="home"
+                       name="home"
+                       placeholder="42"
+                       required #home="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="apartment" class="form-label">Apartment</label>
+                <input type="number" [(ngModel)]="address.apartment"
+                       class="form-control col-md-6 mb-3"
+                       id="apartment"
+                       name="apartment"
+                       placeholder="3"
+                       required #apartment="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="door" class="form-label">Door</label>
+                <input type="text" [(ngModel)]="address.door"
+                       class="form-control col-md-6 mb-3"
+                       id="door"
+                       name="door"
+                       placeholder="C">
+            </div>
+
+        </form>
+    </div>
+</div>
