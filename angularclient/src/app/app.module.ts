@@ -13,6 +13,7 @@ import { UserFormComponent } from './signup/user-form.component';
 import { LoginComponent } from './login/login.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { AddressFormComponent } from './address-form/address-form.component';
+import { UserDeleteComponent } from './user-delete/user-delete.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AddressFormComponent } from './address-form/address-form.component';
     UserFormComponent,
     LoginComponent,
     UserPageComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    UserDeleteComponent
   ],
   imports: [
     BrowserModule,
