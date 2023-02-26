@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { UserPageComponent} from './user-page/user-page.component';
 import { UserDeleteComponent } from './user-delete/user-delete.component';
 import { AddressFormComponent } from './address-form/address-form.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'users/:id', component: UserPageComponent },
   { path: 'users/:id/delete', component: UserDeleteComponent },
-  { path: 'addresses', component: AddressFormComponent }
+  { path: 'addresses/new', component: AddressFormComponent },
+  { path: 'products', component: ProductListComponent }
 ];
 
 @NgModule({

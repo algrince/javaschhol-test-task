@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { UserDeleteComponent } from './user-delete/user-delete.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserDeleteComponent } from './user-delete/user-delete.component';
     LoginComponent,
     UserPageComponent,
     AddressFormComponent,
-    UserDeleteComponent
+    UserDeleteComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
