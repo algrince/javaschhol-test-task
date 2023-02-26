@@ -24,15 +24,13 @@
 <p class="h3 col-auto">Addresses</p>
   <div class="col-md-12"></div>
 
-
-  <!-- add iteration over addresses when added to ts -->
   <!-- <div *ngIf="employee"> -->
   <div class="col-md-6">
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem;" *ngFor="let address of addresses">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Country, city: </li>
-        <li class="list-group-item">Postal code: </li>
-        <li class="list-group-item">Rest of the address: </li>
+        <li class="list-group-item">Country, city: {{ address.country }}, {{ address.city }}</li>
+        <li class="list-group-item">Postal code: {{ address.postalCode }}</li>
+        <li class="list-group-item">Rest of the address: {{ address.street }} {{ address.home }}, {{ address.apartment}} {{ address.door }}</li>
       </ul>
       <div class="card-body">
         <div class="btn-group" role="group">

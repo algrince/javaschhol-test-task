@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User} from '../model/user';
+import { User } from '../model/user';
 import { UserService } from '../service/user.service';
+import { Address } from '../model/address';
+import { AddressService } from '../service/address.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,10 +13,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class UserPageComponent implements OnInit {
 
   user: User;
-  id: number;
+  userId: number;
+  addresses: Address[];
 
   constructor(
     private userService : UserService,
+    private addressService : AddressService,
     private router : Router,
     private route: ActivatedRoute) {
       this.user = new User();
@@ -22,10 +26,14 @@ export class UserPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
+    this.userId = this.route.snapshot.params['id'];
 
-    this.userService.findOneUser(this.id).subscribe(data => {
+    this.userService.findOneUser(this.userId).subscribe(data => {
       this.user = data;
+    });
+
+    this.addressService.findAll().subscribe(data => {
+        this.addresses = data;
     });
   }
 }

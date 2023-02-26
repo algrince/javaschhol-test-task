@@ -18,4 +18,8 @@ export class AddressService {
         return this.http.post<Address>(this.addressesUrl, address);
     }
 
+    public findAll(): Observable<Address[]> {
+        return this.http.get<Address[]>(this.addressesUrl);
+    }
+
 }
