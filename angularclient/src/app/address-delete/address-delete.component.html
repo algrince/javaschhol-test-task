@@ -1,0 +1,17 @@
+<div class="card-body row d-flex justify-content-center">
+    <p class="h3 col-auto">Do you want to delete this address?</p>
+    <div class="col-md-12"></div>
+    <div class="col-md-6">
+        <div class="card" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Country, city: {{ address.country }}, {{ address.city }}</li>
+                <li class="list-group-item">Postal code: {{ address.postalCode }}</li>
+                <li class="list-group-item">Rest of the address: {{ address.street }} {{ address.home }}, {{ address.apartment}} {{ address.door }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-12"></div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-danger text-nowrap">Yes, I want to delete this address</button>
+    </div>
+</div>

@@ -21,12 +21,17 @@ export class UserService {
   }
 
   public findOneUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/${id}`
-    return this.http.get<User>(url)
+    const url = `${this.usersUrl}/${id}`;
+    return this.http.get<User>(url);
   }
 
   public save(user: User) {
     return this.http.post<User>(this.usersUrl, user);
+  }
+
+  public delete(id: number) {
+    const deleteUrl = `${this.usersUrl}/${id}`;
+    return this.http.delete<User>(deleteUrl);
   }
 
   public login(user: User): Observable<object> {

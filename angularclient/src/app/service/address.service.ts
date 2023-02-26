@@ -18,8 +18,18 @@ export class AddressService {
         return this.http.post<Address>(this.addressesUrl, address);
     }
 
+    public delete(id: number) {
+        const deleteUrl = `${this.addressesUrl}/${id}`;
+        return this.http.delete<Address>(deleteUrl);
+    }
+
     public findAll(): Observable<Address[]> {
         return this.http.get<Address[]>(this.addressesUrl);
+    }
+
+    public findOneAddress(id: number): Observable<Address> {
+        const url = `${this.addressesUrl}/${id}`;
+        return this.http.get<Address>(url);
     }
 
 }
