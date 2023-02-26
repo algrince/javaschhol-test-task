@@ -18,6 +18,11 @@ export class AddressService {
         return this.http.post<Address>(this.addressesUrl, address);
     }
 
+    public update(id: number, address: Address) {
+        const updateUrl = `${this.addressesUrl}/${id}`;
+        return this.http.put<Address>(updateUrl, address);
+    }
+
     public delete(id: number) {
         const deleteUrl = `${this.addressesUrl}/${id}`;
         return this.http.delete<Address>(deleteUrl);
