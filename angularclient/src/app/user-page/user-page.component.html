@@ -14,7 +14,7 @@
 
   <div class="col-md-12"></div>
 <div class="col-auto">
-  <a class="btn btn-outline-success mx-2 mb-4" href="#" role="button">Update user info</a>
+  <a class="btn btn-outline-success mx-2 mb-4" routerLink="./update" role="button">Update user info</a>
   <a class="btn btn-outline-danger mx-2 mb-4" routerLink="./delete" role="button">Delete user</a>
 </div>
 
@@ -32,8 +32,8 @@
       </ul>
       <div class="card-body">
         <div class="btn-group" role="group">
-        <a href="#" class="btn btn-outline-success">Update</a>
-        <a href="#" class="btn btn-outline-danger">Delete</a>
+        <a routerLink="/addresses/{{ address.id }}/update" class="btn btn-outline-success">Update</a>
+        <a routerLink="/addresses/{{ address.id }}/delete" class="btn btn-outline-danger">Delete</a>
         </div>
       </div>
     </div>

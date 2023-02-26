@@ -29,6 +29,11 @@ export class UserService {
     return this.http.post<User>(this.usersUrl, user);
   }
 
+  public update(id: number, user: User) {
+    const updateUrl = `${this.usersUrl}/${id}`;
+    return this.http.put<User>(updateUrl, user);
+  }
+
   public delete(id: number) {
     const deleteUrl = `${this.usersUrl}/${id}`;
     return this.http.delete<User>(deleteUrl);
