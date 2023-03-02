@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { UserListComponent } from './user-list/user-list.component';
-import { UserService } from './service/user.service'
+import { UserService } from './service/user.service';
+import { AddressService } from './service/address.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
+
 import { UserFormComponent } from './signup/user-form.component';
 import { LoginComponent } from './login/login.component';
 import { UserPageComponent } from './user-page/user-page.component';

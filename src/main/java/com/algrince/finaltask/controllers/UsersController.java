@@ -2,11 +2,14 @@ package com.algrince.finaltask.controllers;
 
 
 import com.algrince.finaltask.dto.DetailedUserDTO;
+import com.algrince.finaltask.dto.RegistrationUserDTO;
 import com.algrince.finaltask.dto.UserListDTO;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +42,24 @@ public class UsersController {
         DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
         // TODO introduce user not found handling
         return ResponseEntity.ok().body(foundUserDTO);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<RegistrationUserDTO> updateUser(
+            @PathVariable(value = "id") Long userId,
+            @Valid @RequestBody RegistrationUserDTO registrationUserDTO) {
+        User foundUser = usersService.findOne(userId);
+        dtoMapper.mapProperties(registrationUserDTO, foundUser);
+        usersService.save(foundUser);
+        RegistrationUserDTO newUserDTO = dtoMapper.mapClass(foundUser, RegistrationUserDTO.class);
+        return ResponseEntity.ok().body(newUserDTO);
+    }
+
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteUser (@PathVariable(value ="id") Long userId) {
+        User userToDelete = usersService.findOne(userId);
+        usersService.softDelete(userToDelete);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

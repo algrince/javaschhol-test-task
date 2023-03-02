@@ -7,7 +7,6 @@ import com.algrince.finaltask.services.AddressesService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,12 +46,11 @@ public class AddressesController {
     }
 
 
-    // Should soft delete be put mapping?
-    @PutMapping("{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteAddress (@PathVariable(value = "id") Long addressId) {
         Address addressToDelete = addressesService.findById(addressId);
         addressesService.softDelete(addressToDelete);
-        return new ResponseEntity<>("Address is deleted", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

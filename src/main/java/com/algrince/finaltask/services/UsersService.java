@@ -52,4 +52,14 @@ public class UsersService {
     }
 
 
+    @Transactional
+    public void save(User user) {
+        usersRepository.save(user);
+    }
+
+    @Transactional
+    public void softDelete(User user) {
+        user.setDeleted(true);
+        usersRepository.save(user);
+    }
 }
