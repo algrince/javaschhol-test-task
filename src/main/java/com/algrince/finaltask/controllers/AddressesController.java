@@ -3,13 +3,20 @@ package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.AddressDTO;
 import com.algrince.finaltask.models.Address;
+import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.AddressesService;
+import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("addresses")
@@ -19,12 +26,26 @@ public class AddressesController {
 
     private final AddressesService addressesService;
     private final DTOMapper dtoMapper;
+    private final UsersService usersService;
 
     // TODO add user security (principal?)
     @PostMapping
-    public void addAddress(@Valid @RequestBody AddressDTO addressDTO) {
+    public ResponseEntity<Object> addAddress(@Valid @RequestBody AddressDTO addressDTO,
+                                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(errors, HttpStatus.OK);
+        }
+
+//        TODO add address already exists (unique field??)
         Address address = dtoMapper.mapClass(addressDTO, Address.class);
+//        For now setting address owner es manual: will be changed later
+        User user = usersService.findOne(25L);
+        address.setOwner(user);
         addressesService.save(address);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")

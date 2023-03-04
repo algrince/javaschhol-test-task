@@ -1,7 +1,7 @@
 <div class="row d-flex justify-content-center">
     <p class="h4 col-auto">Add new address</p>
 </div>
-        <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="card-body row d-flex justify-content-center">
+        <form (ngSubmit)="onSubmit()" #addressForm="ngForm" class="card-body row d-flex justify-content-center">
 
             <div class="row g-3 col-md-6 col-sm-4 col-xs-12">
 
@@ -14,6 +14,7 @@
                        placeholder="Spain"
                        required #country="ngModel">
             </div>
+                <div [hidden]="country.invalid" class="invalid-feedback">Valid country is required</div>
 
             <div class="form-group col-md-6">
                 <label for="city" class="form-label">City</label>
@@ -25,6 +26,7 @@
                        required #city="ngModel">
             </div>
 
+
             <div class="form-group col-md-6">
                 <label for="street" class="form-label">Street</label>
                 <input type="text" [(ngModel)]="address.street"
@@ -34,6 +36,7 @@
                        placeholder="Av. Central"
                        required #street="ngModel">
             </div>
+
 
             <div class="form-group col-md-2">
                 <label for="home" class="form-label">Home</label>
@@ -45,6 +48,7 @@
                        required #home="ngModel">
             </div>
 
+
             <div class="form-group col-md-2">
                 <label for="apartment" class="form-label">Apartment</label>
                 <input type="number" [(ngModel)]="address.apartment"
@@ -54,6 +58,7 @@
                        placeholder="3"
                        required #apartment="ngModel">
             </div>
+
 
             <div class="form-group col-md-2">
                 <label for="door" class="form-label">Door</label>
@@ -74,11 +79,13 @@
                        required #postalCode="ngModel">
             </div>
 
+
             <div class="col-md-6"></div>
 
             <div class="col-auto">
             <button type="submit"
-                    class="btn btn-outline-primary text-nowrap">Submit</button>
+                    class="btn btn-outline-primary text-nowrap"
+                    [disabled]="!addressForm.form.valid">Submit</button>
             </div>
 
             </div>

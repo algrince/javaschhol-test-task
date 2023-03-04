@@ -2,6 +2,7 @@ package com.algrince.finaltask.dto;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +20,7 @@ public class AddressDTO {
     private String city;
 
 
-    @NotEmpty
-    @Size(min = 5, max = 6)
+    @NotNull
     private int postalCode;
 
 
@@ -28,11 +28,11 @@ public class AddressDTO {
     private String street;
 
 
-    @NotEmpty
+    @NotNull
     private int home;
 
 
-    @NotEmpty
+    @NotNull
     private int apartment;
 
 
