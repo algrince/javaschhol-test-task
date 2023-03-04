@@ -1,3 +1,4 @@
+/*
 package com.algrince.finaltask.models;
 
 import jakarta.persistence.*;
@@ -23,3 +24,4 @@ public class Property {
     @Column(name = "deleted")
     private boolean isDeleted;
 }
+*/
