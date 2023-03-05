@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../model/product';
 import { ProductService } from '../service/product.service';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-list',
@@ -10,6 +11,9 @@ import { ProductService } from '../service/product.service';
 export class ProductListComponent implements OnInit {
 
     products: Product[];
+    page = 1;
+    itemsPerPage = 8;
+    pageSize: number;
 
     constructor(private productService: ProductService) {
     }
@@ -18,6 +22,10 @@ export class ProductListComponent implements OnInit {
         this.productService.findAll().subscribe(data => {
             this.products = data;
         })
+    }
+
+    public onPageChange(pageNum: number): void {
+        this.pageSize = this.itemsPerPage*(pageNum - 1);
     }
 
 }
