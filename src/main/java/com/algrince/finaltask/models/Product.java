@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 
 @Entity
@@ -11,6 +14,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@FilterDef(name = "deletedProductFilter", parameters = @ParamDef(
+        name = "isDeleted",
+        type = org.hibernate.type.descriptor.java.BooleanJavaType.class))
+@Filter(name = "deletedProductFilter", condition = "deleted = :isDeleted")
 public class Product {
 
     @Id
