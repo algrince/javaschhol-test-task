@@ -12,7 +12,7 @@ export class ProductListComponent implements OnInit {
 
     products: Product[];
     page = 1;
-    itemsPerPage = 8;
+    itemsPerPage = 3;
     pageSize: number;
 
     constructor(private productService: ProductService) {

@@ -1,10 +1,21 @@
 <div class="card-body row d-flex justify-content-center">
-    <div class="card">
+    <div class="card col-md-6 my-4">
         <img src="..." class="img-fluid rounded float-start" alt="...">
         <p class="fs-2">{{ product.title }}</p>
         <p class="text-primary">{{ product.price }} €</p>
-        <a routerLink="#" class="btn btn-outline-primary">Add to cart</a>
-        <a routerLink="#" class="btn btn-outline-success">Shop now</a>
+        <div class="btn-group my-2" role="group">
+            <a routerLink="#" class="btn btn-outline-success">Add to cart</a>
+            <a routerLink="#" class="btn btn-outline-success">Shop now</a>
+        </div>
     </div>
-    <a routerLink="/products" class="btn btn-outline-primary">Back to all products</a>
+    <div class="col-md-12"></div>
+    <div class="card col-md-6">
+        <small>Employees' card</small>
+        <div class="btn-group my-2" role="group">
+            <a routerLink="./update" class="btn btn-outline-success">Update product</a>
+            <a routerLink="./delete" class="btn btn-outline-danger">Delete product</a>
+        </div>
+    </div>
+    <div class="col-md-12"></div>
+    <a routerLink="/products" class="btn btn-outline-primary col-md-3 my-4">Back to all products</a>
 </div>
