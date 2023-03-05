@@ -18,4 +18,9 @@ export class ProductService {
    public findAll(): Observable<Product[]> {
         return this.http.get<Product[]>(this.productsUrl);
    }
+
+   public findOneProduct(id: number): Observable<Product> {
+        const detailUrl = `${this.productsUrl}/${id}`;
+        return this.http.get<Product>(detailUrl);
+   }
 }

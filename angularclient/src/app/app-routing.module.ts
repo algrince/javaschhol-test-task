@@ -11,6 +11,7 @@ import { AddressFormComponent } from './address-form/address-form.component';
 import { AddressUpdateComponent } from './address-update/address-update.component';
 import { AddressDeleteComponent } from './address-delete/address-delete.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'addresses/new', component: AddressFormComponent },
   { path: 'addresses/:id/update', component: AddressUpdateComponent },
   { path: 'addresses/:id/delete', component: AddressDeleteComponent },
-  { path: 'products', component: ProductListComponent }
+  { path: 'products', component: ProductListComponent },
+  { path: 'products/:id', component: ProductDetailComponent }
 ];
 
 @NgModule({

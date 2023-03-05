@@ -20,6 +20,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { AddressDeleteComponent } from './address-delete/address-delete.component';
 import { AddressUpdateComponent } from './address-update/address-update.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     ProductListComponent,
     AddressDeleteComponent,
     AddressUpdateComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
