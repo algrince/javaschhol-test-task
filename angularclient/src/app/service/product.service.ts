@@ -27,4 +27,14 @@ export class ProductService {
    public save(product: Product) {
         return this.http.post<Product>(this.productsUrl, product);
    }
+
+   public update(id: number, product: Product) {
+        const updateUrl = `${this.productsUrl}/${id}`;
+        return this.http.put<Product>(updateUrl, product);
+   }
+
+   public delete(id: number) {
+        const deleteUrl = `${this.productsUrl}/${id}`;
+        return this.http.delete<Product>(deleteUrl);
+   }
 }

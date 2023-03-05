@@ -13,6 +13,8 @@ import { AddressDeleteComponent } from './address-delete/address-delete.componen
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductUpdateComponent } from './product-update/product-update.component';
+import { ProductDeleteComponent } from './product-delete/product-delete.component';
 
 
 const routes: Routes = [
@@ -29,7 +31,9 @@ const routes: Routes = [
   { path: 'addresses/:id/delete', component: AddressDeleteComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'products/new', component: ProductCreateComponent },
-  { path: 'products/:id', component: ProductDetailComponent }
+  { path: 'products/:id', component: ProductDetailComponent },
+  { path: 'products/:id/update', component: ProductUpdateComponent },
+  { path: 'products/:id/delete', component: ProductDeleteComponent }
 ];
 
 @NgModule({

@@ -23,6 +23,8 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProductUpdateComponent } from './product-update/product-update.component';
+import { ProductDeleteComponent } from './product-delete/product-delete.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddressUpdateComponent,
     UserUpdateComponent,
     ProductDetailComponent,
-    ProductCreateComponent
+    ProductCreateComponent,
+    ProductUpdateComponent,
+    ProductDeleteComponent
   ],
   imports: [
     BrowserModule,
