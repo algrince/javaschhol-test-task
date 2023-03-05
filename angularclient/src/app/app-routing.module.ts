@@ -11,6 +11,7 @@ import { AddressFormComponent } from './address-form/address-form.component';
 import { AddressUpdateComponent } from './address-update/address-update.component';
 import { AddressDeleteComponent } from './address-delete/address-delete.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'addresses/:id/update', component: AddressUpdateComponent },
   { path: 'addresses/:id/delete', component: AddressDeleteComponent },
   { path: 'products', component: ProductListComponent },
+  { path: 'products/new', component: ProductCreateComponent },
   { path: 'products/:id', component: ProductDetailComponent }
 ];
 

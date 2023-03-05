@@ -23,4 +23,8 @@ export class ProductService {
         const detailUrl = `${this.productsUrl}/${id}`;
         return this.http.get<Product>(detailUrl);
    }
+
+   public save(product: Product) {
+        return this.http.post<Product>(this.productsUrl, product);
+   }
 }

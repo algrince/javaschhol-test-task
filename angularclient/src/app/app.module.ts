@@ -21,6 +21,7 @@ import { AddressDeleteComponent } from './address-delete/address-delete.componen
 import { AddressUpdateComponent } from './address-update/address-update.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductCreateComponent } from './product-create/product-create.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     AddressDeleteComponent,
     AddressUpdateComponent,
     UserUpdateComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ProductCreateComponent
   ],
   imports: [
     BrowserModule,
