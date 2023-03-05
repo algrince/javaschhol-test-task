@@ -8,6 +8,7 @@ import com.algrince.finaltask.utils.DTOMapper;
 import com.algrince.finaltask.utils.UserValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import java.util.Collections;
 
 
 @Slf4j
@@ -29,7 +32,7 @@ public class AuthService {
     private final UserValidator userValidator;
     private final UsersService usersService;
 
-    public ResponseEntity<String> login(AuthenticationDTO authenticationDTO) {
+    public ResponseEntity login(AuthenticationDTO authenticationDTO) {
         UsernamePasswordAuthenticationToken authenticationInputToken =
                 new UsernamePasswordAuthenticationToken(
                         authenticationDTO.getEmail(), authenticationDTO.getPassword());
@@ -48,7 +51,10 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(authenticationDTO.getEmail());
 
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("jwt-token", token);
+
+        return ResponseEntity.ok().headers(httpHeaders).build();
     }
     
     public ResponseEntity<String> signup(
@@ -69,6 +75,10 @@ public class AuthService {
         usersService.register(user);
 
         String token = jwtUtil.generateToken(user.getEmail());
-        return new ResponseEntity<>(token, HttpStatus.OK);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("jwt-token", token);
+
+        return ResponseEntity.ok().headers(httpHeaders).build();
     }
 }
