@@ -1,4 +1,16 @@
-<div class="card-body row d-flex justify-content-center">
+
+    <nav class="py-2 bg-primary bg-opacity-25 border-bottom text-black-75">
+        <div class="container d-flex flex-wrap">
+            <ul class="nav" *ngFor="let category of categories">
+                <li class="nav-item">
+                    <a routerLink="#"
+                       class="nav-link link-dark px-2 active"
+                       aria-current="page">{{ category.name }}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="card-body row d-flex justify-content-center">
     <div class="row row-cols-1 row-cols-md-4 g-4 auto-col my-4">
         <div class="col" *ngFor="let product of products">
             <div class="card">
