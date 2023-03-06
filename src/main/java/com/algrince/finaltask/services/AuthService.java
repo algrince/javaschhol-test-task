@@ -32,33 +32,22 @@ public class AuthService {
     private final UserValidator userValidator;
     private final UsersService usersService;
 
-    public ResponseEntity login(AuthenticationDTO authenticationDTO) {
+    public String login(AuthenticationDTO authenticationDTO) {
         UsernamePasswordAuthenticationToken authenticationInputToken =
                 new UsernamePasswordAuthenticationToken(
                         authenticationDTO.getEmail(), authenticationDTO.getPassword());
 
         // Try login using authentication provider
 
-        try {
-            authenticationManager.authenticate(authenticationInputToken);
-        } catch (BadCredentialsException e) {
-            log.info("Incorrect credentials given by the user");
-            return new ResponseEntity<>("Incorrect credentials", HttpStatus.UNAUTHORIZED);
-        }
+        authenticationManager.authenticate(authenticationInputToken);
 
         // If login is successful, generate new token
         log.info("The user has correct credentials, proceeding to token generation");
 
-        String token = jwtUtil.generateToken(authenticationDTO.getEmail());
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("jwt-token", token);
-
-        // Move to controller
-        return ResponseEntity.ok().headers(httpHeaders).build();
+        return jwtUtil.generateToken(authenticationDTO.getEmail());
     }
     
-    public ResponseEntity<String> signup(
+    public String signup(
             RegistrationUserDTO registrationUserDTO,
             BindingResult bindingResult) throws MethodArgumentNotValidException {
 
@@ -67,7 +56,6 @@ public class AuthService {
 
         if (bindingResult.hasErrors()) {
 
-
             log.warn("There was a problem during user validation");
             //TODO handle exception
             throw new MethodArgumentNotValidException(null, bindingResult);
@@ -75,11 +63,6 @@ public class AuthService {
         log.info("The user has been validated successfully");
         usersService.register(user);
 
-        String token = jwtUtil.generateToken(user.getEmail());
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("jwt-token", token);
-
-        return ResponseEntity.ok().headers(httpHeaders).build();
+        return jwtUtil.generateToken(user.getEmail());
     }
 }
