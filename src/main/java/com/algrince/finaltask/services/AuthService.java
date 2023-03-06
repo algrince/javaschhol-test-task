@@ -54,6 +54,7 @@ public class AuthService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("jwt-token", token);
 
+        // Move to controller
         return ResponseEntity.ok().headers(httpHeaders).build();
     }
     

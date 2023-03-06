@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
-
-export class JwtResponse {
-  constructor(
-    public jwtToken: string,
-     ) {}
-
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private router : Router,
+    private route: ActivatedRoute) { }
 
   authenticate(user: User) {
         return this.httpClient.post<User>('http://localhost:8080/login', user)
@@ -37,6 +34,7 @@ export class AuthenticationService {
   }
 
     logOut() {
-      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('token');
+      this.router.navigate(['/login']);
     }
 }

@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +33,7 @@ public class ProductsService {
     @Transactional(readOnly = true)
     public Product findById(Long id) {
         Optional<Product> foundProduct = productsRepository.findById(id);
+        // Add find by id deleted condition
         return foundProduct.orElse(null);
     }
 
