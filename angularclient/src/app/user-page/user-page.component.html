@@ -23,8 +23,8 @@
   <div class="col-md-12"></div>
 
   <!-- <div *ngIf="employee"> -->
-  <div class="col-md-6">
-    <div class="card" style="width: 18rem;" *ngFor="let address of addresses">
+  <div class="col-md-6 row justify-content-center">
+    <div class="card mx-2 my-2" style="width: 18rem;" *ngFor="let address of addresses">
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Country, city: {{ address.country }}, {{ address.city }}</li>
         <li class="list-group-item">Postal code: {{ address.postalCode }}</li>

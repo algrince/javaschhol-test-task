@@ -16,6 +16,8 @@ import java.util.Date;
 @Setter
 public class DetailedUserDTO {
 
+    private Long id;
+
     @NotEmpty(message = "{name.notempty}")
     @Size(min = 2, max = 45, message = "{name.size}")
     private String name;
@@ -35,19 +37,4 @@ public class DetailedUserDTO {
     @NotEmpty(message = "Email should not be empty")
     @Email
     private String email;
-
-
-    private String country;
-
-    private String city;
-
-    private int postalCode;
-
-    private String street;
-
-    private int home;
-
-    private int apartment;
-
-    private String door;
 }

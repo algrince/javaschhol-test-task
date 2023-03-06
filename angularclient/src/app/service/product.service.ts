@@ -15,8 +15,9 @@ export class ProductService {
     }
 
 
-   public findAll(): Observable<Product[]> {
-        return this.http.get<Product[]>(this.productsUrl);
+   public findAll(request): Observable<Product[]> {
+        const params = request;
+        return this.http.get<Product[]>(this.productsUrl, {params});
    }
 
    public findOneProduct(id: number): Observable<Product> {

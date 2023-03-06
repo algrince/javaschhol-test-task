@@ -8,6 +8,9 @@ import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,9 +29,12 @@ public class ProductsController {
     private final DTOMapper dtoMapper;
 
     @GetMapping
-    public List<ProductsDTO> productIndex() {
-        List<Product> products = productsService.findAll();
-        return dtoMapper.mapList(products, ProductsDTO.class);
+    public Page<ProductsDTO> productIndex(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page, size);
+        Page<Product> products = productsService.findAll(paging);
+        return dtoMapper.mapPage(products, ProductsDTO.class);
     }
 
     @PostMapping

@@ -2,6 +2,8 @@ package com.algrince.finaltask.utils;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +19,13 @@ public class DTOMapper {
                 .stream()
                 .map(element -> modelMapper.map(element, targetClass))
                 .collect(Collectors.toList());
+    }
+
+    public <S, T> Page<T> mapPage(Page<S> source, Class<T> targetClass) {
+        return new PageImpl<>(source
+                                .stream()
+                                .map(element -> modelMapper.map(element, targetClass))
+                                .collect(Collectors.toList()));
     }
 
     public <S, T> T mapClass(S sourceClass, Class<T> targetClass) {

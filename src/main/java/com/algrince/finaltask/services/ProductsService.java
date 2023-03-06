@@ -1,12 +1,13 @@
 package com.algrince.finaltask.services;
 
-import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.repositories.ProductsRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Filter;
 import org.hibernate.Session;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +22,11 @@ public class ProductsService {
     private final EntityManager entityManager;
 
     @Transactional(readOnly = true)
-    public List<Product> findAll() {
+    public Page<Product> findAll(Pageable paging) {
         Session session = entityManager.unwrap(Session.class);
         Filter filter = session.enableFilter("deletedProductFilter");
         filter.setParameter("isDeleted", false);
-        List<Product> products = productsRepository.findAll();
+        Page<Product> products = productsRepository.findAll(paging);
         session.disableFilter("deletedProductFilter");
         return products;
     }

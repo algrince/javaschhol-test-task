@@ -1,11 +1,9 @@
 package com.algrince.finaltask.controllers;
 
 
-import com.algrince.finaltask.dto.AddressDTO;
 import com.algrince.finaltask.dto.DetailedUserDTO;
 import com.algrince.finaltask.dto.RegistrationUserDTO;
 import com.algrince.finaltask.dto.UserListDTO;
-import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.AddressesService;
 import com.algrince.finaltask.services.UsersService;
@@ -25,7 +23,6 @@ import java.util.List;
 public class UsersController {
 
     private final UsersService usersService;
-    private final AddressesService addressesService;
     private final DTOMapper dtoMapper;
 
     @GetMapping
@@ -43,9 +40,6 @@ public class UsersController {
     public ResponseEntity<DetailedUserDTO> getUser(@PathVariable("id") Long id) {
         User foundUser = usersService.findOne(id);
         DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
-        List<Address> usersAddresses = addressesService.findByUser(foundUser);
-//          TODO add addresses to detaileduserDTO
-        List<DetailedUserDTO> usersAddressesDTO = dtoMapper.mapList(usersAddresses, DetailedUserDTO.class);
         // TODO introduce user not found handling
         return ResponseEntity.ok().body(foundUserDTO);
     }

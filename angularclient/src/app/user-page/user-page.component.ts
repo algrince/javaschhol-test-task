@@ -29,7 +29,7 @@ export class UserPageComponent implements OnInit {
     this.userId = this.route.snapshot.params['id'];
 
     this.userService.findOneUser(this.userId).subscribe(data => {
-      this.user = data;
+        this.user = data;
     });
 
     this.addressService.findAll().subscribe(data => {
