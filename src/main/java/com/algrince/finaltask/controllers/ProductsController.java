@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,7 +35,9 @@ public class ProductsController {
             @RequestParam(defaultValue = "3") int size) {
         Pageable paging = PageRequest.of(page, size);
         Page<Product> products = productsService.findAll(paging);
-        return dtoMapper.mapPage(products, ProductsDTO.class);
+        Page<ProductsDTO> productsDTOPage = dtoMapper.mapPage(products, ProductsDTO.class);
+        return productsDTOPage;
+//        return dtoMapper.mapPage(products, ProductsDTO.class);
     }
 
     @PostMapping

@@ -22,10 +22,7 @@ public class DTOMapper {
     }
 
     public <S, T> Page<T> mapPage(Page<S> source, Class<T> targetClass) {
-        return new PageImpl<>(source
-                                .stream()
-                                .map(element -> modelMapper.map(element, targetClass))
-                                .collect(Collectors.toList()));
+        return source.map(element -> modelMapper.map(element, targetClass));
     }
 
     public <S, T> T mapClass(S sourceClass, Class<T> targetClass) {
