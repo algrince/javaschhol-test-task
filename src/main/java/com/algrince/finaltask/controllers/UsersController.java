@@ -34,7 +34,6 @@ public class UsersController {
         return dtoMapper.mapList(users, UserListDTO.class);
     }
 
-
     @PostMapping
     void addUser(@RequestBody User user) {
         usersService.register(user);

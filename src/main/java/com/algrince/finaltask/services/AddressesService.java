@@ -28,6 +28,11 @@ public class AddressesService {
         return foundAddress.orElse(null);
     }
 
+    @Transactional(readOnly = true)
+    public List<Address> findAll() {
+        return addressesRepository.findAll();
+    }
+
     @Transactional
     public void softDelete(Address address) {
         address.setDeleted(true);

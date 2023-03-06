@@ -2,6 +2,7 @@ package com.algrince.finaltask.controllers;
 
 
 import com.algrince.finaltask.dto.AddressDTO;
+import com.algrince.finaltask.dto.UserListDTO;
 import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.AddressesService;
@@ -27,6 +28,13 @@ public class AddressesController {
     private final AddressesService addressesService;
     private final DTOMapper dtoMapper;
     private final UsersService usersService;
+
+
+    @GetMapping
+    public List<AddressDTO> addressIndex() {
+        List<Address> addresses = addressesService.findAll();
+        return dtoMapper.mapList(addresses, AddressDTO.class);
+    }
 
     // TODO add user security (principal?)
     @PostMapping

@@ -11,14 +11,13 @@ import lombok.Setter;
 @Getter
 public class AddressDTO {
 
-
+    private Long id;
     @NotEmpty
     private String country;
 
 
     @NotEmpty
     private String city;
-
 
     @NotNull
     private int postalCode;
