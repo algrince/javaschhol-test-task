@@ -5,10 +5,8 @@ import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.services.CategoriesService;
 import com.algrince.finaltask.utils.DTOMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +23,12 @@ public class CategoriesController {
     public List<CategoryDTO> categoriesIndex() {
         List<Category> categories = categoriesService.findAll();
         return dtoMapper.mapList(categories, CategoryDTO.class);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<CategoryDTO> getCategory (@PathVariable("id") Long id) {
+        Category foundCategory = categoriesService.findById(id);
+        CategoryDTO foundCategoryDTO = dtoMapper.mapClass(foundCategory, CategoryDTO.class);
+        return ResponseEntity.ok().body(foundCategoryDTO);
     }
 }

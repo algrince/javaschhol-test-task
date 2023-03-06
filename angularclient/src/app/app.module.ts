@@ -25,6 +25,7 @@ import { ProductCreateComponent } from './product-create/product-create.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { ProductDeleteComponent } from './product-delete/product-delete.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ProductDeleteComponent } from './product-delete/product-delete.componen
     ProductDetailComponent,
     ProductCreateComponent,
     ProductUpdateComponent,
-    ProductDeleteComponent
+    ProductDeleteComponent,
+    CategoryPageComponent
   ],
   imports: [
     BrowserModule,

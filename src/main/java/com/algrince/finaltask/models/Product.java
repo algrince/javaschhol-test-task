@@ -1,6 +1,8 @@
 package com.algrince.finaltask.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,13 +28,20 @@ public class Product {
     private Long id;
 
     @Column(name = "title")
+    @NotEmpty
     private String title;
 
     @Column(name = "price")
+    @NotNull
     private Double price;
 
     @Column(name = "stock")
+    @NotNull
     private int stock;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Column(name = "deleted")
     private boolean isDeleted;

@@ -1,5 +1,6 @@
 package com.algrince.finaltask.dto;
 
+import com.algrince.finaltask.models.Category;
 import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,4 +15,6 @@ public class ProductsDTO {
     private Double price;
 
     private int stock;
+
+    private String category;
 }

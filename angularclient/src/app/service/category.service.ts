@@ -17,4 +17,9 @@ export class CategoryService {
      public findAll(): Observable<Category[]> {
           return this.http.get<Category[]>(this.categoriesUrl);
      }
+
+     public findOneCategory(id: number): Observable<Category> {
+        const url = `${this.categoriesUrl}/${id}`;
+        return this.http.get<Category>(url);
+     }
 }

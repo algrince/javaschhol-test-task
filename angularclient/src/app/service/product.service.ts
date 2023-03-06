@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from '../model/product';
+import { Category } from '../model/category';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,6 +19,12 @@ export class ProductService {
    public findAll(request): Observable<Product[]> {
         const params = request;
         return this.http.get<Product[]>(this.productsUrl, {params});
+   }
+
+   public findAllByCategory(request): Observable<Product[]> {
+        const params = request;
+        const categorizedProductsUrl = 'http://localhost:8080/products/category'
+        return this.http.get<Product[]>(categorizedProductsUrl, {params});
    }
 
    public findOneProduct(id: number): Observable<Product> {

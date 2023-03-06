@@ -1,5 +1,6 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.repositories.ProductsRepository;
 import jakarta.persistence.EntityManager;
@@ -27,6 +28,12 @@ public class ProductsService {
         filter.setParameter("isDeleted", false);
         Page<Product> products = productsRepository.findAll(paging);
         session.disableFilter("deletedProductFilter");
+        return products;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Product> findAllByCategory(Long categoryId, Pageable paging) {
+        Page<Product> products = productsRepository.findAllByCategory(categoryId, paging);
         return products;
     }
 
