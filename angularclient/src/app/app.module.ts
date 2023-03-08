@@ -26,6 +26,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { ProductDeleteComponent } from './product-delete/product-delete.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
+import { CategoryCreateComponent } from './category-create/category-create.component';
+import { CategoryUpdateComponent } from './category-update/category-update.component';
+import { CategoryDeleteComponent } from './category-delete/category-delete.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { CategoryPageComponent } from './category-page/category-page.component';
     ProductCreateComponent,
     ProductUpdateComponent,
     ProductDeleteComponent,
-    CategoryPageComponent
+    CategoryPageComponent,
+    CategoryCreateComponent,
+    CategoryUpdateComponent,
+    CategoryDeleteComponent
   ],
   imports: [
     BrowserModule,

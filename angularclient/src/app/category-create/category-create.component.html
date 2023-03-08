@@ -1,0 +1,26 @@
+<div class="row d-flex my-4 justify-content-center">
+    <p class="h4 col-auto">Add new category</p>
+    <small>Should be available only for store employees</small>
+</div>
+
+<form (ngSubmit)="onSubmit()" #categoryForm="ngForm" class="card-body row d-flex justify-content-center">
+
+    <div class="row g-3 col-md-6 col-sm-4 col-xs-12">
+
+        <div class="form-group col-md-6">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" [(ngModel)]="category.name"
+                   class="form-control mb-3"
+                   id="name"
+                   name="name"
+                   placeholder="Enter category name"
+                   required #title="ngModel">
+        </div>
+
+        <div class="col-md-12"></div>
+        <div class="col-auto">
+            <button type="submit"
+                    class="btn btn-outline-primary text-nowrap">Submit</button>
+        </div>
+    </div>
+</form>

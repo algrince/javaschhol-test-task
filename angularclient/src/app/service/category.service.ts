@@ -22,4 +22,18 @@ export class CategoryService {
         const url = `${this.categoriesUrl}/${id}`;
         return this.http.get<Category>(url);
      }
+
+     public save(category: Category) {
+        return this.http.post<Category>(this.categoriesUrl, category);
+     }
+
+     public update(id: number, category: Category) {
+        const updateUrl = `${this.categoriesUrl}/${id}`;
+        return this.http.put<Category>(updateUrl, category);
+     }
+
+     public delete(id: number) {
+        const deleteUrl = `${this.categoriesUrl}/${id}`;
+        return this.http.delete<Category>(deleteUrl);
+     }
 }

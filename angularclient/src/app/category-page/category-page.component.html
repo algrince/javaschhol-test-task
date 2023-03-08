@@ -10,7 +10,7 @@
     </div>
 </nav>
 <div class="card-body row d-flex justify-content-center">
-    <div class="row row-cols-1 row-cols-md-4 g-4 auto-col my-4">
+    <div class="row row-cols-1 row-cols-md-4 g-4 auto-col text-center my-4">
         <h1>{{ category.name }}</h1>
         <div class="col" *ngFor="let product of products">
             <div class="card">
@@ -30,4 +30,17 @@
                     [maxSize]="5"
                     [rotate]="true"
                     [boundaryLinks]="true" (pageChange)="onPageChange(page)" class="col-auto"></ngb-pagination>
+
+
+</div>
+
+<div class="card-body row d-flex justify-content-center">
+    <div class="btn-group my-4 col-md-4" role="group">
+        <a routerLink="./update" class="btn btn-outline-success">Update category</a>
+        <a routerLink="./delete" class="btn btn-outline-danger">Delete category</a>
+    </div>
+    <div class="col-md-12"></div>
+    <div class="col-auto">
+        <a routerLink="/category/new" class="btn btn-outline-primary">New category</a>
+    </div>
 </div>

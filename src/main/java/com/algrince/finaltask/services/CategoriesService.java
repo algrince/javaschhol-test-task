@@ -26,4 +26,15 @@ public class CategoriesService {
         Optional<Category> foundCategory = categoriesRepository.findById(id);
         return foundCategory.orElse(null);
     }
+
+    @Transactional
+    public void save(Category category) {
+        categoriesRepository.save(category);
+    }
+
+    @Transactional
+    public void softDelete(Category category) {
+        category.setDeleted(true);
+        categoriesRepository.save(category);
+    }
 }

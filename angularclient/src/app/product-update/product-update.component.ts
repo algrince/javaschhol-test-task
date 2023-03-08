@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../model/product';
 import { ProductService } from '../service/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './product-update.component.html',
   styleUrls: ['./product-update.component.css']
 })
-export class ProductUpdateComponent {
+export class ProductUpdateComponent implements OnInit {
 
     productId: number;
     product: Product;

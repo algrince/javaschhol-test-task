@@ -15,7 +15,10 @@ import { ProductCreateComponent } from './product-create/product-create.componen
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { ProductDeleteComponent } from './product-delete/product-delete.component';
+import { CategoryCreateComponent } from './category-create/category-create.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
+import { CategoryUpdateComponent } from './category-update/category-update.component';
+import { CategoryDeleteComponent } from './category-delete/category-delete.component';
 
 
 const routes: Routes = [
@@ -35,7 +38,10 @@ const routes: Routes = [
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'products/:id/update', component: ProductUpdateComponent },
   { path: 'products/:id/delete', component: ProductDeleteComponent },
-  { path: 'category/:id', component: CategoryPageComponent }
+  { path: 'category/new', component: CategoryCreateComponent },
+  { path: 'category/:id', component: CategoryPageComponent },
+  { path: 'category/:id/update', component: CategoryUpdateComponent },
+  { path: 'category/:id/delete', component: CategoryDeleteComponent }
 ];
 
 @NgModule({
