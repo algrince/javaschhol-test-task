@@ -31,4 +31,6 @@ public class CategoriesController {
         CategoryDTO foundCategoryDTO = dtoMapper.mapClass(foundCategory, CategoryDTO.class);
         return ResponseEntity.ok().body(foundCategoryDTO);
     }
+
+
 }

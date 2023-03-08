@@ -13,6 +13,6 @@ import java.util.List;
 public interface ProductsRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p where p.category = :category")
-    Page<Product> findAllByCategory(@Param("category") Long categoryId,
+    Page<Product> findAllByCategory(@Param("category") Category category,
                                     Pageable pageable);
 }

@@ -4,6 +4,7 @@ import com.algrince.finaltask.dto.AddressDTO;
 import com.algrince.finaltask.dto.ProductsDTO;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
+import com.algrince.finaltask.services.CategoriesService;
 import com.algrince.finaltask.services.ProductsService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
@@ -28,27 +29,22 @@ import java.util.stream.Collectors;
 public class ProductsController {
 
     private final ProductsService productsService;
+    private final CategoriesService categoriesService;
     private final DTOMapper dtoMapper;
 
     @GetMapping
     public Page<ProductsDTO> productIndex(
+            @RequestParam(required = false) Long category,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size) {
         Pageable paging = PageRequest.of(page, size);
+        if (category != null) {
+            Category foundCategory = categoriesService.findById(category);
+            Page<Product> products = productsService.findAllByCategory(foundCategory, paging);
+            return dtoMapper.mapPage(products, ProductsDTO.class);
+        }
         Page<Product> products = productsService.findAll(paging);
-        Page<ProductsDTO> productsDTOPage = dtoMapper.mapPage(products, ProductsDTO.class);
-        return productsDTOPage;
-    }
-
-    @GetMapping("/category")
-    public Page<ProductsDTO> productIndex(
-            @PathVariable("categoryId") Long id,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size) {
-        Pageable paging = PageRequest.of(page, size);
-        Page<Product> products = productsService.findAllByCategory(id, paging);
-        Page<ProductsDTO> productsDTOPage = dtoMapper.mapPage(products, ProductsDTO.class);
-        return productsDTOPage;
+        return dtoMapper.mapPage(products, ProductsDTO.class);
     }
 
     @PostMapping

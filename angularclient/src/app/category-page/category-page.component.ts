@@ -32,7 +32,7 @@ export class CategoryPageComponent {
     ngOnInit() {
         this.getCategory();
 
-        this.getProducts({category: this.categoryId ,page: this.page, size: this.size});
+        this.getProducts({category: this.categoryId, page: this.page, size: this.size});
 
         this.categoryService.findAll()
             .subscribe(data => {this.categories = data;})

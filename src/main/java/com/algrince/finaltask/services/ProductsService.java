@@ -32,8 +32,8 @@ public class ProductsService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findAllByCategory(Long categoryId, Pageable paging) {
-        Page<Product> products = productsRepository.findAllByCategory(categoryId, paging);
+    public Page<Product> findAllByCategory(Category category, Pageable paging) {
+        Page<Product> products = productsRepository.findAllByCategory(category, paging);
         return products;
     }
 

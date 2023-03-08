@@ -23,7 +23,7 @@ export class ProductService {
 
    public findAllByCategory(request): Observable<Product[]> {
         const params = request;
-        const categorizedProductsUrl = 'http://localhost:8080/products/category'
+        const categorizedProductsUrl = 'http://localhost:8080/products'
         return this.http.get<Product[]>(categorizedProductsUrl, {params});
    }
 
