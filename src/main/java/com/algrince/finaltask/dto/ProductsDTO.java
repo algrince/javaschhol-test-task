@@ -16,5 +16,5 @@ public class ProductsDTO {
 
     private int stock;
 
-    private String category;
+    private Long category;
 }

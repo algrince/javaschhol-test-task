@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../model/product';
+import { Category } from '../model/category';
 import { ProductService } from '../service/product.service';
+import { CategoryService } from '../service/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -12,11 +14,13 @@ export class ProductUpdateComponent implements OnInit {
 
     productId: number;
     product: Product;
+    categories: Category[];
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private productService: ProductService) {
+        private productService: ProductService,
+        private categoryService: CategoryService) {
             this.product = new Product();
         }
 
@@ -25,7 +29,10 @@ export class ProductUpdateComponent implements OnInit {
         this.productId = this.route.snapshot.params['id'];
 
         this.productService.findOneProduct(this.productId)
-            .subscribe(data => {this.product = data;});
+            .subscribe(data => {this.product = data});
+
+        this.categoryService.findAll()
+                    .subscribe(data => {this.categories = data})
     }
 
     onSubmit() {

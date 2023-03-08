@@ -1,5 +1,5 @@
-<div class="row d-flex justify-content-center">
-    <p class="h4 col-auto">Add new product</p>
+<div class="row d-flex justify-content-center my-4">
+    <p class="h4 col-auto">Update product</p>
     <small>Should be available only for store employees</small>
 </div>
 
@@ -36,6 +36,18 @@
                    placeholder="Enter product stock"
                    required #title="ngModel">
         </div>
+
+        <div class="form-group col-md-6">
+            <label for="category" class="form-label">Category</label>
+            <select type="number" [(ngModel)]="product.category"
+                   class="form-control mb-3"
+                   id="category"
+                   name="category"
+                   required #title="ngModel">
+                <option value="{{ category.id }}" *ngFor="let category of categories">{{ category.name }}</option>
+            </select>
+        </div>
+
         <div class="col-md-12"></div>
         <div class="col-auto">
             <button type="submit"
