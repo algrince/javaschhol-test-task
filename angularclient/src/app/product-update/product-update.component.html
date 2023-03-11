@@ -44,7 +44,7 @@
                    id="category"
                    name="category"
                    required #title="ngModel">
-                <option value="{{ category.id }}" *ngFor="let category of categories">{{ category.name }}</option>
+                <option [ngValue]="category" *ngFor="let category of categories">{{ category.name }}</option>
             </select>
         </div>
 

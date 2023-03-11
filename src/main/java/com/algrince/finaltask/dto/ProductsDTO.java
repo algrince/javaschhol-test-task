@@ -16,5 +16,5 @@ public class ProductsDTO {
 
     private int stock;
 
-    private Long category;
+    private Category category;
 }

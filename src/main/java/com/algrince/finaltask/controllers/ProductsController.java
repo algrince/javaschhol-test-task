@@ -67,7 +67,7 @@ public class ProductsController {
         Product foundProduct = productsService.findById(id);
         ProductsDTO foundProductDTO = dtoMapper.mapClass(foundProduct, ProductsDTO.class);
         // ERROR if loading product without category
-        foundProductDTO.setCategory(foundProduct.getCategory().getId());
+        foundProductDTO.setCategory(foundProduct.getCategory());
         return ResponseEntity.ok().body(foundProductDTO);
     }
 

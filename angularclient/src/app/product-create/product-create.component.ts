@@ -25,11 +25,12 @@ export class ProductCreateComponent implements OnInit {
 
     ngOnInit() {
         this.categoryService.findAll()
-                            .subscribe(data => {this.categories = data})
+            .subscribe(data => {this.categories = data})
     }
 
     onSubmit() {
-        this.productService.save(this.product).subscribe(result => this.gotoProductList());
+        this.productService.save(this.product)
+            .subscribe(result => this.gotoProductList());
     }
 
     gotoProductList() {

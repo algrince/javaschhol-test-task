@@ -15,6 +15,7 @@ export class ProductUpdateComponent implements OnInit {
     productId: number;
     product: Product;
     categories: Category[];
+    category: Category;
 
     constructor(
         private route: ActivatedRoute,
