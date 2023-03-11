@@ -4,6 +4,9 @@
         <p class="fs-2">{{ product.title }}</p>
         <p class="text-primary">{{ product.price }} €</p>
         <p>{{ product.category.name }}</p>
+        <p>Weight: {{ product.weight }}</p>
+        <p>Volume: {{ product.volume }}</p>
+        <p>Stock: {{ product.stock }}</p>
         <div class="btn-group my-2" role="group">
             <a routerLink="#" class="btn btn-outline-success">Add to cart</a>
             <a routerLink="#" class="btn btn-outline-success">Shop now</a>

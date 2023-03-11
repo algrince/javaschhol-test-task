@@ -39,6 +39,14 @@ public class Product {
     @NotNull
     private int stock;
 
+    @Column(name = "volume")
+    @NotNull
+    private Double volume;
+
+    @Column(name = "weight")
+    @NotNull
+    private Double weight;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

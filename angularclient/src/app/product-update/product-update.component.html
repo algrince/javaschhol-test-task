@@ -37,6 +37,26 @@
                    required #title="ngModel">
         </div>
 
+        <div class="form-group col-md-3">
+            <label for="volume" class="form-label">Volume</label>
+            <input type="number" step="0.01" [(ngModel)]="product.volume"
+                   class="form-control mb-3"
+                   id="volume"
+                   name="volume"
+                   placeholder="0.00"
+                   required #price="ngModel">
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="weight" class="form-label">Weight</label>
+            <input type="number" step="0.01" [(ngModel)]="product.weight"
+                   class="form-control mb-3"
+                   id="weight"
+                   name="weight"
+                   placeholder="0.00"
+                   required #price="ngModel">
+        </div>
+
         <div class="form-group col-md-6">
             <label for="category" class="form-label">Category</label>
             <select type="number" [(ngModel)]="product.category"
