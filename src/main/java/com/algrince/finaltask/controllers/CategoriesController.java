@@ -49,7 +49,7 @@ public class CategoriesController {
 
         Category category = dtoMapper.mapClass(categoryDTO, Category.class);
         categoriesService.save(category);
-        return  new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")

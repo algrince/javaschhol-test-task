@@ -19,6 +19,10 @@ import { CategoryCreateComponent } from './category-create/category-create.compo
 import { CategoryPageComponent } from './category-page/category-page.component';
 import { CategoryUpdateComponent } from './category-update/category-update.component';
 import { CategoryDeleteComponent } from './category-delete/category-delete.component';
+import { PropertyListComponent } from './property-list/property-list.component';
+import { PropertyCreateComponent } from './property-create/property-create.component';
+import { PropertyUpdateComponent } from './property-update/property-update.component';
+import { PropertyDeleteComponent } from './property-delete/property-delete.component';
 
 
 const routes: Routes = [
@@ -41,7 +45,11 @@ const routes: Routes = [
   { path: 'category/new', component: CategoryCreateComponent },
   { path: 'category/:id', component: CategoryPageComponent },
   { path: 'category/:id/update', component: CategoryUpdateComponent },
-  { path: 'category/:id/delete', component: CategoryDeleteComponent }
+  { path: 'category/:id/delete', component: CategoryDeleteComponent },
+  { path: 'properties', component: PropertyListComponent },
+  { path: 'properties/new', component: PropertyCreateComponent },
+  { path: 'properties/:id/update', component: PropertyUpdateComponent },
+  { path: 'properties/:id/delete', component: PropertyDeleteComponent }
 ];
 
 @NgModule({

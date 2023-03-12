@@ -1,19 +1,13 @@
 package com.algrince.finaltask.controllers;
 
-import com.algrince.finaltask.dto.AddressDTO;
 import com.algrince.finaltask.dto.ProductsDTO;
-import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
-import com.algrince.finaltask.services.CategoriesService;
 import com.algrince.finaltask.services.ProductsService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

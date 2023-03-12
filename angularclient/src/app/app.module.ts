@@ -29,6 +29,10 @@ import { CategoryPageComponent } from './category-page/category-page.component';
 import { CategoryCreateComponent } from './category-create/category-create.component';
 import { CategoryUpdateComponent } from './category-update/category-update.component';
 import { CategoryDeleteComponent } from './category-delete/category-delete.component';
+import { PropertyListComponent } from './property-list/property-list.component';
+import { PropertyCreateComponent } from './property-create/property-create.component';
+import { PropertyUpdateComponent } from './property-update/property-update.component';
+import { PropertyDeleteComponent } from './property-delete/property-delete.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,11 @@ import { CategoryDeleteComponent } from './category-delete/category-delete.compo
     CategoryPageComponent,
     CategoryCreateComponent,
     CategoryUpdateComponent,
-    CategoryDeleteComponent
+    CategoryDeleteComponent,
+    PropertyListComponent,
+    PropertyCreateComponent,
+    PropertyUpdateComponent,
+    PropertyDeleteComponent
   ],
   imports: [
     BrowserModule,

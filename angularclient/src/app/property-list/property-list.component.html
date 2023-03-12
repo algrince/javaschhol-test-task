@@ -1,0 +1,29 @@
+<div class="card my-5">
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let property of properties">
+                <td>{{ property.id }}</td>
+                <td>{{ property.name }}</td>
+                <td><div class="btn-group" role="group">
+                    <a routerLink="./{{ property.id }}/update" class="btn btn-outline-success">Update</a>
+                    <a routerLink="./{{ property.id }}/delete" class="btn btn-outline-danger">Delete</a>
+                </div></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-body row d-flex justify-content-center my-4">
+        <div class="col-auto">
+            <a routerLink="./new" class="btn btn-outline-primary">New property</a>
+        </div>
+    </div>
+</div>
