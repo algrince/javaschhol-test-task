@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,21 @@ import java.util.Optional;
 public class ProductsService {
 
     private final ProductsRepository productsRepository;
+    private final CategoriesService categoriesService;
     private final EntityManager entityManager;
+
+    public Page<Product> selectProducts(
+            Long categoryId, int page, int size) {
+        Pageable paging = PageRequest.of(page, size);
+        Page<Product> products = null;
+        if (categoryId != null) {
+            Category foundCategory = categoriesService.findById(categoryId);
+            products = findAllByCategory(foundCategory, paging);
+        } else {
+            products = findAll(paging);
+        }
+        return products;
+    }
 
     @Transactional(readOnly = true)
     public Page<Product> findAll(Pageable paging) {

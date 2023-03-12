@@ -1,7 +1,7 @@
-/*
 package com.algrince.finaltask.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,9 +19,9 @@ public class Property {
     private Long id;
 
     @Column(name = "name")
+    @NotEmpty
     private String name;
 
     @Column(name = "deleted")
     private boolean isDeleted;
 }
-*/

@@ -29,21 +29,14 @@ import java.util.stream.Collectors;
 public class ProductsController {
 
     private final ProductsService productsService;
-    private final CategoriesService categoriesService;
     private final DTOMapper dtoMapper;
 
     @GetMapping
-    public Page<ProductsDTO> productIndex(
+    public Page<ProductsDTO> getProducts(
             @RequestParam(required = false) Long category,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size) {
-        Pageable paging = PageRequest.of(page, size);
-        if (category != null) {
-            Category foundCategory = categoriesService.findById(category);
-            Page<Product> products = productsService.findAllByCategory(foundCategory, paging);
-            return dtoMapper.mapPage(products, ProductsDTO.class);
-        }
-        Page<Product> products = productsService.findAll(paging);
+        Page<Product> products = productsService.selectProducts(category, page, size);
         return dtoMapper.mapPage(products, ProductsDTO.class);
     }
 
