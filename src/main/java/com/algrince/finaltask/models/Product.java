@@ -51,6 +51,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToOne(mappedBy = "product")
+    private ProductImage productImage;
+
     @Column(name = "deleted")
     private boolean isDeleted;
 }

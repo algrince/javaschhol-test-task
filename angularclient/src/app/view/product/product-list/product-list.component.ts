@@ -3,7 +3,9 @@ import { Product } from '../../../model/product';
 import { Category } from '../../../model/category';
 import { ProductService } from '../../../service/product.service';
 import { CategoryService } from '../../../service/category.service';
+import { ImageService } from '../../../service/image.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-list',
@@ -19,10 +21,13 @@ export class ProductListComponent implements OnInit {
     size = 3;
     sortField = "id";
     sortDir = "ASC";
+    imageSrc: any;
 
     constructor(
         private productService: ProductService,
-        private categoryService: CategoryService) {
+        private categoryService: CategoryService,
+        private imageService: ImageService,
+        private sanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
@@ -30,6 +35,12 @@ export class ProductListComponent implements OnInit {
 
         this.categoryService.findAll()
             .subscribe(data => {this.categories = data;})
+    }
+
+    getImage() {
+        this.imageService.getImage()
+            .subscribe(data =>
+                {this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
     }
 
     setValue() {}
@@ -41,6 +52,8 @@ export class ProductListComponent implements OnInit {
     }
 
     private getProducts(request) {
+        this.getImage();
+
         this.productService.findAll(request)
             .subscribe(data => {
                 this.products = data['content'];
