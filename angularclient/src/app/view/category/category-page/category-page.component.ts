@@ -30,12 +30,18 @@ export class CategoryPageComponent {
     }
 
     ngOnInit() {
-        this.getCategory();
+        this.route.paramMap.subscribe(
+            (routeParam) => {
+                const id = parseInt(routeParam.get("id"));
+                this.categoryId = id;
+                this.getCategory();
 
-        this.getProducts({category: this.categoryId, page: this.page, size: this.size});
+                this.getProducts({category: this.categoryId, page: this.page, size: this.size});
 
-        this.categoryService.findAll()
-            .subscribe(data => {this.categories = data;})
+                this.categoryService.findAll()
+                    .subscribe(data => {this.categories = data})
+            }
+        )
     }
 
     public getCategory() {

@@ -17,6 +17,8 @@ export class ProductListComponent implements OnInit {
     totalElements = 0;
     page = 0;
     size = 3;
+    sortField = "id";
+    sortDir = "ASC";
 
     constructor(
         private productService: ProductService,
@@ -30,6 +32,14 @@ export class ProductListComponent implements OnInit {
             .subscribe(data => {this.categories = data;})
     }
 
+    setValue() {}
+
+    onSubmit() {
+        this.getProducts
+            ({page: this.page, size: this.size,
+            sortField: this.sortField, sortDir: this.sortDir});
+    }
+
     private getProducts(request) {
         this.productService.findAll(request)
             .subscribe(data => {
@@ -39,7 +49,7 @@ export class ProductListComponent implements OnInit {
     }
 
     public onPageChange(pageNum: number): void {
-        this.getProducts({page: (pageNum - 1), size: "3"})
+        this.getProducts({page: (pageNum - 1), size: this.size, sortField: this.sortField, sortDir: this.sortDir})
     }
 
 }

@@ -21,7 +21,8 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.authenticationService.authenticate(this.user).subscribe(result => this.gotoHomepage());
+    this.authenticationService.authenticate(this.user)
+        .subscribe(result => this.gotoHomepage());
   }
 
   gotoHomepage() {

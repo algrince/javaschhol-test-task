@@ -29,8 +29,10 @@ public class ProductsController {
     public Page<ProductsDTO> getProducts(
             @RequestParam(required = false) Long category,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size) {
-        Page<Product> products = productsService.selectProducts(category, page, size);
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(required = false, defaultValue = "id") String sortField,
+            @RequestParam(required = false, defaultValue = "ASC") String sortDir) {
+        Page<Product> products = productsService.selectProducts(category, page, size, sortField, sortDir);
         return dtoMapper.mapPage(products, ProductsDTO.class);
     }
 
