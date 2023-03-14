@@ -28,8 +28,9 @@ export class AddressService {
         return this.http.delete<Address>(deleteUrl);
     }
 
-    public findAll(): Observable<Address[]> {
-        return this.http.get<Address[]>(this.addressesUrl);
+    public findAll(request): Observable<Address[]> {
+        const params = request;
+        return this.http.get<Address[]>(this.addressesUrl, {params});
     }
 
     public findOneAddress(id: number): Observable<Address> {

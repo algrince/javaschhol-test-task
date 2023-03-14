@@ -32,7 +32,7 @@ export class UserPageComponent implements OnInit {
         this.user = data;
     });
 
-    this.addressService.findAll().subscribe(data => {
+    this.addressService.findAll({user: this.userId}).subscribe(data => {
         this.addresses = data;
     });
   }

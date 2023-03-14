@@ -31,8 +31,9 @@ public class AddressesController {
 
 
     @GetMapping
-    public List<AddressDTO> addressIndex() {
-        List<Address> addresses = addressesService.findAll();
+    public List<AddressDTO> getAddresses(
+            @RequestParam(required = false) Long user) {
+        List<Address> addresses = addressesService.selectAddresses(user);
         return dtoMapper.mapList(addresses, AddressDTO.class);
     }
 

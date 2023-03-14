@@ -16,6 +16,18 @@ import java.util.List;
 public class AddressesService {
 
     private final AddressesRepository addressesRepository;
+    private final UsersService usersService;
+
+    public List<Address> selectAddresses(Long userId) {
+        List<Address> addresses = null;
+        if (userId != null) {
+            User foundUser = usersService.findOne(userId);
+            addresses = findByUser(foundUser);
+        } else {
+            addresses = findAll();
+        }
+        return addresses;
+    }
 
     @Transactional
     public void save(Address address) {
