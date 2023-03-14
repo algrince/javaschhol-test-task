@@ -36,25 +36,22 @@ public class ProductsService {
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
 
         Pageable paging = PageRequest.of(page, size, direction, sortField);
-//        Page<Product> products = null;
 
-//        String categoryIdValue = Long.toString(categoryId);
         ProductSpecification minPriceSpec = new ProductSpecification(
                 new SearchCriteria("price", ">", minprice));
         ProductSpecification maxPriceSpec = new ProductSpecification(
                 new SearchCriteria("price", "<", maxprice));
-        Page<Product> products = productsRepository.findAll(Specification.where(minPriceSpec).and(maxPriceSpec), paging);
-        return products;
 
-        /*
+        Page<Product> products = null;
+
+        // TODO use category search as specification
         if (categoryId != null) {
             Category foundCategory = categoriesService.findById(categoryId);
-            products = findAllByCategory(foundCategory, paging);
+            products = productsRepository.findAllByCategory(foundCategory, paging);
         } else {
-            products = findAll(paging);
+            products = productsRepository.findAll(Specification.allOf(minPriceSpec, maxPriceSpec), paging);
         }
         return products;
-         */
     }
 
     @Transactional(readOnly = true)

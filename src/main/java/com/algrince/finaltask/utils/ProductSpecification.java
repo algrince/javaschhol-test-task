@@ -18,6 +18,10 @@ public class ProductSpecification implements Specification<Product> {
     @Override
     public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 
+        if (criteria.getValue() == null) {
+            return null;
+        }
+
         if (criteria.getOperation().equalsIgnoreCase(">")) {
             return criteriaBuilder.greaterThanOrEqualTo(
                     root.<String> get(criteria.getKey()), criteria.getValue().toString());
