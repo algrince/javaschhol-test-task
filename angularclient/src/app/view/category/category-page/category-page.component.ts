@@ -4,14 +4,16 @@ import { Product } from '../../../model/product';
 import { Category } from '../../../model/category';
 import { ProductService } from '../../../service/product.service';
 import { CategoryService } from '../../../service/category.service';
+import { ImageService } from '../../../service/image.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-category-page',
   templateUrl: './category-page.component.html',
   styleUrls: ['./category-page.component.css']
 })
-export class CategoryPageComponent {
+export class CategoryPageComponent implements OnInit{
 
     products: Product[];
     categories: Category[];
@@ -20,10 +22,15 @@ export class CategoryPageComponent {
     totalElements = 0;
     page = 0;
     size = 3;
+    sortField = "id";
+    sortDir = "ASC";
+    imageSrc: any;
 
     constructor(
         private productService: ProductService,
         private categoryService: CategoryService,
+        private imageService: ImageService,
+        private sanitizer: DomSanitizer,
         private router: Router,
         private route: ActivatedRoute) {
             this.category = new Category();
@@ -51,6 +58,8 @@ export class CategoryPageComponent {
     }
 
     private getProducts(request) {
+        this.getImage();
+
         this.productService.findAllByCategory(request)
             .subscribe(data => {
                 this.products = data['content'];
@@ -58,7 +67,24 @@ export class CategoryPageComponent {
             });
     }
 
+    getImage() {
+        this.imageService.getImage()
+            .subscribe(data =>
+                {this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
+    }
+
+    setValue() {}
+
+    onSubmit() {
+        this.getProducts
+            ({page: this.page, size: this.size,
+            sortField: this.sortField, sortDir: this.sortDir});
+    }
+
     public onPageChange(pageNum: number): void {
-        this.getProducts({category: this.categoryId, page: (pageNum - 1), size: "3"})
+        this.getProducts(
+        {category: this.categoryId,
+        page: (pageNum - 1), size: this.size,
+        sortField: this.sortField, sortDir: this.sortDir})
     }
 }

@@ -62,7 +62,9 @@ export class ProductListComponent implements OnInit {
     }
 
     public onPageChange(pageNum: number): void {
-        this.getProducts({page: (pageNum - 1), size: this.size, sortField: this.sortField, sortDir: this.sortDir})
+        this.getProducts(
+            {page: (pageNum - 1), size: this.size,
+            sortField: this.sortField, sortDir: this.sortDir})
     }
 
 }
