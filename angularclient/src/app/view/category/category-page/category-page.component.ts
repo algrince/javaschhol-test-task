@@ -36,7 +36,7 @@ export class CategoryPageComponent {
                 this.categoryId = id;
                 this.getCategory();
 
-                this.getProducts({category: this.categoryId, page: this.page, size: this.size});
+                this.getProducts({category: this.categoryId, page: 0, size: this.size});
 
                 this.categoryService.findAll()
                     .subscribe(data => {this.categories = data})
@@ -59,6 +59,6 @@ export class CategoryPageComponent {
     }
 
     public onPageChange(pageNum: number): void {
-        this.getProducts({category: this.categoryId ,page: (pageNum - 1), size: "3"})
+        this.getProducts({category: this.categoryId, page: (pageNum - 1), size: "3"})
     }
 }
