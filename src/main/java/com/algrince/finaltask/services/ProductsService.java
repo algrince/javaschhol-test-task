@@ -3,6 +3,8 @@ package com.algrince.finaltask.services;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.repositories.ProductsRepository;
+import com.algrince.finaltask.utils.ProductSpecification;
+import com.algrince.finaltask.utils.SearchCriteria;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Filter;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +36,17 @@ public class ProductsService {
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
 
         Pageable paging = PageRequest.of(page, size, direction, sortField);
-        Page<Product> products = null;
+//        Page<Product> products = null;
+
+//        String categoryIdValue = Long.toString(categoryId);
+        ProductSpecification minPriceSpec = new ProductSpecification(
+                new SearchCriteria("price", ">", minprice));
+        ProductSpecification maxPriceSpec = new ProductSpecification(
+                new SearchCriteria("price", "<", maxprice));
+        Page<Product> products = productsRepository.findAll(Specification.where(minPriceSpec).and(maxPriceSpec), paging);
+        return products;
+
+        /*
         if (categoryId != null) {
             Category foundCategory = categoriesService.findById(categoryId);
             products = findAllByCategory(foundCategory, paging);
@@ -41,6 +54,7 @@ public class ProductsService {
             products = findAll(paging);
         }
         return products;
+         */
     }
 
     @Transactional(readOnly = true)
