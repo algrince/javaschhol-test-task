@@ -18,10 +18,12 @@ export class ProductListComponent implements OnInit {
     categories: Category[];
     totalElements = 0;
     page = 0;
-    size = 3;
+    size = 4;
     sortField = "id";
     sortDir = "ASC";
     imageSrc: any;
+    minprice: number;
+    maxprice: number;
 
     constructor(
         private productService: ProductService,
@@ -40,7 +42,8 @@ export class ProductListComponent implements OnInit {
     getImage() {
         this.imageService.getImage()
             .subscribe(data =>
-                {this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
+                {this.imageSrc = this.sanitizer
+                    .bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
     }
 
     setValue() {}

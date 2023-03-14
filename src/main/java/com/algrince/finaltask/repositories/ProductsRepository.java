@@ -15,4 +15,10 @@ public interface ProductsRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.category = :category")
     Page<Product> findAllByCategory(@Param("category") Category category,
                                     Pageable pageable);
+
+    @Query("select p from Product p where p.price between :minprice and :maxprice")
+    Page<Product> findAllBetweenMaxAndMinPrice(@Param("minprice") Double minprice,
+                                               @Param("maxprice") Double maxprice,
+                                               Pageable pageable);
+
 }

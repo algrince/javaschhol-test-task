@@ -27,7 +27,8 @@ public class ProductsService {
     public Page<Product> selectProducts(
             Long categoryId,
             int page, int size,
-            String sortField, String sortDir) {
+            String sortField, String sortDir,
+            Double minprice, Double maxprice) {
 
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
 

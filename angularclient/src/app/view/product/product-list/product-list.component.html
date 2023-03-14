@@ -12,11 +12,11 @@
     </nav>
 
 
-
     <div class="card-body row g-5 my-4 d-flex justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
              <div class="position-sticky">
-                 <form (ngSubmit)="onSubmit()" #sortForm="ngForm">
+                 <form (ngSubmit)="onSubmit()" #sortForm="ngForm" class="row">
 
                      <div class="form-group col-md-4">
                          <label for="sortField" class="form-label">Sort by</label>
@@ -24,7 +24,7 @@
                                  class="form-control mb-3"
                                  id="sortField"
                                  name="sortField"
-                                 required [(ngModel)]="sortField">
+                                 [(ngModel)]="sortField">
                              <option value="price">Price</option>
                              <option value="volume">Volume</option>
                              <option value="weight">Weight</option>
@@ -38,12 +38,35 @@
                                  class="form-control mb-3"
                                  id="sortDir"
                                  name="sortDir"
-                                 required [(ngModel)]="sortDir">
+                                 [(ngModel)]="sortDir">
                              <option value="ASC">Ascending</option>
                              <option value="DESC">Descending</option>
                          </select>
                      </div>
 
+                     <div class="col-md-3"></div>
+
+                     <p>Filter by price</p>
+                     <div class="form-group col-md-4">
+                         <label for="minprice" class="form-label">Min</label>
+                         <input type="number" step="0.01"
+                                class="form-control mb-3"
+                                id="minprice"
+                                name="minprice"
+                                [(ngModel)]="minprice">
+
+                     </div>
+                     <div class="form-group col-md-4">
+                         <label for="maxprice" class="form-label">Max</label>
+                         <input type="number" step="0.01"
+                                class="form-control mb-3"
+                                id="maxprice"
+                                name="maxprice"
+                                [(ngModel)]="maxprice">
+
+                     </div>
+
+                     <div class="col-md-3"></div>
                      <div class="col-auto">
                          <button type="submit"
                                  class="btn btn-outline-primary text-nowrap"
