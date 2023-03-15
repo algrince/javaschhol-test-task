@@ -18,12 +18,12 @@ export class ProductListComponent implements OnInit {
     categories: Category[];
     totalElements = 0;
     page = 0;
-    size = 4;
+    size = 8;
     sortField = "id";
     sortDir = "ASC";
     imageSrc: any;
-    minprice: number;
-    maxprice: number;
+    minPrice: any;
+    maxPrice: any;
 
     constructor(
         private productService: ProductService,
@@ -46,12 +46,11 @@ export class ProductListComponent implements OnInit {
                     .bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
     }
 
-    setValue() {}
-
     onSubmit() {
         this.getProducts
-            ({page: this.page, size: this.size,
-            sortField: this.sortField, sortDir: this.sortDir});
+            ({page: 0, size: this.size,
+            sortField: this.sortField, sortDir: this.sortDir,
+            minPrice: this.minPrice, maxPrice: this.maxPrice});
     }
 
     private getProducts(request) {
@@ -67,7 +66,8 @@ export class ProductListComponent implements OnInit {
     public onPageChange(pageNum: number): void {
         this.getProducts(
             {page: (pageNum - 1), size: this.size,
-            sortField: this.sortField, sortDir: this.sortDir})
+            sortField: this.sortField, sortDir: this.sortDir,
+            minPrice: this.minPrice, maxPrice: this.maxPrice})
     }
 
 }

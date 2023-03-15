@@ -21,10 +21,12 @@ export class CategoryPageComponent implements OnInit{
     categoryId: number;
     totalElements = 0;
     page = 0;
-    size = 3;
+    size = 8;
     sortField = "id";
     sortDir = "ASC";
     imageSrc: any;
+    minPrice: any;
+    maxPrice: any;
 
     constructor(
         private productService: ProductService,
@@ -77,8 +79,9 @@ export class CategoryPageComponent implements OnInit{
 
     onSubmit() {
         this.getProducts
-            ({page: this.page, size: this.size,
-            sortField: this.sortField, sortDir: this.sortDir});
+            ({page: 0, size: this.size,
+            sortField: this.sortField, sortDir: this.sortDir,
+            minPrice: this.minPrice, maxPrice: this.maxPrice});
     }
 
     public onPageChange(pageNum: number): void {

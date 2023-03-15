@@ -31,26 +31,27 @@ public class ProductsService {
             Long categoryId,
             int page, int size,
             String sortField, String sortDir,
-            Double minprice, Double maxprice) {
+            Double minPrice, Double maxPrice) {
 
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
 
         Pageable paging = PageRequest.of(page, size, direction, sortField);
 
-        ProductSpecification minPriceSpec = new ProductSpecification(
-                new SearchCriteria("price", ">", minprice));
-        ProductSpecification maxPriceSpec = new ProductSpecification(
-                new SearchCriteria("price", "<", maxprice));
-
-        Page<Product> products = null;
-
-        // TODO use category search as specification
+        Category foundCategory = null;
         if (categoryId != null) {
-            Category foundCategory = categoriesService.findById(categoryId);
-            products = productsRepository.findAllByCategory(foundCategory, paging);
-        } else {
-            products = productsRepository.findAll(Specification.allOf(minPriceSpec, maxPriceSpec), paging);
+            foundCategory = categoriesService.findById(categoryId);
         }
+        ProductSpecification categorySpec = new ProductSpecification(
+                new SearchCriteria("category", ":", foundCategory));
+
+        ProductSpecification minPriceSpec = new ProductSpecification(
+                new SearchCriteria("price", ">", minPrice));
+        ProductSpecification maxPriceSpec = new ProductSpecification(
+                new SearchCriteria("price", "<", maxPrice));
+
+        Page<Product> products = productsRepository.findAll(Specification.allOf(
+                categorySpec, minPriceSpec, maxPriceSpec), paging);
+
         return products;
     }
 
