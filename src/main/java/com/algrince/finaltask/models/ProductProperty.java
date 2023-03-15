@@ -1,4 +1,4 @@
-/* package com.algrince.finaltask.models;
+package com.algrince.finaltask.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -7,8 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
-@Table(name = "product_has_property")
+@Table(name = "property_values")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,9 +21,17 @@ public class ProductProperty {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "property_id")
-    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "property_id")
     private Property property;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_has_property_value",
+            joinColumns = @JoinColumn(name = "product_property_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products;
 
     @Column(name = "value")
     @NotEmpty
@@ -30,4 +40,3 @@ public class ProductProperty {
     @Column(name = "deleted")
     private boolean isDeleted;
 }
-*/

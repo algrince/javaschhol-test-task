@@ -10,6 +10,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "products")
@@ -53,6 +55,9 @@ public class Product {
 
     @OneToOne(mappedBy = "product")
     private ProductImage productImage;
+
+    @ManyToMany(mappedBy = "products")
+    private List<ProductProperty> propertyValues;
 
     @Column(name = "deleted")
     private boolean isDeleted;

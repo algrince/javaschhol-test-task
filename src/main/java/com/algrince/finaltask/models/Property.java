@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "properties")
 @Getter
@@ -24,4 +26,7 @@ public class Property {
 
     @Column(name = "deleted")
     private boolean isDeleted;
+
+    @OneToMany(mappedBy = "property")
+    private List<ProductProperty> propertyValues;
 }
