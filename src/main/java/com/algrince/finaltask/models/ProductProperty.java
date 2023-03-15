@@ -1,8 +1,8 @@
 package com.algrince.finaltask.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,10 +21,12 @@ public class ProductProperty {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "product_has_property_value",

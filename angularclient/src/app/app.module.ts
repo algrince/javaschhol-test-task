@@ -36,6 +36,7 @@ import { PropertyListComponent } from './view/property/property-list/property-li
 import { PropertyCreateComponent } from './view/property/property-create/property-create.component';
 import { PropertyUpdateComponent } from './view/property/property-update/property-update.component';
 import { PropertyDeleteComponent } from './view/property/property-delete/property-delete.component';
+import { PropertyValueListComponent } from './view/property-value/property-value-list/property-value-list.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { PropertyDeleteComponent } from './view/property/property-delete/propert
     PropertyListComponent,
     PropertyCreateComponent,
     PropertyUpdateComponent,
-    PropertyDeleteComponent
+    PropertyDeleteComponent,
+    PropertyValueListComponent
   ],
   imports: [
     BrowserModule,

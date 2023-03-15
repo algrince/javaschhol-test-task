@@ -1,6 +1,5 @@
 package com.algrince.finaltask.services;
 
-import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Property;
 import com.algrince.finaltask.repositories.PropertiesRepository;
 import lombok.RequiredArgsConstructor;
