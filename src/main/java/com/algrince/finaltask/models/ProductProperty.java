@@ -27,12 +27,8 @@ public class ProductProperty {
     private Property property;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_has_property_value",
-            joinColumns = @JoinColumn(name = "product_property_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+    @ManyToMany(mappedBy = "propertyValues")
+
     private List<Product> products;
 
     @Column(name = "value")

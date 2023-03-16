@@ -67,6 +67,29 @@
                 <option [ngValue]="category" *ngFor="let category of categories">{{ category.name }}</option>
             </select>
         </div>
+
+        <div class="form-group col-md-6">
+            <label for="property" class="form-label">Property</label>
+            <select type="text" [(ngModel)]="property"
+                    class="form-control mb-3"
+                    id="property"
+                    name="property"
+                    required #title="ngModel">
+                <option [ngValue]="property.id" *ngFor="let property of properties">{{ property.name }}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="propertyValue" class="form-label">Property value</label>
+            <select type="text" [(ngModel)]="product.propertyValues"
+                    class="form-control mb-3"
+                    id="propertyValue"
+                    name="propertyValue"
+                    required #title="ngModel">
+                <option [ngValue]="propertyValue" *ngFor="let propertyValue of propertyValues">{{ propertyValue.propertyValue }}</option>
+            </select>
+        </div>
+
         <div class="col-md-12"></div>
         <div class="col-auto">
             <button type="submit"

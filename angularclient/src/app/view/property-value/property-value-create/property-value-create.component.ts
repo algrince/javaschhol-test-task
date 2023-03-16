@@ -24,6 +24,7 @@ export class PropertyValueCreateComponent implements OnInit {
         }
 
     ngOnInit() {
+
         this.propertyService.findAll()
             .subscribe(data => {this.properties = data});
     }

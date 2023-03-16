@@ -56,7 +56,13 @@ public class Product {
     @OneToOne(mappedBy = "product")
     private ProductImage productImage;
 
-    @ManyToMany(mappedBy = "products")
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_has_property_value",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "property_value_id")
+    )
     private List<ProductProperty> propertyValues;
 
     @Column(name = "deleted")
