@@ -1,0 +1,12 @@
+<form (ngSubmit)="onSubmit()">
+
+    <div class="card-body row d-flex justify-content-center my-4">
+        <p class="h3 col-auto">Do you want to delete property value "{{ propertyValue.propertyValue }}" of property "{{ propertyValue.property.name }}"?</p>
+        <div class="col-md-12"></div>
+
+        <div class="col-auto">
+            <button type="submit" class="btn btn-outline-danger text-nowrap my-4">Yes, I want to delete this property value</button>
+        </div>
+    </div>
+
+</form>

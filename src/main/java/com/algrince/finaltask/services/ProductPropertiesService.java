@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,5 +18,22 @@ public class ProductPropertiesService {
     @Transactional(readOnly = true)
     public List<ProductProperty> findAll() {
         return productPropertyRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public ProductProperty findById(Long id) {
+        Optional<ProductProperty> foundProductProperty = productPropertyRepository.findById(id);
+        return foundProductProperty.orElse(null);
+    }
+
+    @Transactional
+    public void save(ProductProperty productProperty) {
+        productPropertyRepository.save(productProperty);
+    }
+
+    @Transactional
+    public void softDelete(ProductProperty productProperty) {
+        productProperty.setDeleted(true);
+        productPropertyRepository.save(productProperty);
     }
 }

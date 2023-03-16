@@ -5,14 +5,14 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Property</th>
-                <th scope="col">value</th>
+                <th scope="col">Value</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let propertyValue of propertyValues">
                 <td>{{ propertyValue.id }}</td>
-                <td>{{ propertyValue.property }}</td>
-                <td>{{ propertyValue.value }}</td>
+                <td>{{ propertyValue.property.name }}</td>
+                <td>{{ propertyValue.propertyValue }}</td>
                 <td><div class="btn-group" role="group">
                     <a routerLink="./{{ propertyValue.id }}/update" class="btn btn-outline-success">Update</a>
                     <a routerLink="./{{ propertyValue.id }}/delete" class="btn btn-outline-danger">Delete</a>

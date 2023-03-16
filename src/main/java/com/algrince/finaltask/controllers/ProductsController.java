@@ -1,6 +1,8 @@
 package com.algrince.finaltask.controllers;
 
+import com.algrince.finaltask.dto.CategoryDTO;
 import com.algrince.finaltask.dto.ProductsDTO;
+import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.services.ProductsService;
 import com.algrince.finaltask.utils.DTOMapper;
@@ -61,8 +63,9 @@ public class ProductsController {
     public ResponseEntity<ProductsDTO> getProduct (@PathVariable("id") Long id) {
         Product foundProduct = productsService.findById(id);
         ProductsDTO foundProductDTO = dtoMapper.mapClass(foundProduct, ProductsDTO.class);
-        // ERROR if loading product without category
-        foundProductDTO.setCategory(foundProduct.getCategory());
+
+        Category foundProductCategory = foundProduct.getCategory();
+        foundProductDTO.setCategory(dtoMapper.mapClass(foundProductCategory, CategoryDTO.class));
         return ResponseEntity.ok().body(foundProductDTO);
     }
 

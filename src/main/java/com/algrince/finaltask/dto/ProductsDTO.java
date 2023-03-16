@@ -3,6 +3,8 @@ package com.algrince.finaltask.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class ProductsDTO {
@@ -20,4 +22,6 @@ public class ProductsDTO {
     private Double weight;
 
     private CategoryDTO category;
+
+    private List<ProductPropertyDTO> propertyValues;
 }

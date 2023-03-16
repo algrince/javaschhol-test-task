@@ -31,6 +31,9 @@ import { PropertyUpdateComponent } from './view/property/property-update/propert
 import { PropertyDeleteComponent } from './view/property/property-delete/property-delete.component';
 
 import { PropertyValueListComponent } from './view/property-value/property-value-list/property-value-list.component';
+import { PropertyValueCreateComponent } from './view/property-value/property-value-create/property-value-create.component';
+import { PropertyValueUpdateComponent } from './view/property-value/property-value-update/property-value-update.component';
+import { PropertyValueDeleteComponent } from './view/property-value/property-value-delete/property-value-delete.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -57,7 +60,10 @@ const routes: Routes = [
   { path: 'properties/new', component: PropertyCreateComponent },
   { path: 'properties/:id/update', component: PropertyUpdateComponent },
   { path: 'properties/:id/delete', component: PropertyDeleteComponent },
-  { path: 'propertyValues', component: PropertyValueListComponent }
+  { path: 'propertyValues', component: PropertyValueListComponent },
+  { path: 'propertyValues/new', component: PropertyValueCreateComponent },
+  { path: 'propertyValues/:id/update', component: PropertyValueUpdateComponent },
+  { path: 'propertyValues/:id/delete', component: PropertyValueDeleteComponent }
 ];
 
 @NgModule({
