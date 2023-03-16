@@ -22,8 +22,8 @@ export class ProductListComponent implements OnInit {
     sortField = "id";
     sortDir = "ASC";
     imageSrc: any;
-    minPrice: any;
-    maxPrice: any;
+    minPrice?: number;
+    maxPrice?: number;
 
     constructor(
         private productService: ProductService,

@@ -1,6 +1,5 @@
 package com.algrince.finaltask.dto;
 
-import com.algrince.finaltask.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +19,5 @@ public class ProductsDTO {
 
     private Double weight;
 
-    private Category category;
+    private CategoryDTO category;
 }

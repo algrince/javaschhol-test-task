@@ -21,12 +21,12 @@ public class ProductProperty {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
 
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(
             name = "product_has_property_value",
