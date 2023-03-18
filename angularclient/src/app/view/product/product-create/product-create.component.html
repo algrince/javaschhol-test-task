@@ -1,6 +1,5 @@
 <div class="row d-flex justify-content-center">
-    <p class="h4 col-auto">Add new product</p>
-    <small>Should be available only for store employees</small>
+    <p class="h4 my-4 col-auto">Add new product</p>
 </div>
 
 <form (ngSubmit)="onSubmit()" #productForm="ngForm" class="card-body row d-flex justify-content-center">
@@ -68,28 +67,23 @@
             </select>
         </div>
 
-        <div class="form-group col-md-6">
-            <label for="property" class="form-label">Property</label>
-            <select type="text" [(ngModel)]="property"
-                    class="form-control mb-3"
-                    id="property"
-                    name="property"
-                    required #title="ngModel">
-                <option [ngValue]="property.id" *ngFor="let property of properties">{{ property.name }}</option>
-            </select>
-        </div>
-
-        <div class="form-group col-md-6">
-            <label for="propertyValue" class="form-label">Property value</label>
-            <select type="text" [(ngModel)]="product.propertyValues"
-                    class="form-control mb-3"
-                    id="propertyValue"
-                    name="propertyValue"
-                    required #title="ngModel">
-                <option [ngValue]="propertyValue" *ngFor="let propertyValue of propertyValues">{{ propertyValue.propertyValue }}</option>
-            </select>
-        </div>
-
+                <div class="col-md-12"></div>
+                <div class="form-group col-md-3" *ngFor="let property of properties; let i = index">
+                    <p class="form-label">{{ property.name }}</p>
+                    <div *ngFor="let propertyValue of propertyValues">
+                        <div *ngIf="propertyValue.property.id == property.id" class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="{{ propertyValue.id }}"
+                               name="{{ propertyValue.propertyValue }}"
+                               (change)="onCheckboxChange($event, property, propertyValue)"
+                              >
+                        <label class="form-check-label">
+                            {{ propertyValue.propertyValue }}
+                        </label>
+                        </div>
+                    </div>
+                </div>
         <div class="col-md-12"></div>
         <div class="col-auto">
             <button type="submit"
