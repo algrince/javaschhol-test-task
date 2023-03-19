@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
     categories: Category[];
     totalElements = 0;
     page = 0;
-    size = 8;
+    size = 9;
     sortField = "id";
     sortDir = "ASC";
     imageSrc: any;
