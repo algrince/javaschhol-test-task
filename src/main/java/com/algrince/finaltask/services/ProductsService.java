@@ -1,5 +1,6 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.models.ProductProperty;
@@ -99,7 +100,8 @@ public class ProductsService {
     public Product findById(Long id) {
         Optional<Product> foundProduct = productsRepository.findById(id);
         // Add find by id deleted condition
-        return foundProduct.orElse(null);
+        return foundProduct.orElseThrow(()
+                -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     @Transactional

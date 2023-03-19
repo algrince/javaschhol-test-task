@@ -2,6 +2,7 @@ package com.algrince.finaltask.controllers;
 
 
 import com.algrince.finaltask.dto.AddressDTO;
+import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.AddressesService;
@@ -58,8 +59,9 @@ public class AddressesController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AddressDTO> getAddress (@PathVariable("id") Long id) {
+    public ResponseEntity<Object> getAddress (@PathVariable("id") Long id) {
         Address foundAddress = addressesService.findById(id);
+
         AddressDTO foundAddressDTO = dtoMapper.mapClass(foundAddress, AddressDTO.class);
         return ResponseEntity.ok().body(foundAddressDTO);
     }

@@ -1,5 +1,6 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Property;
 import com.algrince.finaltask.repositories.PropertiesRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,8 @@ public class PropertiesService {
     @Transactional(readOnly = true)
     public Property findById(Long id) {
         Optional<Property> foundProperty = propertiesRepository.findById(id);
-        return foundProperty.orElse(null);
+        return foundProperty.orElseThrow(()
+                -> new ResourceNotFoundException("Property not found with id: " + id));
     }
 
     @Transactional

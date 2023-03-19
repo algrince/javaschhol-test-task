@@ -1,5 +1,6 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.repositories.CategoriesRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,8 @@ public class CategoriesService {
     @Transactional(readOnly = true)
     public Category findById(Long id) {
         Optional<Category> foundCategory = categoriesRepository.findById(id);
-        return foundCategory.orElse(null);
+        return foundCategory.orElseThrow(()
+                -> new ResourceNotFoundException("Category not found with id: " + id));
     }
 
     @Transactional

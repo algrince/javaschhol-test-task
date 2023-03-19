@@ -1,5 +1,6 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,8 @@ public class UsersService {
     @Transactional
     public User findOne(Long id) {
         Optional<User> foundUser = usersRepository.findById(id);
-        return foundUser.orElse(null);
+        return foundUser.orElseThrow(()
+                -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
 

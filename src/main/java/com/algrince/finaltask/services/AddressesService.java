@@ -1,5 +1,6 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.AddressesRepository;
@@ -36,7 +37,8 @@ public class AddressesService {
     @Transactional(readOnly = true)
     public Address findById(Long id) {
         Optional<Address> foundAddress = addressesRepository.findById(id);
-        return foundAddress.orElse(null);
+        return foundAddress.orElseThrow(()
+                -> new ResourceNotFoundException("Address not found with id: " + id));
     }
 
     @Transactional(readOnly = true)

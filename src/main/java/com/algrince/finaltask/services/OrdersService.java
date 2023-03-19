@@ -1,5 +1,6 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Order;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.OrdersRepository;
@@ -32,7 +33,8 @@ public class OrdersService {
     @Transactional(readOnly = true)
     public Order findById(Long id) {
         Optional<Order> foundOrder = ordersRepository.findById(id);
-        return foundOrder.orElse(null);
+        return foundOrder.orElseThrow(()
+                -> new ResourceNotFoundException("Order not found with id: " + id));
     }
 
     @Transactional(readOnly = true)
