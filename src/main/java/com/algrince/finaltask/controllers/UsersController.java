@@ -5,14 +5,12 @@ import com.algrince.finaltask.dto.DetailedUserDTO;
 import com.algrince.finaltask.dto.RegistrationUserDTO;
 import com.algrince.finaltask.dto.UserListDTO;
 import com.algrince.finaltask.models.User;
-import com.algrince.finaltask.services.AddressesService;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

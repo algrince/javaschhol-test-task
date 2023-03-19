@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("login")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
+    public ResponseEntity<Object> makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
         String token;
         try {
             token = authService.login(authenticationDTO);

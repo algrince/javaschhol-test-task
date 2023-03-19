@@ -1,8 +1,6 @@
 package com.algrince.finaltask.controllers;
 
-import com.algrince.finaltask.dto.CategoryDTO;
 import com.algrince.finaltask.dto.PropertyDTO;
-import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Property;
 import com.algrince.finaltask.services.PropertiesService;
 import com.algrince.finaltask.utils.DTOMapper;
@@ -44,10 +42,11 @@ public class PropertiesController {
     public ResponseEntity<Object> addProperty(
             @Valid @RequestBody PropertyDTO propertyDTO,
             BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .collect(Collectors.toList());
+                    .toList();
             return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
@@ -57,9 +56,18 @@ public class PropertiesController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<PropertyDTO> updateProperty (
+    public ResponseEntity<Object> updateProperty (
             @PathVariable(value = "id") Long propertyId,
-            @Valid @RequestBody PropertyDTO propertyDTO) {
+            @Valid @RequestBody PropertyDTO propertyDTO,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+            return new ResponseEntity<>(errors, HttpStatus.OK);
+        }
+
         Property foundProperty = propertiesService.findById(propertyId);
         dtoMapper.mapProperties(propertyDTO, foundProperty);
         propertiesService.save(foundProperty);

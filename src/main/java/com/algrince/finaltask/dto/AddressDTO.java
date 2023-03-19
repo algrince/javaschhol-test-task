@@ -1,6 +1,5 @@
 package com.algrince.finaltask.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;

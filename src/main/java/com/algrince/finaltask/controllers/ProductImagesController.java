@@ -2,7 +2,7 @@ package com.algrince.finaltask.controllers;
 
 
 import com.algrince.finaltask.services.ProductImagesService;
-import lombok.Getter;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +22,9 @@ public class ProductImagesController {
     @GetMapping
     public String getImage() {
         try {
-            String image = productImagesService.getImage();
-            return image;
+            return productImagesService.getImage();
         } catch (IOException e){
-            System.out.println(e);
+            System.err.println(e);
         }
         return null;
     }

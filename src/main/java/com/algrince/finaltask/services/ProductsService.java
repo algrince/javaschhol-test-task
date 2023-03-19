@@ -2,6 +2,7 @@ package com.algrince.finaltask.services;
 
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
+import com.algrince.finaltask.models.ProductProperty;
 import com.algrince.finaltask.repositories.ProductsRepository;
 import com.algrince.finaltask.utils.ProductSpecification;
 import com.algrince.finaltask.utils.SearchCriteria;
@@ -17,6 +18,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +28,7 @@ public class ProductsService {
 
     private final ProductsRepository productsRepository;
     private final CategoriesService categoriesService;
+    private final ProductPropertiesService productPropertiesService;
     private final EntityManager entityManager;
 
     public Page<Product> selectProducts(
@@ -43,6 +47,26 @@ public class ProductsService {
         }
         ProductSpecification categorySpec = new ProductSpecification(
                 new SearchCriteria("category", ":", foundCategory));
+
+//        List<Long> propertyValuesId
+//        List<ProductProperty> foundProductProperties = new ArrayList<>();
+//        List<ProductSpecification> propertyValuesSpecs = new ArrayList<>();
+//        if (!propertyValuesId.isEmpty()) {
+//            for (Long ppId : propertyValuesId) {
+//                ProductProperty foundProductProperty = productPropertiesService.findById(ppId);
+//                propertyValuesSpecs.add(new ProductSpecification(
+//                        new SearchCriteria("propertyValues")
+//                ))
+//            }
+//
+//            for (ProductProperty productProperty : productProperties) {
+//                productSpecs.add(new ProductSpecification(
+//                        new SearchCriteria("productProperty", ":", productProperty)));
+//            }
+//        }
+
+
+
 
         ProductSpecification minPriceSpec = new ProductSpecification(
                 new SearchCriteria("price", ">", minPrice));

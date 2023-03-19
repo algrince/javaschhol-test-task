@@ -1,11 +1,8 @@
 package com.algrince.finaltask.services;
 
-import com.algrince.finaltask.dto.UserListDTO;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.UsersRepository;
-import com.algrince.finaltask.utils.DTOMapper;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

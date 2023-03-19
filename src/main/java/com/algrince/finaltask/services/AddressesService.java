@@ -1,6 +1,5 @@
 package com.algrince.finaltask.services;
 
-import com.algrince.finaltask.dto.AddressDTO;
 import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.AddressesRepository;
@@ -22,9 +21,9 @@ public class AddressesService {
         List<Address> addresses = null;
         if (userId != null) {
             User foundUser = usersService.findOne(userId);
-            addresses = findByUser(foundUser);
+            addresses = addressesRepository.findByOwner(foundUser);
         } else {
-            addresses = findAll();
+            addresses = addressesRepository.findAll();
         }
         return addresses;
     }

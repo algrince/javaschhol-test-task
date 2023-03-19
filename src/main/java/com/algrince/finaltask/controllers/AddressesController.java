@@ -46,7 +46,7 @@ public class AddressesController {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .collect(Collectors.toList());
+                    .toList();
             return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
@@ -75,7 +75,7 @@ public class AddressesController {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .collect(Collectors.toList());
+                    .toList();
             return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
