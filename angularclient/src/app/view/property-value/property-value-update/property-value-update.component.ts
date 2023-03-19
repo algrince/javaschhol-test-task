@@ -15,6 +15,7 @@ export class PropertyValueUpdateComponent implements OnInit {
     propertyValueId: number;
     propertyValue: PropertyValue;
     properties: Property[];
+    errors: string[];
 
     constructor(
         private route: ActivatedRoute,
@@ -36,7 +37,14 @@ export class PropertyValueUpdateComponent implements OnInit {
 
     onSubmit() {
         this.propertyValueService.update(this.propertyValueId, this.propertyValue)
-            .subscribe(result => this.gotoPropertyValuesList());
+            .subscribe(
+                result => {
+                    if (Array.isArray(result)) {
+                        this.errors = result;
+                    } else {
+                        this.gotoPropertyValuesList();
+                    }
+                })
     }
 
     gotoPropertyValuesList() {

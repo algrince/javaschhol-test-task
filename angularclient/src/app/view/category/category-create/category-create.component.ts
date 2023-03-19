@@ -26,7 +26,6 @@ export class CategoryCreateComponent {
                 result => {
                     if (Array.isArray(result)) {
                         this.errors = result;
-                        console.log(this.errors);
                     } else {
                         this.gotoCategory();
                     }

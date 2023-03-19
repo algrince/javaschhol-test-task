@@ -18,8 +18,8 @@ public class DetailedUserDTO {
 
     private Long id;
 
-    @NotEmpty(message = "{name.notempty}")
-    @Size(min = 2, max = 45, message = "{name.size}")
+    @NotEmpty(message = "Name should not be empty")
+    @Size(max = 45, message = "Name should not be longer than 45 characters")
     private String name;
 
 
@@ -35,6 +35,6 @@ public class DetailedUserDTO {
 
 
     @NotEmpty(message = "Email should not be empty")
-    @Email
+    @Email(message = "Email is invalid")
     private String email;
 }

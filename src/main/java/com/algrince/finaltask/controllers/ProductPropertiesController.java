@@ -42,6 +42,7 @@ public class ProductPropertiesController {
     public ResponseEntity<Object> addProductProperty(
             @Valid @RequestBody ProductPropertyDTO productPropertyDTO,
             BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -49,15 +50,24 @@ public class ProductPropertiesController {
             return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
-        ProductProperty productProperty =dtoMapper.mapClass(productPropertyDTO, ProductProperty.class);
+        ProductProperty productProperty = dtoMapper.mapClass(productPropertyDTO, ProductProperty.class);
         productPropertiesService.save(productProperty);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ProductPropertyDTO> updateProductProperty(
+    public ResponseEntity<Object> updateProductProperty(
             @PathVariable(value = "id") Long productPropertyId,
-            @Valid @RequestBody ProductPropertyDTO productPropertyDTO) {
+            @Valid @RequestBody ProductPropertyDTO productPropertyDTO,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(errors, HttpStatus.OK);
+        }
+
         ProductProperty foundProductProperty = productPropertiesService.findById(productPropertyId);
         dtoMapper.mapProperties(productPropertyDTO, foundProductProperty);
         productPropertiesService.save(foundProductProperty);

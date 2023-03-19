@@ -11,6 +11,7 @@ import { PropertyService } from '../../../service/property.service';
 export class PropertyCreateComponent {
 
     property: Property;
+    errors: string[];
 
     constructor(
         private route: ActivatedRoute,
@@ -21,7 +22,15 @@ export class PropertyCreateComponent {
 
     onSubmit() {
         this.propertyService.save(this.property)
-            .subscribe(result => this.gotoPropertiesList());
+            .subscribe(
+                result => {
+                    if (Array.isArray(result)) {
+                        this.errors = result;
+                    } else {
+                        this.gotoPropertiesList();
+                    }
+                })
+
     }
 
     gotoPropertiesList() {

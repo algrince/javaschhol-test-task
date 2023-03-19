@@ -12,6 +12,7 @@ export class AddressUpdateComponent implements OnInit {
 
     addressId: number;
     address: Address;
+    errors: string[];
 
     constructor(
         private route: ActivatedRoute,
@@ -29,10 +30,18 @@ export class AddressUpdateComponent implements OnInit {
 
     onSubmit() {
         this.addressService.update(this.addressId, this.address)
-            .subscribe(result => this.gotoHomepage());
+            .subscribe(
+                result => {
+                    if (Array.isArray(result)) {
+                        this.errors = result;
+                    } else {
+                        this.gotoHomepage();
+                    }
+                })
+
     }
 
     gotoHomepage() {
-    this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
     }
 }

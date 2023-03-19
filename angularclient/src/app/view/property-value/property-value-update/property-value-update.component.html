@@ -1,11 +1,21 @@
 <div class="row d-flex my-4 justify-content-center">
     <p class="h4 col-auto">Update property value</p>
-    <small>Should be available only for store employees</small>
+    <div class="col-md-12"></div>
+    <small class="col-auto">Should be available only for store employees</small>
 </div>
 
 <form (ngSubmit)="onSubmit()" #propertyValueForm="ngForm" class="card-body row d-flex justify-content-center">
 
     <div class="row g-3 col-md-6 col-sm-4 col-xs-12">
+
+        <div *ngIf="errors">
+            <div class="alert alert-danger col-md-6" role="alert">
+                <p>Your form contains following errors:</p>
+                <ul *ngFor="let error of errors">
+                    <li>{{ error }}</li>
+                </ul>
+            </div>
+        </div>
 
         <div class="form-group col-md-6">
             <label for="property" class="form-label">Property</label>

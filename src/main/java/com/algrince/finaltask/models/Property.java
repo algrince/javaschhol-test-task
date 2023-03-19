@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Property {
 
     @Column(name = "name")
     @NotEmpty
+    @Length(max = 45)
     private String name;
 
     @Column(name = "deleted")

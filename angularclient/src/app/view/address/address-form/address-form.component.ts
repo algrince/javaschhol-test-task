@@ -12,6 +12,7 @@ import { AddressService } from '../../../service/address.service';
 export class AddressFormComponent {
 
     address: Address;
+    errors: string[];
 
     constructor(
         private route: ActivatedRoute,
@@ -22,7 +23,15 @@ export class AddressFormComponent {
 
 
   onSubmit() {
-    this.addressService.save(this.address).subscribe(result => this.gotoUserList());
+    this.addressService.save(this.address)
+        .subscribe(
+            result => {
+                if (Array.isArray(result)) {
+                    this.errors = result;
+                } else {
+                    this.gotoUserList();
+                }
+            })
   }
 
   gotoUserList() {

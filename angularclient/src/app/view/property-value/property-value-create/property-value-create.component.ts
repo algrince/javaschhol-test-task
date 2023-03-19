@@ -14,6 +14,7 @@ export class PropertyValueCreateComponent implements OnInit {
 
     properties: Property[];
     propertyValue: PropertyValue;
+    errors: string[];
 
     constructor(
         private route: ActivatedRoute,
@@ -31,7 +32,14 @@ export class PropertyValueCreateComponent implements OnInit {
 
     onSubmit() {
         this.propertyValueService.save(this.propertyValue)
-            .subscribe(result => this.gotoPropertyValuesList());
+            .subscribe(
+                result => {
+                    if (Array.isArray(result)) {
+                        this.errors = result;
+                    } else {
+                        this.gotoPropertyValuesList();
+                    }
+                })
     }
 
     gotoPropertyValuesList() {

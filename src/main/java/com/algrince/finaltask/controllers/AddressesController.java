@@ -37,10 +37,12 @@ public class AddressesController {
         return dtoMapper.mapList(addresses, AddressDTO.class);
     }
 
-    // TODO add user security (principal?)
+
     @PostMapping
-    public ResponseEntity<Object> addAddress(@Valid @RequestBody AddressDTO addressDTO,
-                                             BindingResult bindingResult) {
+    public ResponseEntity<Object> addAddress(
+            @Valid @RequestBody AddressDTO addressDTO,
+            BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -65,9 +67,18 @@ public class AddressesController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<AddressDTO> updateAddress (
+    public ResponseEntity<Object> updateAddress (
             @PathVariable(value = "id") Long addressId,
-            @Valid @RequestBody AddressDTO addressDTO) {
+            @Valid @RequestBody AddressDTO addressDTO,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(errors, HttpStatus.OK);
+        }
+
         Address foundAddress = addressesService.findById(addressId);
         dtoMapper.mapProperties(addressDTO, foundAddress);
         addressesService.save(foundAddress);

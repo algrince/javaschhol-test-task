@@ -1,40 +1,46 @@
 package com.algrince.finaltask.dto;
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @Setter
 @Getter
 public class AddressDTO {
 
     private Long id;
-    @NotEmpty
+    @NotEmpty(message = "Country cannot be empty")
+    @Length(max = 45, message = "County name cannot be longer than 45 characters")
     private String country;
 
 
-    @NotEmpty
+    @NotEmpty(message = "City cannot be empty")
+    @Length(max = 45, message = "City name cannot be longer than 45 characters")
     private String city;
 
-    @NotNull
+    @NotNull(message = "Postal code cannot be empty")
+    @Min(value = 1, message = "Value of postal code is invalid")
+    @Max(value = 1000000, message = "Value of postal code is invalid")
     private int postalCode;
 
 
-    @NotEmpty
+    @NotEmpty(message = "Street cannot be empty")
+    @Length(max = 45, message = "Street name cannot be longer than 45 characters")
     private String street;
 
 
-    @NotNull
+    @NotNull(message = "Home number cannot be empty")
+    @Min(value = 1, message = "Home number should be valid")
     private int home;
 
 
-    @NotNull
+    @NotNull(message = "Apartment number cannot be empty")
+    @Min(value = 1, message = "Apartment number should be valid")
     private int apartment;
 
 
-    @Size(max = 1)
+    @Length(max = 1, message = "The door indication cannot be longer than 1 character")
     private String door;
 }

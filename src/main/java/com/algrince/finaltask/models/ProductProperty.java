@@ -28,7 +28,6 @@ public class ProductProperty {
 
 
     @ManyToMany(mappedBy = "propertyValues")
-
     private List<Product> products;
 
     @Column(name = "value")
