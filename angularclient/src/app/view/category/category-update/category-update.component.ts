@@ -12,6 +12,7 @@ export class CategoryUpdateComponent implements OnInit {
 
     categoryId: number;
     category: Category;
+    errors: string[];
 
     constructor(
         private route: ActivatedRoute,
@@ -29,10 +30,18 @@ export class CategoryUpdateComponent implements OnInit {
 
     onSubmit() {
         this.categoryService.update(this.categoryId, this.category)
-            .subscribe(result => this.gotoProductList());
+            .subscribe(
+                result => {
+                    if (Array.isArray(result)) {
+                        this.errors = result;
+                        console.log(this.errors);
+                    } else {
+                        this.gotoCategory();
+                    }
+                })
     }
 
-    gotoProductList() {
-        this.router.navigate(['/products']);
+    gotoCategory() {
+        this.router.navigate(['/category/1']);
     }
 }

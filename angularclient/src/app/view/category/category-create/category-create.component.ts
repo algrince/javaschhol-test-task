@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '../../../model/category';
 import { CategoryService } from '../../../service/category.service';
 
-
 @Component({
   selector: 'app-category-create',
   templateUrl: './category-create.component.html',
@@ -12,6 +11,7 @@ import { CategoryService } from '../../../service/category.service';
 export class CategoryCreateComponent {
 
     category: Category;
+    errors: string[];
 
     constructor(
         private route: ActivatedRoute,
@@ -22,10 +22,19 @@ export class CategoryCreateComponent {
 
     onSubmit() {
         this.categoryService.save(this.category)
-            .subscribe(result => this.gotoProductList());
+            .subscribe(
+                result => {
+                    if (Array.isArray(result)) {
+                        this.errors = result;
+                        console.log(this.errors);
+                    } else {
+                        this.gotoCategory();
+                    }
+                })
+
     }
 
-    gotoProductList() {
-        this.router.navigate(['/products']);
+    gotoCategory() {
+        this.router.navigate(['/category/1']);
     }
 }

@@ -1,6 +1,7 @@
 package com.algrince.finaltask.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class Category {
     private Long id;
 
     @Column(name = "name", unique = true)
+    @NotEmpty
     private String name;
 
     @Column(name = "deleted")

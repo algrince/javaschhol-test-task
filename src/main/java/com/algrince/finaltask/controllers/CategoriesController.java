@@ -38,8 +38,9 @@ public class CategoriesController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> addCategory(@Valid @RequestBody CategoryDTO categoryDTO,
-                                              BindingResult bindingResult) {
+    public ResponseEntity<Object> addCategory(
+            @Valid @RequestBody CategoryDTO categoryDTO,
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -53,9 +54,18 @@ public class CategoriesController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<CategoryDTO> updateCategory (
+    public ResponseEntity<Object> updateCategory (
             @PathVariable(value = "id") Long categoryId,
-            @Valid @RequestBody CategoryDTO categoryDTO) {
+            @Valid @RequestBody CategoryDTO categoryDTO,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(errors, HttpStatus.OK);
+        }
+
         Category foundCategory = categoriesService.findById(categoryId);
         dtoMapper.mapProperties(categoryDTO, foundCategory);
         categoriesService.save(foundCategory);
