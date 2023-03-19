@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "addresses")
@@ -57,4 +59,7 @@ public class Address {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private User owner;
+
+    @OneToMany(mappedBy = "address")
+    private List<Order> orders;
 }

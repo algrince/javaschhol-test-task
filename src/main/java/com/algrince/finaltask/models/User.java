@@ -58,4 +58,6 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade={CascadeType.ALL})
     private List<Address> addresses;
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 }

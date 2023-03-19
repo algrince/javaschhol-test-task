@@ -2,7 +2,6 @@ package com.algrince.finaltask.controllers;
 
 
 import com.algrince.finaltask.dto.AddressDTO;
-import com.algrince.finaltask.dto.UserListDTO;
 import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.AddressesService;
@@ -17,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("addresses")

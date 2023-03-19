@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,4 +38,5 @@ public class DetailedUserDTO {
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email is invalid")
     private String email;
+
 }

@@ -1,25 +1,45 @@
-<div class="card-body row d-flex justify-content-center">
-    <div class="card col-md-6 my-4">
-        <img [src]="imageSrc" class="img-fluid rounded float-start" alt="Product image">
-        <p class="fs-2">{{ product.title }}</p>
-        <p class="text-primary">{{ product.price }} €</p>
-        <p>{{ product.category.name }}</p>
-        <p>Weight: {{ product.weight }}</p>
-        <p>Volume: {{ product.volume }}</p>
-        <p>Stock: {{ product.stock }}</p>
-        <div class="btn-group my-2" role="group">
-            <a routerLink="#" class="btn btn-outline-success">Add to cart</a>
-            <a routerLink="#" class="btn btn-outline-success">Shop now</a>
+<div class="card-body row d-flex justify-content-center my-4">
+        <div class="col-md-3">
+            <p class="fs-2">{{ product.title }}</p>
+            <p class="fs-5">{{ product.category.name }}</p>
+            <p class="text-primary h4">{{ product.price }} €</p>
+            <div *ngFor="let propertyValue of product.propertyValues" class="mt-5">
+                <p class="fs-5">
+                    <span class="fw-bolder">{{ propertyValue.property.name }}:  </span>
+                    {{ propertyValue.propertyValue }} </p>
+            </div>
+            <p class="fs-6"><span class="fw-bolder">Weight: </span>{{ product.weight }}</p>
+            <p class="fs-6"><span class="fw-bolder">Volume: </span>{{ product.volume }}</p>
+            <p class="fs-6"><span class="fw-bolder">Stock: </span>{{ product.stock }}</p>
+            <form class="col-md-6">
+                <input type="number"
+                       class="form-control mb-3"
+                       id="quantity"
+                       name="quantity"
+                       placeholder="Enter quantity to buy"
+                       required >
+
+                <div class="btn-group my-2" role="group">
+                    <a routerLink="#" class="btn btn-outline-success">Add to cart</a>
+                    <a routerLink="#" class="btn btn-outline-success">Shop now</a>
+                </div>
+            </form>
         </div>
-    </div>
-    <div class="col-md-12"></div>
-    <div class="card col-md-6">
-        <small>Employees' card</small>
+        <div class="col-md-3">
+            <img [src]="imageSrc" class="img-fluid rounded float-left" alt="Product image">
+        </div>
+
+
+
+
+    <div class="col-md-12 my-4"></div>
+    <div class="card col-md-4">
+        <p class="my-2">Employee's card</p>
         <div class="btn-group my-2" role="group">
             <a routerLink="./update" class="btn btn-outline-success">Update product</a>
             <a routerLink="./delete" class="btn btn-outline-danger">Delete product</a>
         </div>
     </div>
     <div class="col-md-12"></div>
-    <a routerLink="/products" class="btn btn-outline-primary col-md-3 my-4">Back to all products</a>
+    <a routerLink="/products" class="btn btn-outline-primary col-auto my-4">Back to all products</a>
 </div>
