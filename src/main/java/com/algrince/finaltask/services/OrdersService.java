@@ -18,6 +18,7 @@ public class OrdersService {
 
     private final OrdersRepository ordersRepository;
     private final UsersService usersService;
+    private final OrderProductsService orderProductsService;
 
     public List<Order> selectOrders(Long userId) {
         List<Order> orders = null;
@@ -44,6 +45,7 @@ public class OrdersService {
 
     @Transactional
     public void save(Order order) {
+        orderProductsService.updateProductStock(order.getId());
         ordersRepository.save(order);
     }
 

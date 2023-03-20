@@ -114,4 +114,12 @@ public class ProductsService {
         product.setDeleted(true);
         productsRepository.save(product);
     }
+
+    @Transactional
+    public void updateStock(Long productId, int boughtQuantity) {
+        Product foundProduct = findById(productId);
+        foundProduct.setStock(
+                foundProduct.getStock() - boughtQuantity);
+        productsRepository.save(foundProduct);
+    }
 }
