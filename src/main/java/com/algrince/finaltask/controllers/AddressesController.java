@@ -82,8 +82,8 @@ public class AddressesController {
         Address foundAddress = addressesService.findById(addressId);
         dtoMapper.mapProperties(addressDTO, foundAddress);
         addressesService.save(foundAddress);
-        AddressDTO newAddressDTO = dtoMapper.mapClass(foundAddress, AddressDTO.class);
-        return ResponseEntity.ok().body(newAddressDTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

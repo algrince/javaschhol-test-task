@@ -71,8 +71,8 @@ public class ProductPropertiesController {
         ProductProperty foundProductProperty = productPropertiesService.findById(productPropertyId);
         dtoMapper.mapProperties(productPropertyDTO, foundProductProperty);
         productPropertiesService.save(foundProductProperty);
-        ProductPropertyDTO newProductPropertyDTO = dtoMapper.mapClass(foundProductProperty, ProductPropertyDTO.class);
-        return ResponseEntity.ok().body(newProductPropertyDTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

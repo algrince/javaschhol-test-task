@@ -43,14 +43,13 @@ public class UsersController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<RegistrationUserDTO> updateUser(
+    public ResponseEntity<Object> updateUser(
             @PathVariable(value = "id") Long userId,
             @Valid @RequestBody RegistrationUserDTO registrationUserDTO) {
         User foundUser = usersService.findOne(userId);
         dtoMapper.mapProperties(registrationUserDTO, foundUser);
         usersService.save(foundUser);
-        RegistrationUserDTO newUserDTO = dtoMapper.mapClass(foundUser, RegistrationUserDTO.class);
-        return ResponseEntity.ok().body(newUserDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

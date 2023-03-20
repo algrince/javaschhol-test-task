@@ -69,8 +69,8 @@ public class CategoriesController {
         Category foundCategory = categoriesService.findById(categoryId);
         dtoMapper.mapProperties(categoryDTO, foundCategory);
         categoriesService.save(foundCategory);
-        CategoryDTO newCategoryDTO = dtoMapper.mapClass(foundCategory, CategoryDTO.class);
-        return ResponseEntity.ok().body(newCategoryDTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

@@ -71,8 +71,8 @@ public class PropertiesController {
         Property foundProperty = propertiesService.findById(propertyId);
         dtoMapper.mapProperties(propertyDTO, foundProperty);
         propertiesService.save(foundProperty);
-        PropertyDTO newPropertyDTO = dtoMapper.mapClass(foundProperty, PropertyDTO.class);
-        return ResponseEntity.ok().body(newPropertyDTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

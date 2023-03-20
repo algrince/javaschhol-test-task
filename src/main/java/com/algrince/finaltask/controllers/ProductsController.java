@@ -70,14 +70,13 @@ public class ProductsController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ProductsDTO> updateProduct (
+    public ResponseEntity<String> updateProduct (
             @PathVariable(value = "id") Long productId,
             @Valid @RequestBody ProductsDTO productsDTO) {
         Product foundProduct = productsService.findById(productId);
         dtoMapper.mapProperties(productsDTO, foundProduct);
         productsService.save(foundProduct);
-        ProductsDTO newProductDTO = dtoMapper.mapClass(foundProduct, ProductsDTO.class);
-        return ResponseEntity.ok().body(newProductDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
