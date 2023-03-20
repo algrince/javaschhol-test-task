@@ -65,8 +65,8 @@ public class Product {
     )
     private List<ProductProperty> propertyValues;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Order> orders;
+    @OneToMany(mappedBy = "product")
+    private List<OrderProduct> orderProducts;
 
     @Column(name = "deleted")
     private boolean isDeleted;
