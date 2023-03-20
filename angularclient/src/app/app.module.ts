@@ -5,6 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 
 import { HomeComponent } from './view/home/home.component';
 
@@ -40,6 +43,7 @@ import { PropertyValueListComponent } from './view/property-value/property-value
 import { PropertyValueCreateComponent } from './view/property-value/property-value-create/property-value-create.component';
 import { PropertyValueUpdateComponent } from './view/property-value/property-value-update/property-value-update.component';
 import { PropertyValueDeleteComponent } from './view/property-value/property-value-delete/property-value-delete.component';
+import { OrderFormComponent } from './view/order/order-form/order-form.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +74,8 @@ import { PropertyValueDeleteComponent } from './view/property-value/property-val
     PropertyValueListComponent,
     PropertyValueCreateComponent,
     PropertyValueUpdateComponent,
-    PropertyValueDeleteComponent
+    PropertyValueDeleteComponent,
+    OrderFormComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +83,8 @@ import { PropertyValueDeleteComponent } from './view/property-value/property-val
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    MatRadioModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

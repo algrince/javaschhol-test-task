@@ -1,0 +1,88 @@
+<div class="row d-flex justify-content-center">
+    <p class="h4 my-4 col-auto">Order</p>
+</div>
+
+<form (ngSubmit)="onSubmit()" #productForm="ngForm" class="card-body row d-flex justify-content-center">
+
+    <div class="row g-3 col-md-6 col-sm-4 col-xs-12">
+
+        <div class="form-group col-md-12">
+            <p class="fs-4">Products</p>
+
+            <table class="table">
+                <thead class="thead-white">
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of items">
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>{{ item.subTotal }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12"><hr/></div>
+
+        <div class="form-group col-md-6">
+            <p class="fs-4">Please chose address</p>
+
+            <mat-radio-group
+                    aria-labelledby="address"
+                    [(ngModel)]="order.address">
+                <mat-radio-button *ngFor="let address of addresses"
+                                  [value]="order.address"
+                                  >
+                    {{ address.postalCode}}, {{ address.country }}, {{ address.city }}, {{ address.street }} {{ address.home }}, {{ address.home }}{{ address.apartment }}
+                </mat-radio-button>
+            </mat-radio-group>
+
+        </div>
+
+        <div class="col-md-6">
+            <p class="fs-5">...or add new address</p>
+            <a routerLink="/addresses/new" class="btn btn-outline-success">Add new address</a>
+        </div>
+
+        <div class="col-md-12"><hr/></div>
+
+        <div class="form-group col-md-6 form-check">
+            <p class="fs-4">Please chose delivery method</p>
+
+            <mat-radio-group
+                    aria-labelledby="delivery_method"
+                    [(ngModel)]="order.deliveryMethod">
+                <mat-radio-button [value]="order.deliveryMethod.STANDARD">Standard: 3 - 5 days</mat-radio-button>
+                <mat-radio-button [value]="order.deliveryMethod.EXPRESS">Express: 24 hours</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col-md-12"><hr/></div>
+
+        <div class="form-group col-md-6 form-check">
+            <p class="fs-4">Please chose payment method</p>
+
+            <mat-radio-group
+                    aria-labelledby="payment_method"
+                    [(ngModel)]="order.paymentMethod">
+                <mat-radio-button [value]="order.paymentMethod.CARD">Card</mat-radio-button>
+                <mat-radio-button [value]="order.paymentMethod.CASH">Cash</mat-radio-button>
+            </mat-radio-group>
+
+        </div>
+
+        <div class="col-md-12"><hr/></div>
+
+        <div class="col-auto">
+            <button type="submit"
+                    class="btn btn-outline-primary text-nowrap">Confirm</button>
+        </div>
+
+        </div>
+
+</form>

@@ -35,6 +35,8 @@ import { PropertyValueCreateComponent } from './view/property-value/property-val
 import { PropertyValueUpdateComponent } from './view/property-value/property-value-update/property-value-update.component';
 import { PropertyValueDeleteComponent } from './view/property-value/property-value-delete/property-value-delete.component';
 
+import { OrderFormComponent } from './view/order/order-form/order-form.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -63,7 +65,8 @@ const routes: Routes = [
   { path: 'propertyValues', component: PropertyValueListComponent },
   { path: 'propertyValues/new', component: PropertyValueCreateComponent },
   { path: 'propertyValues/:id/update', component: PropertyValueUpdateComponent },
-  { path: 'propertyValues/:id/delete', component: PropertyValueDeleteComponent }
+  { path: 'propertyValues/:id/delete', component: PropertyValueDeleteComponent },
+  { path: 'order', component: OrderFormComponent }
 ];
 
 @NgModule({
