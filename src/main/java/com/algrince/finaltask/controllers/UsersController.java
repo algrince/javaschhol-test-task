@@ -39,7 +39,6 @@ public class UsersController {
     public ResponseEntity<DetailedUserDTO> getUser(@PathVariable("id") Long id) {
         User foundUser = usersService.findOne(id);
         DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
-        // TODO introduce user not found handling
         return ResponseEntity.ok().body(foundUserDTO);
     }
 

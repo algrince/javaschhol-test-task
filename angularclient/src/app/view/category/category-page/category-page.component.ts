@@ -70,7 +70,7 @@ export class CategoryPageComponent implements OnInit{
     }
 
     getImage() {
-        this.imageService.getImage()
+        this.imageService.getImage({id: 0})
             .subscribe(data =>
                 {this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
     }

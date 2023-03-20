@@ -4,10 +4,7 @@ package com.algrince.finaltask.controllers;
 import com.algrince.finaltask.services.ProductImagesService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -20,9 +17,9 @@ public class ProductImagesController {
     private final ProductImagesService productImagesService;
 
     @GetMapping
-    public String getImage() {
+    public String getImage(@RequestParam(required = false) Long id) {
         try {
-            return productImagesService.getImage();
+            return productImagesService.getImage(id);
         } catch (IOException e){
             System.err.println(e);
         }
