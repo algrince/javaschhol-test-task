@@ -25,7 +25,7 @@ public class OrdersService {
     public List<Order> selectOrders(Long userId) {
         List<Order> orders = null;
         if (userId != null) {
-            User foundUser = usersService.findOne(userId);
+            User foundUser = usersService.findById(userId);
             orders = ordersRepository.findByUser(foundUser);
         } else {
             orders = ordersRepository.findAll();

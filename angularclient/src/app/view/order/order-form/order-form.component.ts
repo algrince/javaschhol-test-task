@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Address } from '../../../model/address';
+import { User } from '../../../model/user';
 import { AddressService } from '../../../service/address.service';
 import { OrderService } from '../../../service/order.service';
 import { CartService } from '../../../service/cart.service';
 import { Order, OrderStatus, PaymentStatus, PaymentMethod, DeliveryMethod } from '../../../model/order';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-order-form',
@@ -15,10 +16,11 @@ import { Order, OrderStatus, PaymentStatus, PaymentMethod, DeliveryMethod } from
 
 export class OrderFormComponent implements OnInit {
 
-    userId: number = 25;
     addresses: Address[];
     items = [];
     order: Order;
+    userId: number;
+    user: User;
 
 
     constructor(
@@ -26,9 +28,9 @@ export class OrderFormComponent implements OnInit {
         private orderService: OrderService,
         private cartService: CartService,
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private cookieService: CookieService) {
             this.order = new Order();
-
         }
 
     ngOnInit() {
@@ -41,6 +43,8 @@ export class OrderFormComponent implements OnInit {
         this.order.orderStatus = OrderStatus.PENDING_PAYMENT;
         this.order.paymentStatus = PaymentStatus.PENDING;
 
+        this.userId = parseInt(this.cookieService.get("userId"));
+        this.user.id = this.userId;
     }
 
       get total() {
@@ -64,10 +68,13 @@ export class OrderFormComponent implements OnInit {
         this.order.products = this.items;
         this.order.orderSum = this.total;
 
-        this.cartService.clearCart(this.items);
+        this.order.user = this.user;
 
         this.orderService.save(this.order)
-            .subscribe(result => this.gotoProductList());
+            .subscribe(result => {
+                this.cartService.clearCart(this.items);
+                this.gotoProductList();
+            });
 
     }
 

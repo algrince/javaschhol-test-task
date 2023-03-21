@@ -6,6 +6,7 @@ import { CategoryService } from '../../../service/category.service';
 import { ImageService } from '../../../service/image.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-product-list',
@@ -24,12 +25,15 @@ export class ProductListComponent implements OnInit {
     imageSrc: any;
     minPrice?: number;
     maxPrice?: number;
+    role: string;
+    roleExists: boolean;
 
     constructor(
         private productService: ProductService,
         private categoryService: CategoryService,
         private imageService: ImageService,
-        private sanitizer: DomSanitizer) {
+        private sanitizer: DomSanitizer,
+        private cookieService: CookieService) {
     }
 
     ngOnInit() {
@@ -37,6 +41,9 @@ export class ProductListComponent implements OnInit {
 
         this.categoryService.findAll()
             .subscribe(data => {this.categories = data;})
+
+        this.roleExists = this.cookieService.check("userRole");
+        this.role = this.cookieService.get("userRole");
     }
 
     getImage() {

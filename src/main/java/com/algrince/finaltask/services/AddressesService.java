@@ -21,7 +21,7 @@ public class AddressesService {
     public List<Address> selectAddresses(Long userId) {
         List<Address> addresses = null;
         if (userId != null) {
-            User foundUser = usersService.findOne(userId);
+            User foundUser = usersService.findById(userId);
             addresses = addressesRepository.findByOwner(foundUser);
         } else {
             addresses = addressesRepository.findAll();

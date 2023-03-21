@@ -51,9 +51,11 @@ public class AddressesController {
 
 //        TODO add address already exists (unique field??)
         Address address = dtoMapper.mapClass(addressDTO, Address.class);
-//        For now setting address owner es manual: will be changed later
-        User user = usersService.findOne(25L);
-        address.setOwner(user);
+
+//      detached entity passed to persist: com.algrince.finaltask.models.User
+        User associatedUser = usersService.findById(addressDTO.getOwner().getId());
+        address.setOwner(associatedUser);
+
         addressesService.save(address);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

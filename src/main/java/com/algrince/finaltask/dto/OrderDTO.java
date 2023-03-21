@@ -4,6 +4,7 @@ import com.algrince.finaltask.enums.DeliveryMethod;
 import com.algrince.finaltask.enums.OrderStatus;
 import com.algrince.finaltask.enums.PaymentMethod;
 import com.algrince.finaltask.enums.PaymentStatus;
+import com.algrince.finaltask.models.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,4 +27,6 @@ public class OrderDTO {
     private AddressDTO address;
 
     private java.util.Calendar createdDate;
+
+    private User user;
 }

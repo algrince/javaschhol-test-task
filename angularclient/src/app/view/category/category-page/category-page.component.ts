@@ -5,6 +5,7 @@ import { Category } from '../../../model/category';
 import { ProductService } from '../../../service/product.service';
 import { CategoryService } from '../../../service/category.service';
 import { ImageService } from '../../../service/image.service';
+import { CookieService } from 'ngx-cookie-service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -27,11 +28,14 @@ export class CategoryPageComponent implements OnInit{
     imageSrc: any;
     minPrice: any;
     maxPrice: any;
+    role: string;
+    roleExists: boolean;
 
     constructor(
         private productService: ProductService,
         private categoryService: CategoryService,
         private imageService: ImageService,
+        private cookieService: CookieService,
         private sanitizer: DomSanitizer,
         private router: Router,
         private route: ActivatedRoute) {
@@ -51,6 +55,9 @@ export class CategoryPageComponent implements OnInit{
                     .subscribe(data => {this.categories = data})
             }
         )
+
+        this.roleExists = this.cookieService.check("userRole");
+        this.role = this.cookieService.get("userRole");
     }
 
     public getCategory() {

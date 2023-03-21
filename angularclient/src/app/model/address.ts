@@ -1,3 +1,5 @@
+import { User } from '../model/user';
+
 export class Address {
     id: number;
     country: string;
@@ -7,5 +9,5 @@ export class Address {
     home: number;
     apartment: number;
     door: string;
-
+    owner: User;
 }

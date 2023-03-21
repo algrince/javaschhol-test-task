@@ -89,23 +89,24 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6"></div>
     <ngb-pagination [collectionSize]="totalElements"
                     [(page)]="page"
                     [pageSize]="size"
                     [maxSize]="5"
                     [rotate]="true"
-                    [boundaryLinks]="true" (pageChange)="onPageChange(page)" class="col-auto"></ngb-pagination>
+                    [boundaryLinks]="true" (pageChange)="onPageChange(page)" class="col-md-6"></ngb-pagination>
 
 
 </div>
 
 <div class="card-body row d-flex justify-content-center">
-    <div class="btn-group my-4 col-md-4" role="group">
+    <div class="btn-group my-4 col-md-4" role="group" [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">
         <a routerLink="./update" class="btn btn-outline-success">Update category</a>
         <a routerLink="./delete" class="btn btn-outline-danger">Delete category</a>
     </div>
     <div class="col-md-12"></div>
-    <div class="col-auto">
+    <div class="col-auto" [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">
         <a routerLink="/category/new" class="btn btn-outline-primary">New category</a>
     </div>
 </div>

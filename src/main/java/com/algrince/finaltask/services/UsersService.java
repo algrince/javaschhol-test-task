@@ -50,13 +50,12 @@ public class UsersService {
         usersRepository.save(user);
     }
 
-    @Transactional
-    public User findOne(Long id) {
+    @Transactional(readOnly = true)
+    public User findById(Long id) {
         Optional<User> foundUser = usersRepository.findById(id);
         return foundUser.orElseThrow(()
                 -> new ResourceNotFoundException("User not found with id: " + id));
     }
-
 
     @Transactional
     public void save(User user) {

@@ -1,5 +1,6 @@
 package com.algrince.finaltask.dto;
 
+import com.algrince.finaltask.models.User;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,4 +43,6 @@ public class AddressDTO {
 
     @Length(max = 1, message = "The door indication cannot be longer than 1 character")
     private String door;
+
+    private LoggedUserDTO owner;
 }

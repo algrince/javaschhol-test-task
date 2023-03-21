@@ -1,13 +1,36 @@
 <nav class="py-2 bg-light border-bottom">
   <div class="container d-flex flex-wrap">
     <ul class="nav me-auto">
-      <li class="nav-item"><a routerLink="/home" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
-      <li class="nav-item"><a routerLink="/products" class="nav-link link-dark px-2">Products</a></li>
-      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Pricing</a></li>
-      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">About</a></li>
-      <li class="nav-item"><a routerLink="/users" class="nav-link link-dark px-2">Users</a></li>
-      <li class="nav-item"><a routerLink="/properties" class="nav-link link-dark px-2">Properties</a></li>
-      <li class="nav-item"><a routerLink="/propertyValues" class="nav-link link-dark px-2">Property Values</a></li>
+      <li class="nav-item">
+        <a routerLink="/home"
+           class="nav-link link-dark px-2 active"
+           aria-current="page">Home</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/products"
+           class="nav-link link-dark px-2">Products</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark px-2">Pricing</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark px-2">About</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/users"
+           class="nav-link link-dark px-2"
+           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Users</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/properties"
+           class="nav-link link-dark px-2"
+           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Properties</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/propertyValues"
+           class="nav-link link-dark px-2"
+           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Property Values</a>
+      </li>
     </ul>
     <div>
       <ul class="nav">

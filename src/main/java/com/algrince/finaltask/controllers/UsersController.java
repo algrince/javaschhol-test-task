@@ -37,7 +37,7 @@ public class UsersController {
 
     @GetMapping("{id}")
     public ResponseEntity<DetailedUserDTO> getUser(@PathVariable("id") Long id) {
-        User foundUser = usersService.findOne(id);
+        User foundUser = usersService.findById(id);
         DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
         return ResponseEntity.ok().body(foundUserDTO);
     }
@@ -46,7 +46,7 @@ public class UsersController {
     public ResponseEntity<Object> updateUser(
             @PathVariable(value = "id") Long userId,
             @Valid @RequestBody RegistrationUserDTO registrationUserDTO) {
-        User foundUser = usersService.findOne(userId);
+        User foundUser = usersService.findById(userId);
         dtoMapper.mapProperties(registrationUserDTO, foundUser);
         usersService.save(foundUser);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -55,7 +55,7 @@ public class UsersController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUser (@PathVariable(value ="id") Long userId) {
-        User userToDelete = usersService.findOne(userId);
+        User userToDelete = usersService.findById(userId);
         usersService.softDelete(userToDelete);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -55,9 +55,11 @@ public class OrdersController {
         }
 
         Order order = dtoMapper.mapClass(orderDTO, Order.class);
-//        Manual setting of user: until login implementation
-        User user = usersService.findOne(25L);
-        order.setUser(user);
+
+//      detached entity passed to persist: com.algrince.finaltask.models.User
+        User associatedUser = usersService.findById(orderDTO.getUser().getId());
+        order.setUser(associatedUser);
+        
         ordersService.saveAndApplyChanges(order);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

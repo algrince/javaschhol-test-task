@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   title: string;
   isHidden = false;
   items = [];
+  role: string;
+  roleExists: boolean;
 
   constructor(public authenticationService: AuthenticationService,
   private cartService: CartService,
@@ -25,6 +27,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.cartService.loadCart();
     this.items = this.cartService.getItems();
+    this.roleExists = this.cookieService.check("userRole");
+    this.role = this.cookieService.get("userRole");
   }
 
   buildLink() {
