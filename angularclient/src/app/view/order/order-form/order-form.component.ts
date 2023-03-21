@@ -38,6 +38,9 @@ export class OrderFormComponent implements OnInit {
         .subscribe(data =>
             this.addresses = data);
 
+        this.order.orderStatus = OrderStatus.PENDING_PAYMENT;
+        this.order.paymentStatus = PaymentStatus.PENDING;
+
     }
 
       get total() {
@@ -50,16 +53,22 @@ export class OrderFormComponent implements OnInit {
         ).price;
       }
 
+    setOrderAsPaid() {
+        this.order.orderStatus = OrderStatus.PENDING_SHIPMENT;
+        this.order.paymentStatus = PaymentStatus.PAID;
+    }
+
 
 
     onSubmit() {
         this.order.products = this.items;
         this.order.orderSum = this.total;
-        this.order.orderStatus = OrderStatus.PENDING_PAYMENT;
-        this.order.paymentStatus = PaymentStatus.PENDING;
+
+        this.cartService.clearCart(this.items);
 
         this.orderService.save(this.order)
             .subscribe(result => this.gotoProductList());
+
     }
 
     gotoProductList() {

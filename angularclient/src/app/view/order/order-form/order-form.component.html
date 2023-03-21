@@ -41,7 +41,7 @@
         <div class="col-md-12"><hr/></div>
 
         <div class="form-group col-md-6">
-            <p class="fs-4">Please chose address</p>
+            <p class="fs-4">Please choose address</p>
 
             <mat-radio-group
                     aria-labelledby="address"
@@ -64,7 +64,7 @@
         <div class="col-md-12"><hr/></div>
 
         <div class="form-group col-md-6 form-check">
-            <p class="fs-4">Please chose delivery method</p>
+            <p class="fs-4">Please choose delivery method</p>
 
             <mat-radio-group
                     aria-labelledby="delivery_method"
@@ -78,7 +78,7 @@
         <div class="col-md-12"><hr/></div>
 
         <div class="form-group col-md-6 form-check">
-            <p class="fs-4">Please chose payment method</p>
+            <p class="fs-4">Please choose payment method</p>
 
             <mat-radio-group
                     aria-labelledby="payment_method"
@@ -89,13 +89,22 @@
             </mat-radio-group>
 
         </div>
+        <div class="col-md-12"></div>
+
+        <div class="col-md-10">
+            <p class="fs-5">This order can be paid later. However, it will be not shipped until payment.</p>
+            <button type="button" (click)="setOrderAsPaid()"
+                    class="btn btn-outline-primary text-nowrap">Pay</button>
+        </div>
+
+
 
         <div class="col-md-12"><hr/></div>
-
         <div class="col-auto">
             <button type="submit" [disabled]="total === 0"
                     class="btn btn-outline-primary text-nowrap">Confirm</button>
         </div>
+
 
         </div>
 
