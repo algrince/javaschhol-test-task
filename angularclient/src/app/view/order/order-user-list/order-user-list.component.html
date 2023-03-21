@@ -1,0 +1,34 @@
+<div class="card my-5 row justify-content-center align-items-center">
+    <div class="card-body col-md-8">
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Ordered products</th>
+        <th scope="col">Date</th>
+        <th scope="col">Total</th>
+        <th scope="col">Delivery method</th>
+        <th scope="col">Order status</th>
+        <th scope="col">Payment</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let order of orders">
+        <td>...</td>
+        <td>{{ order.createdDate | date:'yyyy-MM-dd' }}</td>
+        <td>{{ order.orderSum }} €</td>
+        <td>{{ getDeliveryMethodDisplayValue(order.deliveryMethod) }}</td>
+        <td>{{ getOrderStatusDisplayValue(order.orderStatus) }}</td>
+        <td>
+            <div *ngIf="getNumericValue(order.paymentStatus) === 0">
+                <a routerLink="/orders/{{ order.id }}/update"
+                        class="btn btn-outline-primary text-nowrap">Pay</a>
+            </div>
+            <div *ngIf="getNumericValue(order.paymentStatus) !== 0">
+                Your order is already paid
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>

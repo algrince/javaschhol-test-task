@@ -34,6 +34,14 @@ public class OrdersController {
         return dtoMapper.mapList(orders, OrderDTO.class);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<OrderDTO> getOrder(
+            @PathVariable("id") Long id) {
+        Order foundOrder = ordersService.findById(id);
+        OrderDTO foundOrderDTO = dtoMapper.mapClass(foundOrder, OrderDTO.class);
+        return ResponseEntity.ok().body(foundOrderDTO);
+    }
+
     @PostMapping
     public ResponseEntity<Object> addOrder(
             @Valid @RequestBody OrderDTO orderDTO,

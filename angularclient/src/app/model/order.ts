@@ -12,6 +12,7 @@ export class Order {
     paymentStatus: PaymentStatus;
     orderStatus: OrderStatus;
     products: CartItem[];
+    createdDate: Date;
 }
 
 export enum OrderStatus {

@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatRadioModule } from '@angular/material/radio';
-
+import { DatePipe } from '@angular/common';
 
 
 import { HomeComponent } from './view/home/home.component';
@@ -43,7 +43,10 @@ import { PropertyValueListComponent } from './view/property-value/property-value
 import { PropertyValueCreateComponent } from './view/property-value/property-value-create/property-value-create.component';
 import { PropertyValueUpdateComponent } from './view/property-value/property-value-update/property-value-update.component';
 import { PropertyValueDeleteComponent } from './view/property-value/property-value-delete/property-value-delete.component';
+
 import { OrderFormComponent } from './view/order/order-form/order-form.component';
+import { OrderUserListComponent } from './view/order/order-user-list/order-user-list.component';
+import { OrderUpdateComponent } from './view/order/order-update/order-update.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,9 @@ import { OrderFormComponent } from './view/order/order-form/order-form.component
     PropertyValueCreateComponent,
     PropertyValueUpdateComponent,
     PropertyValueDeleteComponent,
-    OrderFormComponent
+    OrderFormComponent,
+    OrderUserListComponent,
+    OrderUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +91,7 @@ import { OrderFormComponent } from './view/order/order-form/order-form.component
     NgbModule,
     MatRadioModule
   ],
-  providers: [UserService],
+  providers: [UserService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

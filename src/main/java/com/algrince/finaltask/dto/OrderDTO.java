@@ -24,4 +24,6 @@ public class OrderDTO {
     private Double orderSum;
 
     private AddressDTO address;
+
+    private java.util.Calendar createdDate;
 }

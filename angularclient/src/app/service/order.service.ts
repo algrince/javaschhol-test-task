@@ -17,4 +17,18 @@ export class OrderService {
     public save(order: Order) {
         return this.http.post<Order>(this.ordersUrl, order);
     }
+
+    public findAll(): Observable<Order[]> {
+        return this.http.get<Order[]>(this.ordersUrl);
+    }
+
+    public findOneOrder(id: number): Observable<Order> {
+        const url = `${this.ordersUrl}/${id}`;
+        return this.http.get<Order>(url);
+    }
+
+    public update(id: number, order: Order) {
+        const updateUrl = `${this.ordersUrl}/${id}`;
+        return this.http.put<Order>(updateUrl, order);
+    }
 }
