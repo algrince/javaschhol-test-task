@@ -1,9 +1,11 @@
 package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.AuthenticationDTO;
+import com.algrince.finaltask.dto.LoggedUserDTO;
 import com.algrince.finaltask.dto.RegistrationUserDTO;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.security.JWTUtil;
+import com.algrince.finaltask.security.JwtResponseEntity;
 import com.algrince.finaltask.services.AuthService;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
@@ -20,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -29,6 +32,8 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
+    private final UsersService usersService;
+    private final DTOMapper dtoMapper;
 
     @PostMapping("login")
     @CrossOrigin(origins = "http://localhost:4200")
@@ -41,12 +46,9 @@ public class AuthController {
             return new ResponseEntity<>("Incorrect credentials", HttpStatus.UNAUTHORIZED);
         }
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("jwt-token", token);
-        return ResponseEntity
-                .ok()
-                .headers(httpHeaders)
-                .build();
+        User foundUser = usersService.findByEmail(authenticationDTO.getEmail());
+        LoggedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, LoggedUserDTO.class);
+        return new JwtResponseEntity<>(foundUserDTO, token);
     }
 
 

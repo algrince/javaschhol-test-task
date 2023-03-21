@@ -1,5 +1,6 @@
 package com.algrince.finaltask.models;
 
+import com.algrince.finaltask.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -50,7 +51,8 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @Column(name = "deleted")
     private boolean isDeleted;

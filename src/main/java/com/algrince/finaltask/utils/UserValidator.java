@@ -24,13 +24,13 @@ public class UserValidator implements Validator {
         return User.class.equals(aClass);
     }
 
-    @Override
+   @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
-        Optional<User> clientFromDB = usersService.loadUserByEmail(user.getEmail());
+        Optional<User> clientFromDB = usersService.loadByEmail(user.getEmail());
 
         if (clientFromDB.isPresent()) {
-            errors.rejectValue("email", "The user with this email already exists");
+           errors.rejectValue("email", "The user with this email already exists");
         }
     }
 }

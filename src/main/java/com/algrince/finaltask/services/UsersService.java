@@ -25,9 +25,16 @@ public class UsersService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> loadUserByEmail(String email) {
-        Optional<User> user = usersRepository.findByEmail(email);
-        return user;
+    public User findByEmail(String email) {
+        Optional<User> foundUser = usersRepository.findByEmail(email);
+        return foundUser.orElseThrow(()
+            -> new ResourceNotFoundException("User not found with email " + email));
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<User> loadByEmail(String email) {
+        Optional<User> foundUser = usersRepository.findByEmail(email);
+        return foundUser;
     }
 
     @Transactional
@@ -37,7 +44,6 @@ public class UsersService {
         // Remove when correct form in angular application is set
         Date date = new Date("01/01/2000");
         user.setDateOfBirth(date);
-        user.setRole("ROLE_USER");
         user.setDeleted(false);
         usersRepository.save(user);
     }
