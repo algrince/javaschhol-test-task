@@ -11,7 +11,8 @@ export class PropertyListComponent implements OnInit {
 
     properties: Property[];
 
-    constructor(private propertyService: PropertyService) {}
+    constructor(
+        private propertyService: PropertyService) {}
 
     ngOnInit() {
         this.propertyService.findAll()

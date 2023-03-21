@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,5 +33,19 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessageDTO);
 
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ErrorMessageDTO> handleBadCredentialsException(
+            BadCredentialsException e) {
+
+        log.info("Incorrect credentials given by the user");
+        ErrorMessageDTO errorMessageDTO = new ErrorMessageDTO();
+
+        errorMessageDTO.setStatus(HttpStatus.UNAUTHORIZED);
+        errorMessageDTO.setMessage("Incorrect credentials");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessageDTO);
     }
 }

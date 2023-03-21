@@ -12,6 +12,7 @@ import { User } from '../../../model/user';
 export class LoginComponent {
 
   user: User;
+  errorMessage: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,7 +25,13 @@ export class LoginComponent {
 
   onSubmit() {
     this.authenticationService.authenticate(this.user)
-        .subscribe(result => this.gotoHomepage());
+        .subscribe(() => {
+              this.gotoHomepage();
+          },
+          (errorResponse) => {
+              this.errorMessage = errorResponse.error.message;
+          }
+       );
   }
 
   gotoHomepage() {

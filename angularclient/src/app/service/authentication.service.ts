@@ -41,9 +41,12 @@ export class AuthenticationService {
   }
 
     logOut() {
+       console.log("logging out")
       this.cookieService.delete('token');
       this.cookieService.delete('userId');
       this.cookieService.delete('userRole');
-      this.router.navigate(['/login']);
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 100);
     }
 }

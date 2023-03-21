@@ -1,5 +1,6 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.enums.UserRole;
 import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.UsersRepository;
@@ -44,6 +45,7 @@ public class UsersService {
         // Remove when correct form in angular application is set
         Date date = new Date("01/01/2000");
         user.setDateOfBirth(date);
+        user.setRole(UserRole.BUYER);
         user.setDeleted(false);
         usersRepository.save(user);
     }

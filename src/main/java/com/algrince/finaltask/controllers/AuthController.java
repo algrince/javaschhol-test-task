@@ -38,13 +38,7 @@ public class AuthController {
     @PostMapping("login")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Object> makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
-        String token;
-        try {
-            token = authService.login(authenticationDTO);
-        } catch (BadCredentialsException e) {
-            log.info("Incorrect credentials given by the user");
-            return new ResponseEntity<>("Incorrect credentials", HttpStatus.UNAUTHORIZED);
-        }
+        String token = authService.login(authenticationDTO);
 
         User foundUser = usersService.findByEmail(authenticationDTO.getEmail());
         LoggedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, LoggedUserDTO.class);

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { AuthenticationService } from './service/authentication.service';
 import { CartService } from './service/cart.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +17,23 @@ export class AppComponent implements OnInit {
   items = [];
 
   constructor(public authenticationService: AuthenticationService,
-  private cartService: CartService) {
+  private cartService: CartService,
+  private cookieService: CookieService) {
     this.title = 'The Store';
   }
 
   ngOnInit() {
     this.cartService.loadCart();
     this.items = this.cartService.getItems();
+  }
+
+  buildLink() {
+    if (this.cookieService.check('userId')) {
+        const userId = this.cookieService.get('userId');
+        return `./users/${userId}`;
+    } else {
+        return `./login`;
+    }
   }
 
     removeFromCart(item) {
