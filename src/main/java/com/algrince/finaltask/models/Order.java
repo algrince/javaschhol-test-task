@@ -62,7 +62,7 @@ public class Order {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "createdDate")
+    @Column(name = "created_at")
     private java.util.Calendar createdDate;
 
 }

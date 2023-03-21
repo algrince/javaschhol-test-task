@@ -1,17 +1,37 @@
 import { Address } from '../model/address';
-import { DeliveryMethod } from '../model/delivery-method';
-import { PaymentMethod } from '../model/payment-method';
-import { PaymentStatus } from '../model/payment-status';
-import { OrderStatus } from '../model/order-status';
+import { CartItem } from '../model/cart-item';
+
 
 export class Order {
 
     id: number;
     orderSum: number;
     address: Address;
-    deliveryMethod = DeliveryMethod;
-    paymentMethod = PaymentMethod;
-    paymentStatus = PaymentStatus;
-    orderStatus = OrderStatus;
+    deliveryMethod: DeliveryMethod;
+    paymentMethod: PaymentMethod;
+    paymentStatus: PaymentStatus;
+    orderStatus: OrderStatus;
+    products: CartItem[];
+}
 
+export enum OrderStatus {
+    PENDING_PAYMENT,
+    PENDING_SHIPMENT,
+    SHIPPED,
+    DELIVERED
+}
+
+export enum PaymentStatus {
+    PENDING,
+    PAID
+}
+
+export enum PaymentMethod {
+    CARD,
+    CASH
+}
+
+export enum DeliveryMethod {
+    STANDARD,
+    EXPRESS
 }

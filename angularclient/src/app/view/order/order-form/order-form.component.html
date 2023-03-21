@@ -4,7 +4,7 @@
 
 
 
-<form (ngSubmit)="onSubmit()" #productForm="ngForm" class="card-body row d-flex justify-content-center">
+<form (ngSubmit)="onSubmit()" #orderForm="ngForm" class="card-body row d-flex justify-content-center">
 
     <div [hidden]="total !== 0" class="row g-3 col-md-6 col-sm-4 col-xs-12">
         <div class="col-md-2"></div>
@@ -45,9 +45,10 @@
 
             <mat-radio-group
                     aria-labelledby="address"
+                    name="address"
                     [(ngModel)]="order.address">
                 <mat-radio-button *ngFor="let address of addresses"
-                                  [value]="order.address"
+                                  [value]="address"
                                   >
                     {{ address.postalCode}}, {{ address.country }}, {{ address.city }}, {{ address.street }} {{ address.home }}, {{ address.home }}{{ address.apartment }}
                 </mat-radio-button>
@@ -67,9 +68,10 @@
 
             <mat-radio-group
                     aria-labelledby="delivery_method"
+                    name="deliveryMethod"
                     [(ngModel)]="order.deliveryMethod">
-                <mat-radio-button [value]="order.deliveryMethod.STANDARD">Standard: 3 - 5 days</mat-radio-button>
-                <mat-radio-button [value]="order.deliveryMethod.EXPRESS">Express: 24 hours</mat-radio-button>
+                <mat-radio-button [value]="0">Standard: 3 - 5 days</mat-radio-button>
+                <mat-radio-button [value]="1">Express: 24 hours</mat-radio-button>
             </mat-radio-group>
         </div>
 
@@ -80,9 +82,10 @@
 
             <mat-radio-group
                     aria-labelledby="payment_method"
+                    name="paymentMethod"
                     [(ngModel)]="order.paymentMethod">
-                <mat-radio-button [value]="order.paymentMethod.CARD">Card</mat-radio-button>
-                <mat-radio-button [value]="order.paymentMethod.CASH">Cash</mat-radio-button>
+                <mat-radio-button [value]="0">Card</mat-radio-button>
+                <mat-radio-button [value]="1">Cash</mat-radio-button>
             </mat-radio-group>
 
         </div>

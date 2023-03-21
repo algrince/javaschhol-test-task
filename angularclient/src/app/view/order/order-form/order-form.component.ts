@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { Address } from '../../../model/address';
 import { AddressService } from '../../../service/address.service';
+import { OrderService } from '../../../service/order.service';
 import { CartService } from '../../../service/cart.service';
-import { Order } from '../../../model/order';
+import { Order, OrderStatus, PaymentStatus, PaymentMethod, DeliveryMethod } from '../../../model/order';
+
 
 @Component({
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.css']
 })
+
 export class OrderFormComponent implements OnInit {
 
     userId: number = 25;
@@ -18,12 +20,15 @@ export class OrderFormComponent implements OnInit {
     items = [];
     order: Order;
 
+
     constructor(
         private addressService: AddressService,
+        private orderService: OrderService,
         private cartService: CartService,
         private router: Router,
         private route: ActivatedRoute) {
             this.order = new Order();
+
         }
 
     ngOnInit() {
@@ -48,7 +53,16 @@ export class OrderFormComponent implements OnInit {
 
 
     onSubmit() {
-        
+        this.order.products = this.items;
+        this.order.orderSum = this.total;
+        this.order.orderStatus = OrderStatus.PENDING_PAYMENT;
+        this.order.paymentStatus = PaymentStatus.PENDING;
+
+        this.orderService.save(this.order)
+            .subscribe(result => this.gotoProductList());
     }
 
+    gotoProductList() {
+        this.router.navigate(['/products']);
+    }
 }

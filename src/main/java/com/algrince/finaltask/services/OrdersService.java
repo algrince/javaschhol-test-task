@@ -5,6 +5,7 @@ import com.algrince.finaltask.models.Order;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.OrdersRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrdersService {
@@ -44,9 +46,14 @@ public class OrdersService {
     }
 
     @Transactional
-    public void save(Order order) {
-        orderProductsService.updateProductStock(order.getId());
-        ordersRepository.save(order);
+    public Order save(Order order) {
+        return ordersRepository.save(order);
+    }
+
+    @Transactional
+    public void saveAndApplyChanges(Order order) {
+        Order savedOrder = save(order);
+//        orderProductsService.updateProductStock(savedOrder.getId());
     }
 
     @Transactional

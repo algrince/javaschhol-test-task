@@ -50,7 +50,7 @@ public class OrdersController {
 //        Manual setting of user: until login implementation
         User user = usersService.findOne(25L);
         order.setUser(user);
-        ordersService.save(order);
+        ordersService.saveAndApplyChanges(order);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
