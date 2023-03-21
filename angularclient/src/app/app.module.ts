@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatRadioModule } from '@angular/material/radio';
 import { DatePipe } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 
 import { HomeComponent } from './view/home/home.component';
@@ -91,7 +92,7 @@ import { OrderUpdateComponent } from './view/order/order-update/order-update.com
     NgbModule,
     MatRadioModule
   ],
-  providers: [UserService, DatePipe],
+  providers: [UserService, DatePipe, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
