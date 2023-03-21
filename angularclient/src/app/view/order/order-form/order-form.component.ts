@@ -35,6 +35,18 @@ export class OrderFormComponent implements OnInit {
 
     }
 
+      get total() {
+        return this.items.reduce(
+          (sum, x) => ({
+            quantity: 1,
+            price: sum.price + x.quantity * x.price
+          }),
+          { quantity: 1, price: 0 }
+        ).price;
+      }
+
+
+
     onSubmit() {
         
     }

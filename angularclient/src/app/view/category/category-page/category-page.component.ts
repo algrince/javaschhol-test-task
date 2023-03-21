@@ -21,7 +21,7 @@ export class CategoryPageComponent implements OnInit{
     categoryId: number;
     totalElements = 0;
     page = 0;
-    size = 8;
+    size = 9;
     sortField = "id";
     sortDir = "ASC";
     imageSrc: any;

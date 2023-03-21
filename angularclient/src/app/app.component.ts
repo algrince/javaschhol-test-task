@@ -33,15 +33,15 @@ export class AppComponent implements OnInit {
   get total() {
     return this.items.reduce(
       (sum, x) => ({
-        qtyTotal: 1,
-        price: sum.price + x.qtyTotal * x.price
+        quantity: 1,
+        price: sum.price + x.quantity * x.price
       }),
-      { qtyTotal: 1, price: 0 }
+      { quantity: 1, price: 0 }
     ).price;
   }
 
   changeSubtotal(item, index) {
-    const qty = item.qtyTotal;
+    const qty = item.quantity;
     const amt = item.price;
     const subTotal = amt * qty;
 

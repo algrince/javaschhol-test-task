@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../../model/product';
+import { CartItem } from '../../../model/cart-item';
 import { ProductService } from '../../../service/product.service';
 import { ImageService } from '../../../service/image.service';
 import { CartService } from '../../../service/cart.service';
+import { CartItemService } from '../../../service/cart-item.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -14,9 +16,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ProductDetailComponent implements OnInit {
 
     product: Product;
+    cartItem: CartItem;
     productId: number;
     imageSrc: any;
     items = [];
+    item: CartItem;
 
     constructor(
         private productService: ProductService,
@@ -24,6 +28,7 @@ export class ProductDetailComponent implements OnInit {
         private route: ActivatedRoute,
         private imageService: ImageService,
         private cartService: CartService,
+        private cartItemService: CartItemService,
         private sanitizer: DomSanitizer) {
             this.product = new Product();
         }
@@ -44,10 +49,13 @@ export class ProductDetailComponent implements OnInit {
                 {this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
     }
 
-    addToCart(item) {
-        if (!this.cartService.itemInCart(item)) {
-          item.qtyTotal = 1;
-          this.cartService.addToCart(item);
+    addToCart(product) {
+
+        this.item = this.cartItemService.mapFromProduct(product);
+
+        if (!this.cartService.itemInCart(this.item)) {
+          this.item.quantity = 1;
+          this.cartService.addToCart(this.item);
           this.items = [...this.cartService.getItems()];
         }
     }
