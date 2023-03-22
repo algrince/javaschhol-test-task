@@ -17,8 +17,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
+
 @Component
+@RequiredArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
@@ -50,9 +51,9 @@ public class JWTFilter extends OncePerRequestFilter {
 
                     // Now user data is in security context
                     // Allow auth with exceptions (
-                    if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    }
+                   if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                      SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                   }
 
                 // Wrong signature, expired token, no username claim
                 } catch (JWTVerificationException e) {

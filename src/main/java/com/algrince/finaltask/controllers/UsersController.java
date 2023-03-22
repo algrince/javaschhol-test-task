@@ -9,13 +9,16 @@ import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("users")
 @RequiredArgsConstructor
@@ -38,7 +41,7 @@ public class UsersController {
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("#userId == authentication.principal.id")
+//    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<DetailedUserDTO> getUser(@PathVariable("id") Long id) {
         User foundUser = usersService.findById(id);
         DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
@@ -46,7 +49,7 @@ public class UsersController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("#userId == authentication.principal.id")
+//    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<Object> updateUser(
             @PathVariable(value = "id") Long userId,
             @Valid @RequestBody RegistrationUserDTO registrationUserDTO) {
@@ -58,7 +61,7 @@ public class UsersController {
 
 
     @DeleteMapping("{id}")
-    @PreAuthorize("#userId == authentication.principal.id")
+//    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<String> deleteUser(
             @PathVariable(value ="id") Long userId) {
         User userToDelete = usersService.findById(userId);

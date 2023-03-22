@@ -48,6 +48,7 @@ import { PropertyValueDeleteComponent } from './view/property-value/property-val
 import { OrderFormComponent } from './view/order/order-form/order-form.component';
 import { OrderUserListComponent } from './view/order/order-user-list/order-user-list.component';
 import { OrderUpdateComponent } from './view/order/order-update/order-update.component';
+import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { OrderUpdateComponent } from './view/order/order-update/order-update.com
     PropertyValueDeleteComponent,
     OrderFormComponent,
     OrderUserListComponent,
-    OrderUpdateComponent
+    OrderUpdateComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,

@@ -39,6 +39,8 @@ import { OrderFormComponent } from './view/order/order-form/order-form.component
 import { OrderUserListComponent } from './view/order/order-user-list/order-user-list.component'
 import { OrderUpdateComponent } from './view/order/order-update/order-update.component';
 
+import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -70,7 +72,8 @@ const routes: Routes = [
   { path: 'propertyValues/:id/delete', component: PropertyValueDeleteComponent },
   { path: 'orders/new', component: OrderFormComponent },
   { path: 'orders', component: OrderUserListComponent },
-  { path: 'orders/:id/update', component: OrderUpdateComponent }
+  { path: 'orders/:id/update', component: OrderUpdateComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
 ];
 
 @NgModule({

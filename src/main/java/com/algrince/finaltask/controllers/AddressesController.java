@@ -10,6 +10,7 @@ import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("addresses")
 @RequiredArgsConstructor
@@ -31,7 +34,7 @@ public class AddressesController {
 
 
     @GetMapping
-    @PreAuthorize("#userId == authentication.principal.id")
+//    @PreAuthorize("#userId == authentication.principal.id")
     public List<AddressDTO> getAddresses(
             @RequestParam(required = false) Long user) {
         List<Address> addresses = addressesService.selectAddresses(user);
@@ -40,7 +43,7 @@ public class AddressesController {
 
 
     @PostMapping
-    @PreAuthorize("#userId == authentication.principal.id")
+//    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<Object> addAddress(
             @Valid @RequestBody AddressDTO addressDTO,
             BindingResult bindingResult) {
@@ -64,8 +67,10 @@ public class AddressesController {
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("#userId == authentication.principal.id")
-    public ResponseEntity<Object> getAddress (@PathVariable("id") Long id) {
+//    @PreAuthorize("#userId == authentication.principal.id")
+    public ResponseEntity<Object> getAddress (@PathVariable("id") Long id, Principal principal) {
+        log.info(principal.toString());
+
         Address foundAddress = addressesService.findById(id);
 
         AddressDTO foundAddressDTO = dtoMapper.mapClass(foundAddress, AddressDTO.class);
@@ -73,7 +78,7 @@ public class AddressesController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("#userId == authentication.principal.id")
+//    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<Object> updateAddress (
             @PathVariable(value = "id") Long addressId,
             @Valid @RequestBody AddressDTO addressDTO,
@@ -95,7 +100,7 @@ public class AddressesController {
 
 
     @DeleteMapping("{id}")
-    @PreAuthorize("#userId == authentication.principal.id")
+//    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<String> deleteAddress (@PathVariable(value = "id") Long addressId) {
         Address addressToDelete = addressesService.findById(addressId);
         addressesService.softDelete(addressToDelete);

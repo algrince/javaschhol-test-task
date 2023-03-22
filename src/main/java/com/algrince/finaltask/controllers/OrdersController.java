@@ -29,7 +29,7 @@ public class OrdersController {
     private final DTOMapper dtoMapper;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
     public List<OrderDTO> getOrders(
             @RequestParam(required = false) Long user) {
         List<Order> orders = ordersService.selectOrders(user);
@@ -37,7 +37,7 @@ public class OrdersController {
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
     public ResponseEntity<OrderDTO> getOrder(
             @PathVariable("id") Long id) {
         Order foundOrder = ordersService.findById(id);
@@ -70,7 +70,7 @@ public class OrdersController {
 
 
     @PutMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
     public ResponseEntity<Object> updateOrder (
             @PathVariable(value = "id") Long orderId,
             @Valid @RequestBody UpdateOrderDTO updateOrderDTO,

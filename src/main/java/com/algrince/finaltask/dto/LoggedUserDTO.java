@@ -11,4 +11,6 @@ public class LoggedUserDTO {
     private Long id;
 
     private UserRole role;
+
+    private String email;
 }
