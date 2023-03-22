@@ -26,7 +26,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class SecurityConfig {
 
     private final JWTFilter jwtFilter;
-    private final AuthenticationFilter authenticationFilter;
+//    private final AuthenticationFilter authenticationFilter;
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
