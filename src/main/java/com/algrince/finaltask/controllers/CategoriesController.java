@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,7 @@ public class CategoriesController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> addCategory(
             @Valid @RequestBody CategoryDTO categoryDTO,
             BindingResult bindingResult) {
@@ -54,6 +56,7 @@ public class CategoriesController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> updateCategory (
             @PathVariable(value = "id") Long categoryId,
             @Valid @RequestBody CategoryDTO categoryDTO,
@@ -74,6 +77,7 @@ public class CategoriesController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteCategory (@PathVariable(value = "id") Long categoryId) {
         Category categoryToDelete = categoriesService.findById(categoryId);
         categoriesService.softDelete(categoryToDelete);

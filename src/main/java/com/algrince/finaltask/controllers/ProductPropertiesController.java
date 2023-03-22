@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,7 @@ public class ProductPropertiesController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> addProductProperty(
             @Valid @RequestBody ProductPropertyDTO productPropertyDTO,
             BindingResult bindingResult) {
@@ -56,6 +58,7 @@ public class ProductPropertiesController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> updateProductProperty(
             @PathVariable(value = "id") Long productPropertyId,
             @Valid @RequestBody ProductPropertyDTO productPropertyDTO,
@@ -76,6 +79,7 @@ public class ProductPropertiesController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteProductProperty(
             @PathVariable(value = "id") Long productPropertyId) {
         ProductProperty productPropertyToDelete = productPropertiesService.findById(productPropertyId);

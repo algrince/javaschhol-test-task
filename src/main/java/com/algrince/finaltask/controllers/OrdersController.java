@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class OrdersController {
     private final DTOMapper dtoMapper;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
     public List<OrderDTO> getOrders(
             @RequestParam(required = false) Long user) {
         List<Order> orders = ordersService.selectOrders(user);
@@ -35,6 +37,7 @@ public class OrdersController {
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
     public ResponseEntity<OrderDTO> getOrder(
             @PathVariable("id") Long id) {
         Order foundOrder = ordersService.findById(id);
@@ -43,6 +46,7 @@ public class OrdersController {
     }
 
     @PostMapping
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Object> addOrder(
             @Valid @RequestBody OrderDTO orderDTO,
             BindingResult bindingResult) {
@@ -66,6 +70,7 @@ public class OrdersController {
 
 
     @PutMapping("{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN') or #userId == authentication.principal.id")
     public ResponseEntity<Object> updateOrder (
             @PathVariable(value = "id") Long orderId,
             @Valid @RequestBody UpdateOrderDTO updateOrderDTO,

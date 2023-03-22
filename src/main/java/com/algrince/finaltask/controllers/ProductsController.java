@@ -12,6 +12,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,10 @@ public class ProductsController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> addProduct(@Valid @RequestBody ProductsDTO productsDTO,
-                                             BindingResult bindingResult) {
+    public ResponseEntity<Object> addProduct(
+            @Valid @RequestBody ProductsDTO productsDTO,
+            BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -70,7 +73,8 @@ public class ProductsController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<String> updateProduct (
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    public ResponseEntity<String> updateProduct(
             @PathVariable(value = "id") Long productId,
             @Valid @RequestBody ProductsDTO productsDTO) {
         Product foundProduct = productsService.findById(productId);
@@ -80,7 +84,9 @@ public class ProductsController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteProduct (@PathVariable(value = "id") Long productId) {
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    public ResponseEntity<String> deleteProduct (
+            @PathVariable(value = "id") Long productId) {
         Product productToDelete = productsService.findById(productId);
         productsService.softDelete(productToDelete);
         return new ResponseEntity<>(HttpStatus.OK);

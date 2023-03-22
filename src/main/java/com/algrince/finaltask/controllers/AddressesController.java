@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class AddressesController {
 
 
     @GetMapping
+    @PreAuthorize("#userId == authentication.principal.id")
     public List<AddressDTO> getAddresses(
             @RequestParam(required = false) Long user) {
         List<Address> addresses = addressesService.selectAddresses(user);
@@ -38,6 +40,7 @@ public class AddressesController {
 
 
     @PostMapping
+    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<Object> addAddress(
             @Valid @RequestBody AddressDTO addressDTO,
             BindingResult bindingResult) {
@@ -61,6 +64,7 @@ public class AddressesController {
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<Object> getAddress (@PathVariable("id") Long id) {
         Address foundAddress = addressesService.findById(id);
 
@@ -69,6 +73,7 @@ public class AddressesController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<Object> updateAddress (
             @PathVariable(value = "id") Long addressId,
             @Valid @RequestBody AddressDTO addressDTO,
@@ -90,6 +95,7 @@ public class AddressesController {
 
 
     @DeleteMapping("{id}")
+    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<String> deleteAddress (@PathVariable(value = "id") Long addressId) {
         Address addressToDelete = addressesService.findById(addressId);
         addressesService.softDelete(addressToDelete);

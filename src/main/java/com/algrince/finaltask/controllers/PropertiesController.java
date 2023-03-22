@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,7 +57,8 @@ public class PropertiesController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> updateProperty (
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    public ResponseEntity<Object> updateProperty(
             @PathVariable(value = "id") Long propertyId,
             @Valid @RequestBody PropertyDTO propertyDTO,
             BindingResult bindingResult) {
@@ -76,7 +78,9 @@ public class PropertiesController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteProperty (@PathVariable(value = "id") Long propertyId) {
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    public ResponseEntity<String> deleteProperty (
+            @PathVariable(value = "id") Long propertyId) {
         Property propertyToDelete = propertiesService.findById(propertyId);
         propertiesService.softDelete(propertyToDelete);
         return new ResponseEntity<>(HttpStatus.OK);

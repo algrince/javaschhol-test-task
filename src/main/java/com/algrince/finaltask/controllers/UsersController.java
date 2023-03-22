@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class UsersController {
     private final DTOMapper dtoMapper;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public List<UserListDTO> userIndex() {
         List<User> users = usersService.findAll();
         return dtoMapper.mapList(users, UserListDTO.class);
@@ -36,6 +38,7 @@ public class UsersController {
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<DetailedUserDTO> getUser(@PathVariable("id") Long id) {
         User foundUser = usersService.findById(id);
         DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
@@ -43,6 +46,7 @@ public class UsersController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("#userId == authentication.principal.id")
     public ResponseEntity<Object> updateUser(
             @PathVariable(value = "id") Long userId,
             @Valid @RequestBody RegistrationUserDTO registrationUserDTO) {
@@ -54,7 +58,9 @@ public class UsersController {
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteUser (@PathVariable(value ="id") Long userId) {
+    @PreAuthorize("#userId == authentication.principal.id")
+    public ResponseEntity<String> deleteUser(
+            @PathVariable(value ="id") Long userId) {
         User userToDelete = usersService.findById(userId);
         usersService.softDelete(userToDelete);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -17,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,7 +38,9 @@ public class AuthController {
 
     @PostMapping("login")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Object> makeLogin(@RequestBody AuthenticationDTO authenticationDTO) {
+    @PreAuthorize("isAnonymous()")
+    public ResponseEntity<Object> makeLogin(
+            @RequestBody AuthenticationDTO authenticationDTO) {
         String token = authService.login(authenticationDTO);
 
         User foundUser = usersService.findByEmail(authenticationDTO.getEmail());
@@ -48,8 +51,10 @@ public class AuthController {
 
     @PostMapping("registration")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<String> makeRegistration(@RequestBody @Valid RegistrationUserDTO registrationUserDTO,
-                                   BindingResult bindingResult) {
+    @PreAuthorize("isAnonymous()")
+    public ResponseEntity<String> makeRegistration(
+            @RequestBody @Valid RegistrationUserDTO registrationUserDTO,
+            BindingResult bindingResult) {
         String token;
         try {
              token = authService.signup(registrationUserDTO, bindingResult);
