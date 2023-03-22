@@ -24,6 +24,7 @@ export class ProductService {
           ) as { [param: string]: string };
 
         const httpParams = new HttpParams({ fromObject: filteredParams });
+
         return this.http.get<Product[]>(this.productsUrl, {params: httpParams});
    }
 

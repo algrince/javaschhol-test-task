@@ -8,13 +8,6 @@ import { ProductService } from '../../../service/product.service';
 import { CategoryService } from '../../../service/category.service';
 import { PropertyService } from '../../../service/property.service';
 import { PropertyValueService } from '../../../service/property-value.service';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatTableModule } from '@angular/material/table';
 
 
 @Component({
@@ -31,8 +24,6 @@ export class ProductCreateComponent implements OnInit {
     propertyValues: PropertyValue[];
     selectedValues: PropertyValue[] = [];
     selectedPropertyValues: any[];
-    propertiesForm: FormGroup;
-    subscription: Subscription;
 
 
     constructor(
@@ -41,8 +32,7 @@ export class ProductCreateComponent implements OnInit {
         private productService: ProductService,
         private categoryService: CategoryService,
         private propertyService: PropertyService,
-        private propertyValueService: PropertyValueService,
-        private formBuilder: FormBuilder) {
+        private propertyValueService: PropertyValueService) {
             this.product = new Product();
              }
 

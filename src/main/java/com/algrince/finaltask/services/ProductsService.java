@@ -9,6 +9,7 @@ import com.algrince.finaltask.utils.ProductSpecification;
 import com.algrince.finaltask.utils.SearchCriteria;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductsService {
@@ -36,11 +39,14 @@ public class ProductsService {
             Long categoryId,
             int page, int size,
             String sortField, String sortDir,
-            Double minPrice, Double maxPrice) {
+            Double minPrice, Double maxPrice,
+            List<Long> prValues) {
 
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
 
         Pageable paging = PageRequest.of(page, size, direction, sortField);
+
+        List<ProductSpecification> productSpecs = new ArrayList<>();
 
         Category foundCategory = null;
         if (categoryId != null) {
@@ -48,35 +54,33 @@ public class ProductsService {
         }
         ProductSpecification categorySpec = new ProductSpecification(
                 new SearchCriteria("category", ":", foundCategory));
-
-//        List<Long> propertyValuesId
-//        List<ProductProperty> foundProductProperties = new ArrayList<>();
-//        List<ProductSpecification> propertyValuesSpecs = new ArrayList<>();
-//        if (!propertyValuesId.isEmpty()) {
-//            for (Long ppId : propertyValuesId) {
-//                ProductProperty foundProductProperty = productPropertiesService.findById(ppId);
-//                propertyValuesSpecs.add(new ProductSpecification(
-//                        new SearchCriteria("propertyValues")
-//                ))
-//            }
-//
-//            for (ProductProperty productProperty : productProperties) {
-//                productSpecs.add(new ProductSpecification(
-//                        new SearchCriteria("productProperty", ":", productProperty)));
-//            }
-//        }
+        productSpecs.add(categorySpec);
 
 
+        List<ProductProperty> foundProductProperties = new ArrayList<>();
 
+        if (!prValues.isEmpty()) {
+            for (Long ppId: prValues) {
+                ProductProperty foundProductProperty = productPropertiesService.findById(ppId);
+                ProductSpecification productPropertySpec = new ProductSpecification(
+                        new SearchCriteria("propertyValues", ":", foundProductProperty)
+                );
+                productSpecs.add(productPropertySpec);
+            }
+        }
 
         ProductSpecification minPriceSpec = new ProductSpecification(
                 new SearchCriteria("price", ">", minPrice));
         ProductSpecification maxPriceSpec = new ProductSpecification(
                 new SearchCriteria("price", "<", maxPrice));
+        productSpecs.add(minPriceSpec);
+        productSpecs.add(maxPriceSpec);
 
-        Page<Product> products = productsRepository.findAll(Specification.allOf(
-                categorySpec, minPriceSpec, maxPriceSpec), paging);
-
+        Iterable<ProductSpecification> iterableSpecs = productSpecs;
+//        Page<Product> products = productsRepository.findAll(
+//                Specification.allOf(iterableSpecs), paging);
+        Page<Product> products = productsRepository.findAll(
+                Specification.allOf(categorySpec, minPriceSpec, maxPriceSpec), paging);
         return products;
     }
 

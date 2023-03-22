@@ -72,6 +72,25 @@
 
                      <p class="fs-5 mt-4">Filter by property values</p>
 
+                     <div class="row">
+                         <div class="col-md-6">
+                             <div *ngFor="let value of propertyValues.slice(0, propertyValues.length / 2)">
+                                 <div class="form-check">
+                                     <input class="form-check-input" type="checkbox" [value]="value.id.toString()" (change)="updateSelectedValues(value.id)">
+                                     <label class="form-check-label">{{ value.propertyValue }}</label>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div *ngFor="let value of propertyValues.slice(propertyValues.length / 2)">
+                                 <div class="form-check">
+                                     <input class="form-check-input" type="checkbox" [value]="value.id.toString()" (change)="updateSelectedValues(value.id)">
+                                     <label class="form-check-label">{{ value.propertyValue }}</label>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
                      <div class="col-md-3"></div>
                      <div class="col-auto">
                          <button type="submit"
