@@ -40,7 +40,7 @@ public class ProductPropertiesController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> addProductProperty(
             @Valid @RequestBody ProductPropertyDTO productPropertyDTO,
             BindingResult bindingResult) {
@@ -58,7 +58,7 @@ public class ProductPropertiesController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> updateProductProperty(
             @PathVariable(value = "id") Long productPropertyId,
             @Valid @RequestBody ProductPropertyDTO productPropertyDTO,
@@ -79,7 +79,7 @@ public class ProductPropertiesController {
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteProductProperty(
             @PathVariable(value = "id") Long productPropertyId) {
         ProductProperty productPropertyToDelete = productPropertiesService.findById(productPropertyId);

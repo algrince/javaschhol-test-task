@@ -10,6 +10,11 @@ import { PropertyService } from '../../../service/property.service';
 import { PropertyValueService } from '../../../service/property-value.service';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTableModule } from '@angular/material/table';
 
 
 @Component({
@@ -23,11 +28,12 @@ export class ProductCreateComponent implements OnInit {
     categories: Category[];
     property: Property;
     properties: Property[];
-    propertyValue: PropertyValue;
     propertyValues: PropertyValue[];
+    selectedValues: PropertyValue[] = [];
     selectedPropertyValues: any[];
     propertiesForm: FormGroup;
     subscription: Subscription;
+
 
     constructor(
         private route: ActivatedRoute,
@@ -50,11 +56,10 @@ export class ProductCreateComponent implements OnInit {
         this.propertyValueService.findAll()
             .subscribe(data => {this.propertyValues = data});
 
-        this.selectedPropertyValues = Array.from(this.properties, () => []);
-
     }
 
     onSubmit() {
+        this.product.propertyValues = this.selectedValues;
 
         this.productService.save(this.product)
             .subscribe(result => this.gotoProductList());
@@ -64,18 +69,18 @@ export class ProductCreateComponent implements OnInit {
         this.router.navigate(['/products']);
     }
 
-    onCheckboxChange(event, property, propertyValue) {
-    const propertyIndex = this.properties.findIndex(p => p.id === property.id);
-  if (event.target.checked) {
-    this.selectedPropertyValues[propertyIndex].push(propertyValue);
-  } else {
-    const valueIndex = this.selectedPropertyValues[propertyIndex].indexOf(propertyValue);
-    if (valueIndex >= 0) {
-      this.selectedPropertyValues[propertyIndex].splice(valueIndex, 1);
+    updateSelectedValues(selectedValueName: string) {
+      const selectedPropertyValue = this.propertyValues.find(pv => pv.propertyValue === selectedValueName);
+      if (selectedPropertyValue) {
+        const index = this.selectedValues.findIndex(pv => pv.id === selectedPropertyValue.id);
+        if (index > -1) {
+          // If the property value is already in the array, remove it
+          this.selectedValues.splice(index, 1);
+        } else {
+          // If the property value is not in the array, add it
+          this.selectedValues.push(selectedPropertyValue);
+        }
+      }
     }
-  }
-  this.product.propertyValues = this.selectedPropertyValues.flat();
-}
-
 
 }

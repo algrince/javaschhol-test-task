@@ -5,7 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { MatRadioModule } from '@angular/material/radio';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { DatePipe } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -92,9 +98,13 @@ import { UnauthorizedComponent } from './util/unauthorized/unauthorized.componen
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    MatRadioModule
+    MatRadioModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatTableModule,
   ],
-  providers: [UserService, DatePipe, CookieService],
+  providers: [UserService, DatePipe, CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
