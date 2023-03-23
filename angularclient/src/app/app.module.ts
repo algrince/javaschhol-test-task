@@ -15,6 +15,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DatePipe } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
 
 import { HomeComponent } from './view/home/home.component';
 
@@ -104,7 +106,15 @@ import { UnauthorizedComponent } from './util/unauthorized/unauthorized.componen
     MatCheckboxModule,
     MatTableModule,
   ],
-  providers: [UserService, DatePipe, CookieService ],
+  providers: [
+    UserService,
+    DatePipe,
+    CookieService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: BasicAuthHttpInterceptorService,
+          multi: true
+        }  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,10 +1,14 @@
 package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.OrderDTO;
+import com.algrince.finaltask.dto.OrderProductDTO;
 import com.algrince.finaltask.dto.UpdateOrderDTO;
 import com.algrince.finaltask.models.Order;
+import com.algrince.finaltask.models.OrderProduct;
+import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.OrdersService;
+import com.algrince.finaltask.services.ProductsService;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
@@ -16,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,6 +31,7 @@ public class OrdersController {
 
     private final OrdersService ordersService;
     private final UsersService usersService;
+    private final ProductsService productsService;
     private final DTOMapper dtoMapper;
 
     @GetMapping
@@ -58,13 +64,27 @@ public class OrdersController {
             return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
+
         Order order = dtoMapper.mapClass(orderDTO, Order.class);
 
-//      detached entity passed to persist: com.algrince.finaltask.models.User
+        List<OrderProduct> orderedProducts = new ArrayList<>();
+
+        for (OrderProductDTO productInfo: orderDTO.getOrderProducts()) {
+            OrderProduct newProductInOrder = new OrderProduct();
+            Long productId = productInfo.getProduct();
+            Product foundProduct = productsService.findById(productId);
+            newProductInOrder.setProduct(foundProduct);
+            newProductInOrder.setQuantity(productInfo.getQuantity());
+            orderedProducts.add(newProductInOrder);
+        }
+
+        order.setOrderProducts(orderedProducts);
+
+
         User associatedUser = usersService.findById(orderDTO.getUser().getId());
         order.setUser(associatedUser);
-        
-        ordersService.saveAndApplyChanges(order);
+
+        ordersService.save(order);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

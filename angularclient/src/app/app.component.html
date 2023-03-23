@@ -36,7 +36,7 @@
       <ul class="nav">
         <li class="nav-item"><a routerLink="/login" class="nav-link link-dark px-2" *ngIf="!authenticationService.isUserLoggedIn()">Login</a></li>
         <li class="nav-item"><a routerLink="/registration" class="nav-link link-dark px-2" *ngIf="!authenticationService.isUserLoggedIn()">Sign up</a></li>
-        <li class="nav-item"><a routerLink="/logout" class="nav-link link-dark px-2" *ngIf="authenticationService.isUserLoggedIn()" (click)="authenticationService.logOut()">Logout</a></li>
+        <li class="nav-item"><a routerLink="/login" class="nav-link link-dark px-2" *ngIf="authenticationService.isUserLoggedIn()" (click)="authenticationService.logOut()">Logout</a></li>
       </ul>
     </div>
 

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -63,6 +64,6 @@ public class Order {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
-    private java.util.Calendar createdDate;
+    private Calendar createdDate;
 
 }

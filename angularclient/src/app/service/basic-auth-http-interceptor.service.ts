@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasicAuthHttpInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private cookieService: CookieService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-        if (sessionStorage.getItem('token') {
+
+        if (this.cookieService.check('token')) {
+
             req = req.clone({
                 setHeaders: {
-                    Authorization: sessionStorage.getItem('token');
+                    Authorization: this.cookieService.get('token')
                 }
             })
         }

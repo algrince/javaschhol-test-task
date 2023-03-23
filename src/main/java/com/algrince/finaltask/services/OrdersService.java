@@ -46,15 +46,15 @@ public class OrdersService {
     }
 
     @Transactional
-    public Order save(Order order) {
-        return ordersRepository.save(order);
+    public void save(Order order) {
+        ordersRepository.save(order);
     }
 
-    @Transactional
-    public void saveAndApplyChanges(Order order) {
-        Order savedOrder = save(order);
-//        orderProductsService.updateProductStock(savedOrder.getId());
-    }
+//    @Transactional
+//    public void saveAndApplyChanges(Order order) {
+//        Order savedOrder = save(order);
+////        orderProductsService.updateProductStock(savedOrder.getId());
+//    }
 
     @Transactional
     public void softDelete(Order order) {

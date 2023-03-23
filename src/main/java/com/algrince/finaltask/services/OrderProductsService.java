@@ -30,4 +30,9 @@ public class OrderProductsService {
                     element.getQuantity());
         }
     }
+
+    @Transactional
+    public void addOrderProducts(List<OrderProduct> orderProducts) {
+        orderProductRepository.saveAll(orderProducts);
+    }
 }
