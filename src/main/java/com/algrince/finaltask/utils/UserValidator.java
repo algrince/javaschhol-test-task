@@ -48,5 +48,13 @@ public class UserValidator implements Validator {
                         "Please introduce valid date of birth (by our policy, you can shop in our store if you are younger than 100 and older than 14 y.o.");
             }
         }
+
+//        Check if password at least one lowercase letter, one uppercase letter, one digit, and one special character
+        String password = ((User) target).getPassword();
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@$!%*?&])[A-Za-z\\\\d@$!%*?&]*$";
+        if (password != null & !password.matches(regex)) {
+            errors.rejectValue("password", "user.password.invalid",
+                    "Password should contain at least one lowercase letter, one uppercase letter, one digit, and one special character");
+        }
     }
 }

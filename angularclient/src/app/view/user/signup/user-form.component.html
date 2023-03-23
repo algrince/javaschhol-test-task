@@ -10,7 +10,7 @@
       <div class="col-md-12"></div>
 
       <div *ngIf="errors">
-        <div class="alert alert-danger col-auto" role="alert">
+        <div class="alert alert-danger col-md-6" role="alert">
           <p>Your form contains following errors:</p>
           <ul *ngFor="let error of errors">
             <li>{{ error }}</li>
@@ -44,14 +44,15 @@
 
       <div class="col-md-12"></div>
 
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="text" [(ngModel)]="user.email"
-               class="form-control col-md-6 mb-3"
+               class="form-control col-md-6 mb-1"
                id="email"
                name="email"
                placeholder="Enter your email address"
                required #email="ngModel">
+        <small class="form-text text-muted">Your email should be unique: it'll be used as username</small>
       </div>
 
       <div class="col-md-12"></div>
@@ -65,19 +66,20 @@
                name="dateOfBirth"
                placeholder="Enter your date of birth"
                required #date_of_birth="ngModel">
-        <small class="form-text text-muted ">We use YYYY-MM-DD format. Please, use it too :)</small>
+        <small class="form-text text-muted">We use YYYY-MM-DD format. Please, use it too :)</small>
       </div>
 
       <div class="col-md-12"></div>
 
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="password" [(ngModel)]="user.password"
-               class="form-control col-md-6 mb-3"
+               class="form-control col-md-6 mb-1"
                id="password"
                name="password"
                placeholder="Enter your password"
                required #password="ngModel">
+        <small class="form-text text-muted">Password should contain at least one lowercase letter, one uppercase letter, one digit, and one special character</small>
       </div>
 
       <div class="col-md-12"></div>
