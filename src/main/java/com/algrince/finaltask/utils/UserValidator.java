@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -30,8 +31,22 @@ public class UserValidator implements Validator {
         User user = (User) target;
         Optional<User> clientFromDB = usersService.loadByEmail(user.getEmail());
 
+//        Check if email is repeated
         if (clientFromDB.isPresent()) {
            errors.rejectValue("email", "user.email.exists", "The user with this email already exists");
+        }
+
+        LocalDate dateOfBirth = ((User) target).getDateOfBirth();
+
+        if (dateOfBirth != null) {
+//            Check if the age of the user is between 100 and 14 yo
+            LocalDate olderDate = LocalDate.parse("1923-01-01");
+            LocalDate newerDate = LocalDate.parse("2009-01-01");
+
+            if (dateOfBirth.isBefore(olderDate) || dateOfBirth.isAfter(newerDate)) {
+                errors.rejectValue("dateOfBirth", "user.dateOfBirth.invalid",
+                        "Please introduce valid date of birth (by our policy, you can shop in our store if you are younger than 100 and older than 14 y.o.");
+            }
         }
     }
 }

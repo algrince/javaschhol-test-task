@@ -78,10 +78,10 @@ public class ProductsService {
         productSpecs.add(maxPriceSpec);
 
         Iterable<Specification<Product>> iterableSpecs = productSpecs;
-//        Page<Product> products = productsRepository.findAll(
-//                Specification.allOf(iterableSpecs), paging);
         Page<Product> products = productsRepository.findAll(
-                Specification.allOf(categorySpec, minPriceSpec, maxPriceSpec), paging);
+                Specification.allOf(iterableSpecs), paging);
+//        Page<Product> products = productsRepository.findAll(
+//                Specification.allOf(categorySpec, minPriceSpec, maxPriceSpec), paging);
         return products;
     }
 
