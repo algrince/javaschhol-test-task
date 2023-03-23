@@ -10,10 +10,12 @@ export class UserService {
 
   private usersUrl: string;
   private loginUrl: string;
+  private signupUrl: string;
 
   constructor(private http: HttpClient) {
       this.usersUrl = 'http://localhost:8080/users';
       this.loginUrl = 'http://localhost:8080/login';
+      this.signupUrl = 'http://localhost:8080/registration';
   }
 
   public findAll(): Observable<User[]> {
@@ -26,7 +28,7 @@ export class UserService {
   }
 
   public save(user: User) {
-    return this.http.post<User>(this.usersUrl, user);
+    return this.http.post<User>(this.signupUrl, user);
   }
 
   public update(id: number, user: User) {

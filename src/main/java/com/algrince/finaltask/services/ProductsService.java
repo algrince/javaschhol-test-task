@@ -45,7 +45,7 @@ public class ProductsService {
 
         Pageable paging = PageRequest.of(page, size, direction, sortField);
 
-        List<Specification> productSpecs = new ArrayList<>();
+        List<Specification<Product>> productSpecs = new ArrayList<>();
 
         Category foundCategory = null;
         if (categoryId != null) {
@@ -62,7 +62,9 @@ public class ProductsService {
             for (Long ppId: prValues) {
                 ProductProperty foundProductProperty = productPropertiesService.findById(ppId);
                 ProductSpecification productPropertySpec = new ProductSpecification(
-                        new SearchCriteria("propertyValues", ":", foundProductProperty)
+                        new SearchCriteria(
+                                "propertyValues",
+                                ":", foundProductProperty)
                 );
                 productSpecs.add(productPropertySpec);
             }
@@ -75,7 +77,7 @@ public class ProductsService {
         productSpecs.add(minPriceSpec);
         productSpecs.add(maxPriceSpec);
 
-        Iterable<Specification> iterableSpecs = productSpecs;
+        Iterable<Specification<Product>> iterableSpecs = productSpecs;
 //        Page<Product> products = productsRepository.findAll(
 //                Specification.allOf(iterableSpecs), paging);
         Page<Product> products = productsRepository.findAll(

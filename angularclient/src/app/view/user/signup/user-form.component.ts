@@ -11,6 +11,7 @@ import { User } from '../../../model/user';
 export class UserFormComponent {
 
   user: User;
+  errors: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -19,9 +20,16 @@ export class UserFormComponent {
     this.user = new User();
   }
 
-  /* Set password confirmation later */
   onSubmit() {
-    this.userService.save(this.user).subscribe(result => this.gotoUserList());
+    this.userService.save(this.user)
+        .subscribe(
+            result => {
+                if (Array.isArray(result)) {
+                    this.errors = result;
+                } else {
+                    this.gotoUserList();
+                }
+            })
   }
 
   gotoUserList() {

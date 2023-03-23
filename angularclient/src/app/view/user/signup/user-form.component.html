@@ -2,6 +2,16 @@
   <div class="card-body row d-flex justify-content-center">
     <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="col-md-4 col-sm-4 col-xs-12">
 
+      <div *ngIf="errors">
+        <div class="alert alert-danger col-auto" role="alert">
+          <p>Your form contains following errors:</p>
+          <ul *ngFor="let error of errors">
+            <li>{{ error }}</li>
+          </ul>
+        </div>
+      </div>
+
+
       <div class="form-group">
         <label for="name" class="form-label">Name</label>
         <input type="text" [(ngModel)]="user.name"

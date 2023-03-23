@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,13 +34,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthController {
 
+    private final UserValidator userValidator;
     private final AuthService authService;
     private final UsersService usersService;
     private final DTOMapper dtoMapper;
 
     @PostMapping("login")
     @CrossOrigin(origins = "http://localhost:4200")
-    @PreAuthorize("isAnonymous()")
+//    @PreAuthorize("isAnonymous()")
     public ResponseEntity<Object> makeLogin(
             @RequestBody AuthenticationDTO authenticationDTO) {
         String token = authService.login(authenticationDTO);
@@ -51,24 +54,43 @@ public class AuthController {
 
     @PostMapping("registration")
     @CrossOrigin(origins = "http://localhost:4200")
-    @PreAuthorize("isAnonymous()")
-    public ResponseEntity<String> makeRegistration(
+//    @PreAuthorize("isAnonymous()")
+    public ResponseEntity<Object> makeRegistration(
             @RequestBody @Valid RegistrationUserDTO registrationUserDTO,
             BindingResult bindingResult) {
-        String token;
-        try {
-             token = authService.signup(registrationUserDTO, bindingResult);
-        } catch (MethodArgumentNotValidException e) {
-             log.info("Incorrect credentials given by the user");
-             return new ResponseEntity<>("Incorrect credentials", HttpStatus.UNAUTHORIZED);
+
+        User user = dtoMapper.mapClass(registrationUserDTO, User.class);
+
+        userValidator.validate(user, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.warn("There was a problem during user validation");
+
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+            return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("jwt-token", token);
-        return ResponseEntity
-                .ok()
-                .headers(httpHeaders)
-                .build();
+        log.info("The user has been validated successfully");
+
+        usersService.register(user);
+
+//        String token;
+//        try {
+//             token = authService.signup(registrationUserDTO, bindingResult);
+//        } catch (MethodArgumentNotValidException e) {
+//             log.info("Incorrect credentials given by the user");
+//             return new ResponseEntity<>("Incorrect credentials", HttpStatus.UNAUTHORIZED);
+//        }
+//
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.set("jwt-token", token);
+//        return ResponseEntity
+//                .ok()
+//                .headers(httpHeaders)
+//                .build();
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 }

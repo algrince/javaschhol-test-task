@@ -43,22 +43,22 @@ public class AuthService {
         return jwtUtil.generateToken(authenticationDTO.getEmail());
     }
     
-    public String signup(
-            RegistrationUserDTO registrationUserDTO,
-            BindingResult bindingResult) throws MethodArgumentNotValidException {
+//    public String signup(
+//            RegistrationUserDTO registrationUserDTO,
+//            BindingResult bindingResult) throws MethodArgumentNotValidException {
+//
+//        User user = dtoMapper.mapClass(registrationUserDTO, User.class);
+//        userValidator.validate(user, bindingResult);
+//
+//        if (bindingResult.hasErrors()) {
+//
+//            log.warn("There was a problem during user validation");
 
-        User user = dtoMapper.mapClass(registrationUserDTO, User.class);
-        userValidator.validate(user, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-
-            log.warn("There was a problem during user validation");
-            //TODO handle exception
-            throw new MethodArgumentNotValidException(null, bindingResult);
-        }
-        log.info("The user has been validated successfully");
-        usersService.register(user);
-
-        return jwtUtil.generateToken(user.getEmail());
-    }
+//            throw new MethodArgumentNotValidException(null, bindingResult);
+//        }
+//        log.info("The user has been validated successfully");
+//        usersService.register(user);
+//
+//        return jwtUtil.generateToken(user.getEmail());
+//    }
 }
