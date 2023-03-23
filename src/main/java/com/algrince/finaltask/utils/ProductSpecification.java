@@ -1,10 +1,8 @@
 package com.algrince.finaltask.utils;
 
 import com.algrince.finaltask.models.Product;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import com.algrince.finaltask.models.ProductProperty;
+import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,7 +19,10 @@ public class ProductSpecification implements Specification<Product> {
             return null;
         }
 
-        if (criteria.getOperation().equalsIgnoreCase(">")) {
+        if (criteria.getKey().equalsIgnoreCase("propertyValues")) {
+            Join<Product, ProductProperty> join = root.join("propertyValues", JoinType.INNER);
+            return criteriaBuilder.equal(join.get("propertyValue"), criteria.getValue().toString());
+        } else if (criteria.getOperation().equalsIgnoreCase(">")) {
             return criteriaBuilder.greaterThanOrEqualTo(
                     root.<String> get(criteria.getKey()), criteria.getValue().toString());
         } else if (criteria.getOperation().equalsIgnoreCase("<")) {

@@ -39,7 +39,7 @@ public class ProductsService {
             int page, int size,
             String sortField, String sortDir,
             Double minPrice, Double maxPrice,
-            List<Long> prValues) {
+            List<Long> propertyValues) {
 
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
 
@@ -56,11 +56,9 @@ public class ProductsService {
         productSpecs.add(categorySpec);
 
 
-        List<ProductProperty> foundProductProperties = new ArrayList<>();
-
-        if (prValues != null) {
-            for (Long ppId: prValues) {
-                ProductProperty foundProductProperty = productPropertiesService.findById(ppId);
+        if (propertyValues != null) {
+            for (Long productPropertyId: propertyValues) {
+                ProductProperty foundProductProperty = productPropertiesService.findById(productPropertyId);
                 ProductSpecification productPropertySpec = new ProductSpecification(
                         new SearchCriteria(
                                 "propertyValues",
@@ -77,9 +75,9 @@ public class ProductsService {
         productSpecs.add(minPriceSpec);
         productSpecs.add(maxPriceSpec);
 
-        Iterable<Specification<Product>> iterableSpecs = productSpecs;
+
         Page<Product> products = productsRepository.findAll(
-                Specification.allOf(iterableSpecs), paging);
+                Specification.allOf(productSpecs), paging);
 //        Page<Product> products = productsRepository.findAll(
 //                Specification.allOf(categorySpec, minPriceSpec, maxPriceSpec), paging);
         return products;
