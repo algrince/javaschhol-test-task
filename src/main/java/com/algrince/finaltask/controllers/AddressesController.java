@@ -68,8 +68,7 @@ public class AddressesController {
 
     @GetMapping("{id}")
 //    @PreAuthorize("#userId == authentication.principal.id")
-    public ResponseEntity<Object> getAddress (@PathVariable("id") Long id, Principal principal) {
-        log.info(principal.toString());
+    public ResponseEntity<Object> getAddress (@PathVariable("id") Long id) {
 
         Address foundAddress = addressesService.findById(id);
 

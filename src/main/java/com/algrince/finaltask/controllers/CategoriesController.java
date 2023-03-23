@@ -39,7 +39,7 @@ public class CategoriesController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> addCategory(
             @Valid @RequestBody CategoryDTO categoryDTO,
             BindingResult bindingResult) {
@@ -56,7 +56,7 @@ public class CategoriesController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> updateCategory (
             @PathVariable(value = "id") Long categoryId,
             @Valid @RequestBody CategoryDTO categoryDTO,
@@ -77,7 +77,7 @@ public class CategoriesController {
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteCategory (@PathVariable(value = "id") Long categoryId) {
         Category categoryToDelete = categoriesService.findById(categoryId);
         categoriesService.softDelete(categoryToDelete);

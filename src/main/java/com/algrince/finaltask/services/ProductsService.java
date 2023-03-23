@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.StringJoiner;
 
 @Slf4j
 @Service
@@ -46,7 +45,7 @@ public class ProductsService {
 
         Pageable paging = PageRequest.of(page, size, direction, sortField);
 
-        List<ProductSpecification> productSpecs = new ArrayList<>();
+        List<Specification> productSpecs = new ArrayList<>();
 
         Category foundCategory = null;
         if (categoryId != null) {
@@ -59,7 +58,7 @@ public class ProductsService {
 
         List<ProductProperty> foundProductProperties = new ArrayList<>();
 
-        if (!prValues.isEmpty()) {
+        if (prValues != null) {
             for (Long ppId: prValues) {
                 ProductProperty foundProductProperty = productPropertiesService.findById(ppId);
                 ProductSpecification productPropertySpec = new ProductSpecification(
@@ -76,7 +75,7 @@ public class ProductsService {
         productSpecs.add(minPriceSpec);
         productSpecs.add(maxPriceSpec);
 
-        Iterable<ProductSpecification> iterableSpecs = productSpecs;
+        Iterable<Specification> iterableSpecs = productSpecs;
 //        Page<Product> products = productsRepository.findAll(
 //                Specification.allOf(iterableSpecs), paging);
         Page<Product> products = productsRepository.findAll(

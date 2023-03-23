@@ -8,6 +8,8 @@ import com.algrince.finaltask.models.User;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class OrderDTO {
@@ -28,5 +30,7 @@ public class OrderDTO {
 
     private java.util.Calendar createdDate;
 
-    private User user;
+    private LoggedUserDTO user;
+
+    private List<OrderProductDTO> orderProducts;
 }

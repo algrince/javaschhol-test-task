@@ -1,5 +1,6 @@
 import { Address } from '../model/address';
 import { CartItem } from '../model/cart-item';
+import { OrderProduct } from '../model/order-product';
 import { User } from '../model/user';
 
 
@@ -15,6 +16,7 @@ export class Order {
     products: CartItem[];
     createdDate: Date;
     user: User;
+    orderProducts: OrderProduct[];
 }
 
 export enum OrderStatus {

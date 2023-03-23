@@ -75,7 +75,7 @@ public class ProductsController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> updateProduct(
             @PathVariable(value = "id") Long productId,
             @Valid @RequestBody ProductsDTO productsDTO) {
@@ -86,7 +86,7 @@ public class ProductsController {
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteProduct (
             @PathVariable(value = "id") Long productId) {
         Product productToDelete = productsService.findById(productId);

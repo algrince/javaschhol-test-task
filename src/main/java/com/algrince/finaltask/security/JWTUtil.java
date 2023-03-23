@@ -32,7 +32,7 @@ public class JWTUtil {
 
     public String validateToken(String token) throws JWTVerificationException {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
-                .withSubject("User datails")
+                .withSubject("User details")
                 .withIssuer("algrince")
                 .build();
 

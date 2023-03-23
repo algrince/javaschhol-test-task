@@ -57,7 +57,7 @@ public class PropertiesController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> updateProperty(
             @PathVariable(value = "id") Long propertyId,
             @Valid @RequestBody PropertyDTO propertyDTO,
@@ -78,7 +78,7 @@ public class PropertiesController {
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteProperty (
             @PathVariable(value = "id") Long propertyId) {
         Property propertyToDelete = propertiesService.findById(propertyId);
