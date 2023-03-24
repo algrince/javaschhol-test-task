@@ -49,11 +49,7 @@ public class UsersController {
             @PathVariable("id") Long id,
             Principal principal) {
         User foundUser = usersService.findById(id);
-
-        if (!accessValidator.isAccessible(principal, foundUser)) {
-            throw new AccessDeniedException("User has no rights to access this information");
-        }
-
+        usersService.checkAccess(principal, foundUser);
         DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
         return ResponseEntity.ok().body(foundUserDTO);
     }
@@ -65,11 +61,7 @@ public class UsersController {
             @Valid @RequestBody RegistrationUserDTO registrationUserDTO,
             Principal principal) {
         User foundUser = usersService.findById(userId);
-
-        if (!accessValidator.isAccessible(principal, foundUser)) {
-            throw new AccessDeniedException("User has no rights to access this information");
-        }
-
+        usersService.checkAccess(principal, foundUser);
         dtoMapper.mapProperties(registrationUserDTO, foundUser);
         usersService.save(foundUser);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -82,11 +74,7 @@ public class UsersController {
             @PathVariable(value ="id") Long userId,
             Principal principal) {
         User userToDelete = usersService.findById(userId);
-
-        if (!accessValidator.isAccessible(principal, userToDelete)) {
-            throw new AccessDeniedException("User has no rights to access this information");
-        }
-
+        usersService.checkAccess(principal, userToDelete);
         usersService.softDelete(userToDelete);
         return new ResponseEntity<>(HttpStatus.OK);
     }

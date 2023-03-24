@@ -1,5 +1,7 @@
+<div class="row d-flex justify-content-center my-4">
+    <div class="col-md-2"></div>
 
-    <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="col-md-4 col-sm-4 col-xs-12">
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="col-md-6">
 
         <div class="col-md-6 mb-3 text-center">
             <p class="fs-4">Update user</p>
@@ -18,7 +20,7 @@
 
         <div class="col-md-12"></div>
 
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="name" class="form-label">Name</label>
             <input type="text" [(ngModel)]="user.name"
                    class="form-control col-md-6 mb-3"
@@ -28,7 +30,7 @@
                    required #name="ngModel">
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="surname" class="form-label">Surname</label>
             <input type="text" [(ngModel)]="user.surname"
                    class="form-control col-md-6 mb-3"
@@ -38,7 +40,7 @@
                    required #surname="ngModel">
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="email" class="form-label">Email</label>
             <input type="text" [(ngModel)]="user.email"
                    class="form-control col-md-6 mb-3"
@@ -59,7 +61,7 @@
             <small class="form-text text-muted">We use YYYY-MM-DD format. Please, use it too :)</small>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="password" class="form-label">Password</label>
             <input type="password" [(ngModel)]="user.password"
                    class="form-control col-md-6 mb-3"
@@ -72,7 +74,8 @@
         </div>
 
         <button type="submit"
-                class="btn btn-outline-primary col-md-3 text-nowrap"
+                class="btn btn-outline-primary col-md-3 text-nowrap mt-5"
                 [disabled]="!userForm.form.valid">Submit</button>
     </form>
+</div>
 

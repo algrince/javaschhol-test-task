@@ -4,6 +4,7 @@ import com.algrince.finaltask.dto.CategoryDTO;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.services.CategoriesService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.CategoryValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class CategoriesController {
 
     private final CategoriesService categoriesService;
+    private final CategoryValidator categoryValidator;
     private final DTOMapper dtoMapper;
 
     @GetMapping
@@ -43,6 +45,10 @@ public class CategoriesController {
     public ResponseEntity<Object> addCategory(
             @Valid @RequestBody CategoryDTO categoryDTO,
             BindingResult bindingResult) {
+
+        Category category = dtoMapper.mapClass(categoryDTO, Category.class);
+
+
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -50,7 +56,7 @@ public class CategoriesController {
             return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
-        Category category = dtoMapper.mapClass(categoryDTO, Category.class);
+
         categoriesService.save(category);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

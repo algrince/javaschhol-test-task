@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     private final UserValidator userValidator;
@@ -32,8 +34,7 @@ public class AuthController {
     private final DTOMapper dtoMapper;
 
     @PostMapping("login")
-    @CrossOrigin(origins = "http://localhost:4200")
-//    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()")
     public ResponseEntity<Object> makeLogin(
             @RequestBody AuthenticationDTO authenticationDTO) {
         String token = authService.login(authenticationDTO);
@@ -45,8 +46,7 @@ public class AuthController {
 
 
     @PostMapping("registration")
-    @CrossOrigin(origins = "http://localhost:4200")
-//    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()")
     public ResponseEntity<Object> makeRegistration(
             @RequestBody @Valid RegistrationUserDTO registrationUserDTO,
             BindingResult bindingResult) {
