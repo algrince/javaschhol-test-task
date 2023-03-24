@@ -1,4 +1,4 @@
-package com.algrince.finaltask.dto;
+package com.algrince.finaltask.dto.userDTO;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;

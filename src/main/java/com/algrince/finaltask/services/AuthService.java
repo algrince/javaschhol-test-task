@@ -1,6 +1,6 @@
 package com.algrince.finaltask.services;
 
-import com.algrince.finaltask.dto.AuthenticationDTO;
+import com.algrince.finaltask.dto.userDTO.AuthenticationDTO;
 import com.algrince.finaltask.security.JWTUtil;
 import com.algrince.finaltask.utils.DTOMapper;
 import com.algrince.finaltask.validators.UserValidator;

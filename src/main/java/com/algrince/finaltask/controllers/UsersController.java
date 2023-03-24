@@ -1,24 +1,22 @@
 package com.algrince.finaltask.controllers;
 
 
-import com.algrince.finaltask.dto.DetailedUserDTO;
+import com.algrince.finaltask.dto.userDTO.DetailedUserDTO;
 import com.algrince.finaltask.dto.RegistrationUserDTO;
-import com.algrince.finaltask.dto.UpdatePassDTO;
-import com.algrince.finaltask.dto.UserListDTO;
+import com.algrince.finaltask.dto.userDTO.LoggedUserDTO;
+import com.algrince.finaltask.dto.userDTO.UpdatePassDTO;
+import com.algrince.finaltask.dto.userDTO.UserListDTO;
 import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
-import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.utils.DTOMapper;
 import com.algrince.finaltask.validators.PasswordValidator;
 import com.algrince.finaltask.validators.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -108,7 +106,17 @@ public class UsersController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("{id}/role")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Object> updateUserRole(
+            @PathVariable(value = "id") Long userId,
+            LoggedUserDTO loggedUserDTO) {
+        User userToPromote = usersService.findById(userId);
+        userToPromote.setRole(loggedUserDTO.getRole());
+        usersService.save(userToPromote);
 
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @DeleteMapping("{id}")
     @PreAuthorize("isAuthenticated()")

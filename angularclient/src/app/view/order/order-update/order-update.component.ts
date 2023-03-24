@@ -28,10 +28,8 @@ export class OrderUpdateComponent implements OnInit {
     }
 
     setOrderAsPaid() {
-        console.log(this.order);
         this.order.orderStatus = OrderStatus.PENDING_SHIPMENT;
         this.order.paymentStatus = PaymentStatus.PAID;
-        console.log(this.order);
     }
 
     onSubmit() {

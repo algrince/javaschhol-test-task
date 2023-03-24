@@ -1,4 +1,4 @@
-package com.algrince.finaltask.dto;
+package com.algrince.finaltask.dto.userDTO;
 
 import com.algrince.finaltask.enums.UserRole;
 import lombok.Getter;

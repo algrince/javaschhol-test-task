@@ -1,10 +1,10 @@
 package com.algrince.finaltask.dto;
 
+import com.algrince.finaltask.dto.userDTO.LoggedUserDTO;
 import com.algrince.finaltask.enums.DeliveryMethod;
 import com.algrince.finaltask.enums.OrderStatus;
 import com.algrince.finaltask.enums.PaymentMethod;
 import com.algrince.finaltask.enums.PaymentStatus;
-import com.algrince.finaltask.models.User;
 import lombok.Getter;
 import lombok.Setter;
 

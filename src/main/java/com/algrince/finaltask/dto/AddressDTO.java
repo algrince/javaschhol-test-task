@@ -1,6 +1,6 @@
 package com.algrince.finaltask.dto;
 
-import com.algrince.finaltask.models.User;
+import com.algrince.finaltask.dto.userDTO.LoggedUserDTO;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;

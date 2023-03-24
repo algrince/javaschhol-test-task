@@ -1,0 +1,24 @@
+<div class="row my-4 justify-content-center">
+    <p class="fs-3 col-auto">Change role of user</p>
+    <div class="col-md-12"></div>
+    <p class="fs-5 col-auto"><b>Email:</b> {{ user.email }}</p>
+</div>
+
+<form (ngSubmit)="onSubmit()" #userForm="ngForm" class="row justify-content-center">
+    <div class="col-auto">
+    <mat-radio-group
+            aria-labelledby="user_role"
+            name="userRole"
+            [(ngModel)]="user.role">
+        <mat-radio-button [value]="buyer">Buyer</mat-radio-button>
+        <mat-radio-button [value]="employee">Employee</mat-radio-button>
+        <mat-radio-button [value]="admin">Admin</mat-radio-button>
+    </mat-radio-group>
+    </div>
+    <div class="col-md-12"></div>
+
+    <div class="col-auto mt-5">
+        <button type="submit"
+                class="btn btn-outline-primary text-nowrap">Submit</button>
+    </div>
+</form>

@@ -1,7 +1,7 @@
 package com.algrince.finaltask.controllers;
 
-import com.algrince.finaltask.dto.AuthenticationDTO;
-import com.algrince.finaltask.dto.LoggedUserDTO;
+import com.algrince.finaltask.dto.userDTO.AuthenticationDTO;
+import com.algrince.finaltask.dto.userDTO.LoggedUserDTO;
 import com.algrince.finaltask.dto.RegistrationUserDTO;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.security.JwtResponseEntity;

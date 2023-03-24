@@ -61,6 +61,7 @@ import { UnauthorizedComponent } from './util/unauthorized/unauthorized.componen
 import { UnauthorizedInterceptor } from './util/unauthorized.interceptor';
 import { UserChangePasswordComponent } from './view/user/user-change-password/user-change-password.component';
 import { AddressAdminListComponent } from './view/address/address-admin-list/address-admin-list.component';
+import { UserChangeRoleComponent } from './view/user/user-change-role/user-change-role.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { AddressAdminListComponent } from './view/address/address-admin-list/add
     OrderUpdateComponent,
     UnauthorizedComponent,
     UserChangePasswordComponent,
-    AddressAdminListComponent
+    AddressAdminListComponent,
+    UserChangeRoleComponent
   ],
   imports: [
     BrowserModule,

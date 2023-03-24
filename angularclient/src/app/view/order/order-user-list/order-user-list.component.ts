@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { Order, OrderStatus, PaymentStatus, PaymentMethod, DeliveryMethod }  from '../../../model/order';
 import { OrderService } from '../../../service/order.service';
 
+
 @Component({
   selector: 'app-order-user-list',
   templateUrl: './order-user-list.component.html',
@@ -14,6 +15,7 @@ export class OrderUserListComponent implements OnInit {
     orders: Order[];
     order: Order;
     orderId: number;
+    role: string;
 
     constructor(
         private orderService: OrderService,
