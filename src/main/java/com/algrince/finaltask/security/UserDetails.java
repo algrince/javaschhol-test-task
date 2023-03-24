@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Collection;
 import java.util.Collections;
 
+
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
     private final User user;
 
