@@ -62,9 +62,10 @@ export class ProductListComponent implements OnInit {
     }
 
     onSubmit() {
+        this.page = 0;
 
         this.getProducts
-            ({page: 0, size: this.size,
+            ({page: this.page, size: this.size,
             sortField: this.sortField, sortDir: this.sortDir,
             minPrice: this.minPrice, maxPrice: this.maxPrice,
             prValues: this.selectedValues});
@@ -85,7 +86,8 @@ export class ProductListComponent implements OnInit {
         this.getProducts(
             {page: (pageNum - 1), size: this.size,
             sortField: this.sortField, sortDir: this.sortDir,
-            minPrice: this.minPrice, maxPrice: this.maxPrice});
+            minPrice: this.minPrice, maxPrice: this.maxPrice,
+            prValues: this.selectedValues});
     }
 
     updateSelectedValues(selectedValueId: number) {

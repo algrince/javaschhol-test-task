@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../../model/product';
 import { Category } from '../../../model/category';
+import { PropertyValue } from '../../../model/property-value';
 import { ProductService } from '../../../service/product.service';
 import { CategoryService } from '../../../service/category.service';
 import { ImageService } from '../../../service/image.service';
+import { PropertyValueService } from '../../../service/property-value.service';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,6 +20,8 @@ export class CategoryPageComponent implements OnInit{
 
     products: Product[];
     categories: Category[];
+    propertyValues: PropertyValue[];
+    selectedValues: number[] = [];
     category: Category;
     categoryId: number;
     totalElements = 0;
@@ -38,7 +42,8 @@ export class CategoryPageComponent implements OnInit{
         private cookieService: CookieService,
         private sanitizer: DomSanitizer,
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private propertyValueService: PropertyValueService) {
             this.category = new Category();
     }
 
@@ -49,10 +54,13 @@ export class CategoryPageComponent implements OnInit{
                 this.categoryId = id;
                 this.getCategory();
 
-                this.getProducts({category: this.categoryId, page: 0, size: this.size});
+                this.getProducts({category: this.categoryId, page: this.page, size: this.size});
 
                 this.categoryService.findAll()
                     .subscribe(data => {this.categories = data})
+
+                this.propertyValueService.findAll()
+                    .subscribe(data => {this.propertyValues = data});
             }
         )
 
@@ -82,19 +90,37 @@ export class CategoryPageComponent implements OnInit{
                 {this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
     }
 
-    setValue() {}
 
     onSubmit() {
+        this.page = 0;
+
         this.getProducts
-            ({page: 0, size: this.size,
+            ({category: this.categoryId,
+            page: this.page, size: this.size,
             sortField: this.sortField, sortDir: this.sortDir,
-            minPrice: this.minPrice, maxPrice: this.maxPrice});
+            minPrice: this.minPrice, maxPrice: this.maxPrice,
+            prValues: this.selectedValues});
     }
 
     public onPageChange(pageNum: number): void {
         this.getProducts(
         {category: this.categoryId,
         page: (pageNum - 1), size: this.size,
-        sortField: this.sortField, sortDir: this.sortDir})
+        sortField: this.sortField, sortDir: this.sortDir,
+        minPrice: this.minPrice, maxPrice: this.maxPrice,
+        prValues: this.selectedValues})
     }
+
+        updateSelectedValues(selectedValueId: number) {
+          if (selectedValueId) {
+            const index = this.selectedValues.findIndex(pv => pv === selectedValueId);
+            if (index > -1) {
+              // If the property value is already in the array, remove it
+              this.selectedValues.splice(index, 1);
+            } else {
+              // If the property value is not in the array, add it
+              this.selectedValues.push(selectedValueId);
+            }
+          }
+        }
 }

@@ -19,27 +19,32 @@
       <li class="nav-item">
         <a routerLink="/users"
            class="nav-link link-dark px-2"
-           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Users</a>
+           [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Users</a>
       </li>
       <li class="nav-item">
         <a routerLink="/addresses"
            class="nav-link link-dark px-2"
-           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Addresses</a>
+           [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Addresses</a>
       </li>
       <li class="nav-item">
         <a routerLink="/addresses"
            class="nav-link link-dark px-2"
-           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Addresses</a>
+           [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Addresses</a>
       </li>
       <li class="nav-item">
         <a routerLink="/admin/orders"
            class="nav-link link-dark px-2"
-           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Orders</a>
+           [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Orders</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/properties"
+           class="nav-link link-dark px-2"
+           [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Properties</a>
       </li>
       <li class="nav-item">
         <a routerLink="/propertyValues"
            class="nav-link link-dark px-2"
-           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Property Values</a>
+           [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Property Values</a>
       </li>
     </ul>
     <div>

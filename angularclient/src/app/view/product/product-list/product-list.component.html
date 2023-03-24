@@ -1,4 +1,3 @@
-
     <nav class="py-2 bg-primary bg-opacity-25 border-bottom text-black-75">
         <div class="container d-flex flex-wrap">
             <ul class="nav" *ngFor="let category of categories">
@@ -12,7 +11,7 @@
     </nav>
 
 
-    <div class="card-body row g-5 my-4 d-flex justify-content-center">
+    <div class="card-body row g-5 my-4 d-flex justify-content-center"  style="margin-right: 20px;">
         <div class="col-md-1"></div>
         <div class="col-md-3">
              <div class="position-sticky">
@@ -35,7 +34,7 @@
                      </div>
 
                      <div class="form-group col-md-4">
-                         <label for="sortDir" class="form-label">Sort direction</label>
+                         <label for="sortDir" class="form-label">Direction</label>
                          <select type="text"
                                  class="form-control mb-3"
                                  id="sortDir"
@@ -46,7 +45,7 @@
                          </select>
                      </div>
 
-                     <div class="col-md-3"></div>
+                     <div class="col-md-4"></div>
 
                      <p class="fs-5 mt-4">Filter by price</p>
                      <div class="form-group col-md-4">
@@ -68,7 +67,7 @@
 
                      </div>
 
-                     <div class="col-md-3"></div>
+                     <div class="col-md-4"></div>
 
                      <p class="fs-5 mt-4">Filter by property values</p>
 
@@ -100,7 +99,7 @@
                  </form>
              </div>
         </div>
-    <div class="row row-cols-1 col-md-6 row-cols-md-3 g-4">
+    <div class="row row-cols-1 col-md-8 row-cols-md-3 g-4">
         <div class="col" *ngFor="let product of products">
             <div class="card">
                 <img [src]="imageSrc" class="card-img-top" alt="Product image">
@@ -113,13 +112,16 @@
             </div>
         </div>
     </div>
+        <div class="d-flex justify-content-center mt-5">
     <ngb-pagination [collectionSize]="totalElements"
                     [(page)]="page"
                     [pageSize]="size"
                     [maxSize]="5"
                     [rotate]="true"
                     [boundaryLinks]="true" (pageChange)="onPageChange(page)" class="col-auto"></ngb-pagination>
-</div>
+        </div>
+        </div>
+
 
     <div class="card-body row d-flex justify-content-center my-4" >
         <div class="col-auto">
