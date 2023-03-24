@@ -3,6 +3,7 @@ package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.DetailedUserDTO;
 import com.algrince.finaltask.dto.RegistrationUserDTO;
+import com.algrince.finaltask.dto.UpdatePassDTO;
 import com.algrince.finaltask.dto.UserListDTO;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
@@ -86,6 +87,36 @@ public class UsersController {
         usersService.update(foundUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("{id}/password")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Object> updateUserPassword(
+            @PathVariable(value = "id") Long userId,
+            @Valid @RequestBody UpdatePassDTO updatePassDTO,
+            Principal principal, BindingResult bindingResult) {
+        User foundUser = usersService.findById(userId);
+        usersService.checkAccess(principal, foundUser);
+
+        dtoMapper.mapProperties(updatePassDTO, foundUser);
+        passwordValidator.validate(foundUser, bindingResult);
+
+        foundUser.setPassword(updatePassDTO.getNewPassword());
+        userValidator.validate(foundUser, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.warn("There was a problem during user validation");
+
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+            return new ResponseEntity<>(errors, HttpStatus.OK);
+        }
+
+        usersService.update(foundUser);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 
     @DeleteMapping("{id}")

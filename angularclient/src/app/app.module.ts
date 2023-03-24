@@ -59,6 +59,7 @@ import { OrderUpdateComponent } from './view/order/order-update/order-update.com
 
 import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
 import { UnauthorizedInterceptor } from './util/unauthorized.interceptor';
+import { UserChangePasswordComponent } from './view/user/user-change-password/user-change-password.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { UnauthorizedInterceptor } from './util/unauthorized.interceptor';
     OrderFormComponent,
     OrderUserListComponent,
     OrderUpdateComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    UserChangePasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -36,6 +36,11 @@ export class UserService {
     return this.http.put<User>(updateUrl, user);
   }
 
+  public updatePassword(id: number, user: User) {
+    const updatePassUrl = `${this.usersUrl}/${id}/password`;
+    return this.http.put<User>(updatePassUrl, user);
+  }
+
   public delete(id: number) {
     const deleteUrl = `${this.usersUrl}/${id}`;
     return this.http.delete<User>(deleteUrl);

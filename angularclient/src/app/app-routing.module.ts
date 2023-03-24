@@ -9,6 +9,7 @@ import { UserPageComponent} from './view/user/user-page/user-page.component';
 import { UserUpdateComponent } from './view/user/user-update/user-update.component';
 import { UserDeleteComponent } from './view/user/user-delete/user-delete.component';
 import { LoginComponent } from './view/user/login/login.component';
+import { UserChangePasswordComponent } from './view/user/user-change-password/user-change-password.component';
 
 import { AddressFormComponent } from './view/address/address-form/address-form.component';
 import { AddressUpdateComponent } from './view/address/address-update/address-update.component';
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'users/:id', component: UserPageComponent },
   { path: 'users/:id/update', component: UserUpdateComponent },
   { path: 'users/:id/delete', component: UserDeleteComponent },
+  { path: 'users/:id/changePassword', component: UserChangePasswordComponent },
   { path: 'addresses/new', component: AddressFormComponent },
   { path: 'addresses/:id/update', component: AddressUpdateComponent },
   { path: 'addresses/:id/delete', component: AddressDeleteComponent },

@@ -4,11 +4,11 @@ import { User } from '../../../model/user';
 import { UserService } from '../../../service/user.service';
 
 @Component({
-  selector: 'app-user-update',
-  templateUrl: './user-update.component.html',
-  styleUrls: ['./user-update.component.css']
+  selector: 'app-user-change-password',
+  templateUrl: './user-change-password.component.html',
+  styleUrls: ['./user-change-password.component.css']
 })
-export class UserUpdateComponent implements OnInit {
+export class UserChangePasswordComponent implements OnInit {
 
     userId: number;
     user: User;

@@ -6,4 +6,5 @@ export class User {
     password: string;
     dateOfBirth: Date;
     role: string;
+    newPassword: String;
 }
