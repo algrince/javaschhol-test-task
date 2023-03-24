@@ -75,6 +75,7 @@ public class OrdersController {
             Product foundProduct = productsService.findById(productId);
             newProductInOrder.setProduct(foundProduct);
             newProductInOrder.setQuantity(productInfo.getQuantity());
+            newProductInOrder.setOrder(order);
             orderedProducts.add(newProductInOrder);
         }
 
