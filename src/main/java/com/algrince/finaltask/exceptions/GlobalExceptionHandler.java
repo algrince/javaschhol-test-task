@@ -8,10 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.nio.file.AccessDeniedException;
 
 
 @Slf4j
@@ -62,4 +65,21 @@ public class GlobalExceptionHandler {
 //
 //        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessageDTO);
 //    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<ErrorMessageDTO> handleAccessDeniedException(
+            AccessDeniedException e) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+         if (auth != null) {
+             log.warn ("User: " + auth.getName() +  "attempted to access the protected URL");
+         }
+
+         ErrorMessageDTO errorMessageDTO = new ErrorMessageDTO();
+         errorMessageDTO.setStatus(HttpStatus.FORBIDDEN);
+         errorMessageDTO.setMessage(e.getLocalizedMessage());
+
+         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessageDTO);
+    }
 }
