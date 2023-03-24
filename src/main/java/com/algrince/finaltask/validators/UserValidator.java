@@ -1,10 +1,9 @@
-package com.algrince.finaltask.utils;
+package com.algrince.finaltask.validators;
 
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -12,14 +11,10 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class UserValidator implements Validator {
 
     private final UsersService usersService;
-
-    @Autowired
-    public UserValidator(UsersService usersService) {
-        this.usersService = usersService;
-    }
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -33,7 +28,10 @@ public class UserValidator implements Validator {
 
 //        Check if email is repeated
         if (clientFromDB.isPresent()) {
-           errors.rejectValue("email", "user.email.exists", "The user with this email already exists");
+           errors.rejectValue(
+                   "email",
+                   "user.email.exists",
+                   "The user with this email already exists");
         }
 
         LocalDate dateOfBirth = ((User) target).getDateOfBirth();

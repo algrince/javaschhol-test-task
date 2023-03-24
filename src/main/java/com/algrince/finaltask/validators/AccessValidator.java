@@ -1,4 +1,4 @@
-package com.algrince.finaltask.utils;
+package com.algrince.finaltask.validators;
 
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.security.UserDetails;

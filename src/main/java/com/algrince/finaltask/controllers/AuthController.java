@@ -4,29 +4,21 @@ import com.algrince.finaltask.dto.AuthenticationDTO;
 import com.algrince.finaltask.dto.LoggedUserDTO;
 import com.algrince.finaltask.dto.RegistrationUserDTO;
 import com.algrince.finaltask.models.User;
-import com.algrince.finaltask.security.JWTUtil;
 import com.algrince.finaltask.security.JwtResponseEntity;
 import com.algrince.finaltask.services.AuthService;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
-import com.algrince.finaltask.utils.UserValidator;
+import com.algrince.finaltask.validators.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Slf4j

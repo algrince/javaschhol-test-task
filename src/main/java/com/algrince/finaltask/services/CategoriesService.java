@@ -38,4 +38,9 @@ public class CategoriesService {
         category.setDeleted(true);
         categoriesRepository.save(category);
     }
+
+    @Transactional(readOnly = true)
+    public Optional<Category> loadByName(String name) {
+        return categoriesRepository.findByName(name);
+    }
 }

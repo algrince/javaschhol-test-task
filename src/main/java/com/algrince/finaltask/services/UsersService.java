@@ -40,11 +40,6 @@ public class UsersService {
 
     @Transactional
     public void register(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//         Temporally set date on registration
-//         Remove when correct form in angular application is set
-//        Date date = new Date("01/01/2000");
-//        user.setDateOfBirth(date);
         user.setRole(UserRole.BUYER);
         user.setDeleted(false);
         usersRepository.save(user);

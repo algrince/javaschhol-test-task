@@ -12,6 +12,7 @@ export class UserUpdateComponent implements OnInit {
 
     userId: number;
     user: User;
+    errors: string[]
 
     constructor(
         private route: ActivatedRoute,
@@ -29,7 +30,14 @@ export class UserUpdateComponent implements OnInit {
 
     onSubmit() {
         this.userService.update(this.userId, this.user)
-            .subscribe(result => this.gotoUserDetails());
+            .subscribe(
+                result => {
+                    if (Array.isArray(result)) {
+                        this.errors = result;
+                    } else {
+                        this.gotoUserDetails();
+                    }
+                })
     }
 
     gotoUserDetails() {

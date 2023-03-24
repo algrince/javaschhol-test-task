@@ -21,7 +21,7 @@ public class Property {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     @NotEmpty
     @Length(max = 45)
     private String name;

@@ -1,20 +1,14 @@
 package com.algrince.finaltask.services;
 
 import com.algrince.finaltask.dto.AuthenticationDTO;
-import com.algrince.finaltask.dto.RegistrationUserDTO;
-import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.security.JWTUtil;
 import com.algrince.finaltask.utils.DTOMapper;
-import com.algrince.finaltask.utils.UserValidator;
+import com.algrince.finaltask.validators.UserValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-
-import java.util.Collections;
 
 
 @Slf4j

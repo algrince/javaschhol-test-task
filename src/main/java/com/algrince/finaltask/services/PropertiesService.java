@@ -38,4 +38,9 @@ public class PropertiesService {
         property.setDeleted(true);
         propertiesRepository.save(property);
     }
+
+    @Transactional
+    public Optional<Property> loadByName(String name) {
+        return propertiesRepository.findByName(name);
+    }
 }

@@ -38,4 +38,9 @@ public class ProductPropertiesService {
         productProperty.setDeleted(true);
         productPropertyRepository.save(productProperty);
     }
+
+    @Transactional(readOnly = true)
+    public Optional<ProductProperty> loadByValue(String value) {
+        return productPropertyRepository.findByPropertyValue(value);
+    }
 }

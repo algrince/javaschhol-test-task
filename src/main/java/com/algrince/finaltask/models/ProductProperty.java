@@ -20,16 +20,14 @@ public class ProductProperty {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
 
-
     @ManyToMany(mappedBy = "propertyValues")
     private List<Product> products;
 
-    @Column(name = "value")
+    @Column(name = "value", unique = true)
     @NotEmpty
     private String propertyValue;
 

@@ -6,7 +6,7 @@ import com.algrince.finaltask.dto.RegistrationUserDTO;
 import com.algrince.finaltask.dto.UserListDTO;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
-import com.algrince.finaltask.utils.AccessValidator;
+import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

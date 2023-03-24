@@ -56,7 +56,6 @@ public class Product {
     @OneToOne(mappedBy = "product")
     private ProductImage productImage;
 
-
     @ManyToMany
     @JoinTable(
             name = "product_has_property_value",

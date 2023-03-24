@@ -52,7 +52,7 @@ public class OrdersController {
     }
 
     @PostMapping
-//    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Object> addOrder(
             @Valid @RequestBody OrderDTO orderDTO,
             BindingResult bindingResult) {
