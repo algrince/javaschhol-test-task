@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.nio.file.AccessDeniedException;
+import java.util.List;
 
 
 @Slf4j
@@ -81,5 +82,14 @@ public class GlobalExceptionHandler {
          errorMessageDTO.setMessage(e.getLocalizedMessage());
 
          return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessageDTO);
+    }
+
+    @ExceptionHandler(InvalidFormException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Object> handleInvalidFormException(
+            InvalidFormException e) {
+
+        List<String> errors = InvalidFormException.getErrors();
+        return ResponseEntity.status(HttpStatus.OK).body(errors);
     }
 }

@@ -53,6 +53,7 @@ public class ProductsController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> addProduct(
             @Valid @RequestBody ProductsDTO productsDTO,
             BindingResult bindingResult) {
@@ -70,10 +71,7 @@ public class ProductsController {
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<ProductsDTO> getProduct (@PathVariable("id") Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info("User role " + authentication.getAuthorities());
 
         Product foundProduct = productsService.findById(id);
         ProductsDTO foundProductDTO = dtoMapper.mapClass(foundProduct, ProductsDTO.class);
@@ -84,7 +82,7 @@ public class ProductsController {
     }
 
     @PutMapping("{id}")
-//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> updateProduct(
             @PathVariable(value = "id") Long productId,
             @Valid @RequestBody ProductsDTO productsDTO) {
@@ -95,7 +93,7 @@ public class ProductsController {
     }
 
     @DeleteMapping("{id}")
-//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteProduct (
             @PathVariable(value = "id") Long productId) {
         Product productToDelete = productsService.findById(productId);

@@ -2,6 +2,7 @@ package com.algrince.finaltask.controllers;
 
 
 import com.algrince.finaltask.dto.AddressDTO;
+import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.User;
@@ -49,10 +50,7 @@ public class AddressesController {
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+            throw new InvalidFormException(bindingResult);
         }
 
         Address address = dtoMapper.mapClass(addressDTO, Address.class);
@@ -66,7 +64,8 @@ public class AddressesController {
 
     @GetMapping("{id}")
 //    @PreAuthorize("#userId == authentication.principal.id")
-    public ResponseEntity<Object> getAddress (@PathVariable("id") Long id) {
+    public ResponseEntity<Object> getAddress(
+            @PathVariable("id") Long id) {
 
         Address foundAddress = addressesService.findById(id);
 
@@ -82,10 +81,7 @@ public class AddressesController {
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+            throw new InvalidFormException(bindingResult);
         }
 
         Address foundAddress = addressesService.findById(addressId);

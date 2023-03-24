@@ -1,9 +1,11 @@
 package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.ProductPropertyDTO;
+import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.ProductProperty;
 import com.algrince.finaltask.services.ProductPropertiesService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.ProductPropertyValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 public class ProductPropertiesController {
 
     private final ProductPropertiesService productPropertiesService;
+    private final ProductPropertyValidator productPropertyValidator;
     private final DTOMapper dtoMapper;
 
     @GetMapping
@@ -40,46 +43,44 @@ public class ProductPropertiesController {
     }
 
     @PostMapping
-//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> addProductProperty(
             @Valid @RequestBody ProductPropertyDTO productPropertyDTO,
             BindingResult bindingResult) {
 
+        ProductProperty productProperty = dtoMapper.mapClass(productPropertyDTO, ProductProperty.class);
+
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .collect(Collectors.toList());
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+            throw new InvalidFormException(bindingResult);
         }
 
-        ProductProperty productProperty = dtoMapper.mapClass(productPropertyDTO, ProductProperty.class);
         productPropertiesService.save(productProperty);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> updateProductProperty(
             @PathVariable(value = "id") Long productPropertyId,
             @Valid @RequestBody ProductPropertyDTO productPropertyDTO,
             BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .collect(Collectors.toList());
-            return new ResponseEntity<>(errors, HttpStatus.OK);
-        }
-
         ProductProperty foundProductProperty = productPropertiesService.findById(productPropertyId);
         dtoMapper.mapProperties(productPropertyDTO, foundProductProperty);
+        productPropertyValidator.validate(foundProductProperty, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            throw new InvalidFormException(bindingResult);
+        }
+
+
         productPropertiesService.save(foundProductProperty);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteProductProperty(
             @PathVariable(value = "id") Long productPropertyId) {
         ProductProperty productPropertyToDelete = productPropertiesService.findById(productPropertyId);

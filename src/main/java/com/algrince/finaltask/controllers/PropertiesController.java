@@ -1,9 +1,11 @@
 package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.PropertyDTO;
+import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.Property;
 import com.algrince.finaltask.services.PropertiesService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.PropertyValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -14,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("properties")
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class PropertiesController {
 
     private final PropertiesService propertiesService;
+    private final PropertyValidator propertyValidator;
     private final DTOMapper dtoMapper;
 
     @GetMapping
@@ -40,45 +42,44 @@ public class PropertiesController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> addProperty(
             @Valid @RequestBody PropertyDTO propertyDTO,
             BindingResult bindingResult) {
 
+        Property property = dtoMapper.mapClass(propertyDTO, Property.class);
+        propertyValidator.validate(property, bindingResult);
+
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+            throw new InvalidFormException(bindingResult);
         }
 
-        Property property = dtoMapper.mapClass(propertyDTO, Property.class);
         propertiesService.save(property);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> updateProperty(
             @PathVariable(value = "id") Long propertyId,
             @Valid @RequestBody PropertyDTO propertyDTO,
             BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
-        }
-
         Property foundProperty = propertiesService.findById(propertyId);
         dtoMapper.mapProperties(propertyDTO, foundProperty);
+
+        propertyValidator.validate(foundProperty, bindingResult);
+        if (bindingResult.hasErrors()) {
+            throw new InvalidFormException(bindingResult);
+        }
+
         propertiesService.save(foundProperty);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-//    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteProperty (
             @PathVariable(value = "id") Long propertyId) {
         Property propertyToDelete = propertiesService.findById(propertyId);

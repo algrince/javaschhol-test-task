@@ -5,6 +5,7 @@ import com.algrince.finaltask.dto.DetailedUserDTO;
 import com.algrince.finaltask.dto.RegistrationUserDTO;
 import com.algrince.finaltask.dto.UpdatePassDTO;
 import com.algrince.finaltask.dto.UserListDTO;
+import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.validators.AccessValidator;
@@ -75,12 +76,7 @@ public class UsersController {
         passwordValidator.validate(userToValidate, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            log.warn("There was a problem during user validation");
-
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+            throw new InvalidFormException(bindingResult);
         }
 
         dtoMapper.mapProperties(registrationUserDTO, foundUser);
@@ -104,12 +100,7 @@ public class UsersController {
         userValidator.validate(foundUser, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            log.warn("There was a problem during user validation");
-
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+            throw new InvalidFormException(bindingResult);
         }
 
         usersService.update(foundUser);

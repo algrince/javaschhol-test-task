@@ -1,6 +1,7 @@
 package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.CategoryDTO;
+import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.services.CategoriesService;
 import com.algrince.finaltask.utils.DTOMapper;
@@ -47,15 +48,11 @@ public class CategoriesController {
             BindingResult bindingResult) {
 
         Category category = dtoMapper.mapClass(categoryDTO, Category.class);
-
+        categoryValidator.validate(category, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+            throw new InvalidFormException(bindingResult);
         }
-
 
         categoriesService.save(category);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -68,15 +65,14 @@ public class CategoriesController {
             @Valid @RequestBody CategoryDTO categoryDTO,
             BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
-        }
-
         Category foundCategory = categoriesService.findById(categoryId);
         dtoMapper.mapProperties(categoryDTO, foundCategory);
+        categoryValidator.validate(foundCategory, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            throw new InvalidFormException(bindingResult);
+        }
+
         categoriesService.save(foundCategory);
 
         return new ResponseEntity<>(HttpStatus.OK);

@@ -27,9 +27,13 @@ public class ProductPropertyValidator implements Validator {
         Optional<ProductProperty> productPropertyFromDB =
                 productPropertiesService.loadByValue(productProperty.getPropertyValue());
 
-        if (productPropertyFromDB.isPresent()) {
+        Long targetProductPropertyId = productProperty.getId();
+        Long productPropertyFromDBId = productPropertyFromDB.map(ProductProperty::getId).orElse(null);
+
+        if (productPropertyFromDB.isPresent()
+                && targetProductPropertyId != productPropertyFromDBId) {
             errors.rejectValue(
-                    "productProperty",
+                    "propertyValue",
                     "productProperty.propertyValue.exists",
                     "The property value with this value already exists");
         }

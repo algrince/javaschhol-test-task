@@ -31,7 +31,6 @@ public class PasswordValidator implements Validator {
         String targetUserRawPassword = user.getPassword();
 
         if (!passwordEncoder.matches(targetUserRawPassword, userFromDBPassword)) {
-//        if (!targetUserRawPassword.equals(userFromDBPassword)) {
             errors.rejectValue(
                     "password",
                     "user.password.user.password.notmatch",

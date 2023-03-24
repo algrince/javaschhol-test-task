@@ -27,7 +27,7 @@ public class CategoryValidator implements Validator {
 
         if (categoryFromDB.isPresent()) {
             errors.rejectValue(
-                    "category",
+                    "name",
                     "category.name.exists",
                     "The category with this name already exists");
         }
