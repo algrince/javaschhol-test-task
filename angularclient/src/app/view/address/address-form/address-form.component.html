@@ -1,5 +1,5 @@
 <div class="row d-flex my-4 justify-content-center">
-    <p class="h4 col-auto">Add new address</p>
+    <p class="fs-3 col-auto">Add new address</p>
 </div>
         <form (ngSubmit)="onSubmit()" #addressForm="ngForm" class="card-body row d-flex justify-content-center">
 
@@ -92,7 +92,8 @@
 
             <div class="col-auto">
             <button type="submit"
-                    class="btn btn-outline-primary text-nowrap">Submit</button>
+                    class="btn btn-outline-primary text-nowrap"
+                    [disabled]="!addressForm.form.valid">Submit</button>
             </div>
 
             </div>

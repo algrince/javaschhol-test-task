@@ -1,22 +1,26 @@
-<div class="card my-5">
-    <div class="card-body">
+<div class="my-5 row justify-content-center align-items-center">
+    <div class="col-md-6">
+        <p class="fs-3">All property values</p>
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Property</th>
-                <th scope="col">Value</th>
+                <th scope="col" class="col-1 text-center">#</th>
+                <th scope="col" class="col-2 text-center">Property</th>
+                <th scope="col" class="col-2 text-center">Value</th>
+                <th scope="col" class="col-2 text-center">Action</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let propertyValue of propertyValues">
-                <td>{{ propertyValue.id }}</td>
-                <td>{{ propertyValue.property.name }}</td>
-                <td>{{ propertyValue.propertyValue }}</td>
-                <td><div class="btn-group" role="group">
-                    <a routerLink="./{{ propertyValue.id }}/update" class="btn btn-outline-success">Update</a>
-                    <a routerLink="./{{ propertyValue.id }}/delete" class="btn btn-outline-danger">Delete</a>
-                </div></td>
+                <td class="text-center">{{ propertyValue.id }}</td>
+                <td class="text-center">{{ propertyValue.property.name }}</td>
+                <td class="text-center">{{ propertyValue.propertyValue }}</td>
+                <td class="d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                        <a routerLink="./{{ propertyValue.id }}/update" class="btn btn-outline-success">Update</a>
+                        <a routerLink="./{{ propertyValue.id }}/delete" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -1,5 +1,5 @@
-<div class="row d-flex justify-content-center">
-    <p class="h4 my-4 col-auto">Add new product</p>
+<div class="row my-4 d-flex justify-content-center">
+    <p class="fs-3 col-auto">Add new product</p>
 </div>
 
 <form (ngSubmit)="onSubmit()" #productForm="ngForm" class="card-body row d-flex justify-content-center">
@@ -92,10 +92,11 @@
 
 
 
-        <div class="col-md-12 my-4"><p></p></div>
-        <div class="col-auto mt-4">
+
+        <div class="d-flex justify-content-center my-4">
             <button type="submit"
-                    class="btn btn-outline-primary text-nowrap">Submit</button>
+                    class="btn btn-outline-primary text-nowrap"
+                    [disabled]="!productForm.form.valid">Submit</button>
         </div>
     </div>
 </form>

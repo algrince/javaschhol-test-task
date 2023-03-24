@@ -1,21 +1,24 @@
-<div class="card my-5">
-    <div class="card-body">
+<div class="my-5 row justify-content-center align-items-center">
+<div class="col-md-6">
+    <p class="fs-3">All properties</p>
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="col-1 text-center">#</th>
+                <th scope="col" class="col-1 text-center">Name</th>
+                <th scope="col" class="col-1 text-center">Action</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let property of properties">
-                <td>{{ property.id }}</td>
-                <td>{{ property.name }}</td>
-                <td><div class="btn-group" role="group">
-                    <a routerLink="./{{ property.id }}/update" class="btn btn-outline-success">Update</a>
-                    <a routerLink="./{{ property.id }}/delete" class="btn btn-outline-danger">Delete</a>
-                </div></td>
+                <td class="text-center">{{ property.id }}</td>
+                <td class="text-center">{{ property.name }}</td>
+                <td class="d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                        <a routerLink="./{{ property.id }}/update" class="btn btn-outline-success">Update</a>
+                        <a routerLink="./{{ property.id }}/delete" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>

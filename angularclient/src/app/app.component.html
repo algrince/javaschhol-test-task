@@ -22,9 +22,19 @@
            [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Users</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/properties"
+        <a routerLink="/addresses"
            class="nav-link link-dark px-2"
-           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Properties</a>
+           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Addresses</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/addresses"
+           class="nav-link link-dark px-2"
+           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Addresses</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/admin/orders"
+           class="nav-link link-dark px-2"
+           [hidden] = "!roleExists || (roleExists && role !== 'EMPLOYEE')">Orders</a>
       </li>
       <li class="nav-item">
         <a routerLink="/propertyValues"
@@ -34,9 +44,15 @@
     </ul>
     <div>
       <ul class="nav">
-        <li class="nav-item"><a routerLink="/login" class="nav-link link-dark px-2" *ngIf="!authenticationService.isUserLoggedIn()">Login</a></li>
-        <li class="nav-item"><a routerLink="/registration" class="nav-link link-dark px-2" *ngIf="!authenticationService.isUserLoggedIn()">Sign up</a></li>
-        <li class="nav-item"><a routerLink="/login" class="nav-link link-dark px-2" *ngIf="authenticationService.isUserLoggedIn()" (click)="authenticationService.logOut()">Logout</a></li>
+        <li class="nav-item">
+          <a routerLink="/login" class="nav-link link-dark px-2" *ngIf="!authenticationService.isUserLoggedIn()">Login</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/registration" class="nav-link link-dark px-2" *ngIf="!authenticationService.isUserLoggedIn()">Sign up</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/login" class="nav-link link-dark px-2" *ngIf="authenticationService.isUserLoggedIn()" (click)="authenticationService.logOut()">Logout</a>
+        </li>
       </ul>
     </div>
 

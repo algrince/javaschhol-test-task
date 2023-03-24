@@ -37,7 +37,7 @@ public class UserValidator implements Validator {
                    "The user with this email already exists");
         }
 
-        LocalDate dateOfBirth = ((User) target).getDateOfBirth();
+        LocalDate dateOfBirth = user.getDateOfBirth();
 
         if (dateOfBirth != null) {
 //            Check if the age of the user is between 100 and 14 yo
@@ -51,7 +51,7 @@ public class UserValidator implements Validator {
         }
 
 //        Check if password at least one lowercase letter, one uppercase letter, one digit, and one special character
-        String password = ((User) target).getPassword();
+        String password = user.getPassword();
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]*$";
         if (password != null && !password.matches(regex)) {
             errors.rejectValue("password", "user.password.invalid",
