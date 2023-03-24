@@ -1,4 +1,3 @@
-/*
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -9,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
@@ -22,8 +22,9 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
             if (error.status === 403) {
                 this.router.navigate(['/unauthorized']);
             }
+
+            return of(null);
         })
     );
   }
 }
-*/

@@ -41,6 +41,7 @@ import { OrderUpdateComponent } from './view/order/order-update/order-update.com
 
 import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },

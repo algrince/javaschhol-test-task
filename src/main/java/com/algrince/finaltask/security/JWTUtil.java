@@ -17,26 +17,35 @@ public class JWTUtil {
     @Value("${jwt_secret}")
     private String secret;
 
+    @Value("${issuer}")
+    private String issuer;
+
+    @Value("${subject}")
+    private String subject;
+
+    @Value("${claim}")
+    private String claim;
+
     public String generateToken(String username) {
         Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(60).toInstant());
         Date generationDate = new Date();
 
         return JWT.create()
-                .withSubject("User details")
-                .withClaim("username", username)
+                .withSubject(subject)
+                .withClaim(claim, username)
                 .withIssuedAt(generationDate)
-                .withIssuer("algrince")
+                .withIssuer(issuer)
                 .withExpiresAt(expirationDate)
                 .sign(Algorithm.HMAC256(secret));
     }
 
     public String validateToken(String token) throws JWTVerificationException {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
-                .withSubject("User details")
-                .withIssuer("algrince")
+                .withSubject(subject)
+                .withIssuer(issuer)
                 .build();
 
         DecodedJWT jwt = verifier.verify(token);
-        return jwt.getClaim("username").asString();
+        return jwt.getClaim(claim).asString();
     }
 }

@@ -8,17 +8,22 @@ import com.algrince.finaltask.services.ProductsService;
 import com.algrince.finaltask.utils.DTOMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("products")
 @RequiredArgsConstructor
@@ -65,7 +70,11 @@ public class ProductsController {
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<ProductsDTO> getProduct (@PathVariable("id") Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("User role " + authentication.getAuthorities());
+
         Product foundProduct = productsService.findById(id);
         ProductsDTO foundProductDTO = dtoMapper.mapClass(foundProduct, ProductsDTO.class);
 

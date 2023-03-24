@@ -16,7 +16,7 @@ export class BasicAuthHttpInterceptorService implements HttpInterceptor {
 
             req = req.clone({
                 setHeaders: {
-                    Authorization: this.cookieService.get('token')
+                    Authorization: "Bearer " + this.cookieService.get('token')
                 }
             })
         }

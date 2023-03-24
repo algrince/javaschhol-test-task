@@ -56,7 +56,9 @@ import { PropertyValueDeleteComponent } from './view/property-value/property-val
 import { OrderFormComponent } from './view/order/order-form/order-form.component';
 import { OrderUserListComponent } from './view/order/order-user-list/order-user-list.component';
 import { OrderUpdateComponent } from './view/order/order-update/order-update.component';
+
 import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
+import { UnauthorizedInterceptor } from './util/unauthorized.interceptor';
 
 @NgModule({
   declarations: [
@@ -110,11 +112,16 @@ import { UnauthorizedComponent } from './util/unauthorized/unauthorized.componen
     UserService,
     DatePipe,
     CookieService,
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: BasicAuthHttpInterceptorService,
-          multi: true
-        }  ],
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BasicAuthHttpInterceptorService,
+      multi: true
+    },
+    { provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true
+    },
+      ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
