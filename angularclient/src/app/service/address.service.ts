@@ -33,6 +33,11 @@ export class AddressService {
         return this.http.get<Address[]>(this.addressesUrl, {params});
     }
 
+    public findAllForAdmin(): Observable<Address[]> {
+        const allAddressesUrl = `${this.addressesUrl}/all`
+        return this.http.get<Address[]>(allAddressesUrl);
+    }
+
     public findOneAddress(id: number): Observable<Address> {
         const url = `${this.addressesUrl}/${id}`;
         return this.http.get<Address>(url);

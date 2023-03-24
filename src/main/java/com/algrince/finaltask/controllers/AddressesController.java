@@ -35,27 +35,37 @@ public class AddressesController {
 
 
     @GetMapping
-//    @PreAuthorize("#userId == authentication.principal.id")
-    public List<AddressDTO> getAddresses(
-            @RequestParam(required = false) Long user) {
-        List<Address> addresses = addressesService.selectAddresses(user);
+    @PreAuthorize("isAuthenticated()")
+    public List<AddressDTO> getUserAddresses(
+            @RequestParam(required = true) Long user,
+            Principal principal) {
+        User associatedUser = usersService.findById(user);
+        usersService.checkAccess(principal, associatedUser);
+
+        List<Address> addresses = addressesService.findByUser(associatedUser);
         return dtoMapper.mapList(addresses, AddressDTO.class);
     }
 
-
+    @GetMapping("all")
+    @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
+    public List<AddressDTO> getAddresses() {
+        List<Address> addresses = addressesService.findAll();
+        return dtoMapper.mapList(addresses, AddressDTO.class);
+    }
     @PostMapping
-//    @PreAuthorize("#userId == authentication.principal.id")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Object> addAddress(
             @Valid @RequestBody AddressDTO addressDTO,
-            BindingResult bindingResult) {
+            Principal principal, BindingResult bindingResult) {
+
+        User associatedUser = usersService.findById(addressDTO.getOwner().getId());
+        usersService.checkAccess(principal, associatedUser);
 
         if (bindingResult.hasErrors()) {
             throw new InvalidFormException(bindingResult);
         }
 
         Address address = dtoMapper.mapClass(addressDTO, Address.class);
-
-        User associatedUser = usersService.findById(addressDTO.getOwner().getId());
         address.setOwner(associatedUser);
 
         addressesService.save(address);
@@ -63,28 +73,33 @@ public class AddressesController {
     }
 
     @GetMapping("{id}")
-//    @PreAuthorize("#userId == authentication.principal.id")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Object> getAddress(
-            @PathVariable("id") Long id) {
-
+            @PathVariable("id") Long id,
+            Principal principal) {
         Address foundAddress = addressesService.findById(id);
+        User associatedUser = foundAddress.getOwner();
+        usersService.checkAccess(principal, associatedUser);
 
         AddressDTO foundAddressDTO = dtoMapper.mapClass(foundAddress, AddressDTO.class);
         return ResponseEntity.ok().body(foundAddressDTO);
     }
 
     @PutMapping("{id}")
-//    @PreAuthorize("#userId == authentication.principal.id")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Object> updateAddress (
             @PathVariable(value = "id") Long addressId,
             @Valid @RequestBody AddressDTO addressDTO,
-            BindingResult bindingResult) {
+            Principal principal, BindingResult bindingResult) {
+
+        Address foundAddress = addressesService.findById(addressId);
+        User associatedUser = foundAddress.getOwner();
+        usersService.checkAccess(principal, associatedUser);
 
         if (bindingResult.hasErrors()) {
             throw new InvalidFormException(bindingResult);
         }
 
-        Address foundAddress = addressesService.findById(addressId);
         dtoMapper.mapProperties(addressDTO, foundAddress);
         addressesService.save(foundAddress);
 
@@ -93,9 +108,15 @@ public class AddressesController {
 
 
     @DeleteMapping("{id}")
-//    @PreAuthorize("#userId == authentication.principal.id")
-    public ResponseEntity<String> deleteAddress (@PathVariable(value = "id") Long addressId) {
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<String> deleteAddress (
+            @PathVariable(value = "id") Long addressId,
+            Principal principal) {
+
         Address addressToDelete = addressesService.findById(addressId);
+        User associatedUser = addressToDelete.getOwner();
+        usersService.checkAccess(principal, associatedUser);
+
         addressesService.softDelete(addressToDelete);
         return new ResponseEntity<>(HttpStatus.OK);
     }

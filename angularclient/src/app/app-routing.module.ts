@@ -14,6 +14,7 @@ import { UserChangePasswordComponent } from './view/user/user-change-password/us
 import { AddressFormComponent } from './view/address/address-form/address-form.component';
 import { AddressUpdateComponent } from './view/address/address-update/address-update.component';
 import { AddressDeleteComponent } from './view/address/address-delete/address-delete.component';
+import { AddressAdminListComponent } from './view/address/address-admin-list/address-admin-list.component';
 
 import { ProductListComponent } from './view/product/product-list/product-list.component';
 import { ProductCreateComponent } from './view/product/product-create/product-create.component';
@@ -77,6 +78,7 @@ const routes: Routes = [
   { path: 'orders', component: OrderUserListComponent },
   { path: 'orders/:id/update', component: OrderUpdateComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'admin/addresses', component: AddressAdminListComponent},
 ];
 
 @NgModule({

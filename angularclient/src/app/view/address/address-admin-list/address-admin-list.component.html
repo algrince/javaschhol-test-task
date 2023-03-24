@@ -1,0 +1,32 @@
+<div class="my-5 row justify-content-center align-items-center">
+    <div class="col-md-8">
+        <p class="fs-3">All addresses</p>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="col-1 text-center">#</th>
+                <th scope="col" class="col-2 text-center">Country, city</th>
+                <th scope="col" class="col-2 text-center">Postal code</th>
+                <th scope="col" class="col-3 text-center">Rest of the address</th>
+                <th scope="col" class="col-2 text-center">User</th>
+                <th scope="col" class="col-2 text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let address of addresses">
+                <td class="text-center">{{ address.id }}</td>
+                <td class="text-center">{{ address.country }}, {{ address.city }}</td>
+                <td class="text-center">{{ address.postalCode }}</td>
+                <td class="text-center">{{ address.street }} {{ address.home}}, {{ address.apartment }} {{ address.door }}</td>
+                <td class="text-center"><a routerLink="/users/{{ address.owner.id }}">{{ address.owner.email }}</a></td>
+                <td class="d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                        <a routerLink="/addresses/{{ address.id }}/update" class="btn btn-outline-success">Update</a>
+                        <a routerLink="/addresses/{{ address.id }}/delete" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
