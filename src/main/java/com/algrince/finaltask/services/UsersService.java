@@ -22,6 +22,7 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final AccessValidator accessValidator;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<User> findAll() {
@@ -50,6 +51,7 @@ public class UsersService {
 
     @Transactional
     public void register(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(UserRole.BUYER);
         user.setDeleted(false);
         usersRepository.save(user);
@@ -57,6 +59,12 @@ public class UsersService {
 
     @Transactional
     public void save(User user) {
+        usersRepository.save(user);
+    }
+
+    @Transactional
+    public void update(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         usersRepository.save(user);
     }
 

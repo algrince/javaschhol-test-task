@@ -8,6 +8,7 @@ import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.PasswordValidator;
 import com.algrince.finaltask.validators.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class UsersController {
     private final UsersService usersService;
     private final DTOMapper dtoMapper;
     private final UserValidator userValidator;
+    private final PasswordValidator passwordValidator;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
@@ -65,9 +67,11 @@ public class UsersController {
             Principal principal, BindingResult bindingResult) {
         User foundUser = usersService.findById(userId);
         usersService.checkAccess(principal, foundUser);
-        dtoMapper.mapProperties(registrationUserDTO, foundUser);
 
-        userValidator.validate(foundUser, bindingResult);
+        User userToValidate = dtoMapper.mapClass(registrationUserDTO, User.class);
+        userToValidate.setId(userId);
+        userValidator.validate(userToValidate, bindingResult);
+        passwordValidator.validate(userToValidate, bindingResult);
 
         if (bindingResult.hasErrors()) {
             log.warn("There was a problem during user validation");
@@ -78,7 +82,8 @@ public class UsersController {
             return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
-        usersService.save(foundUser);
+        dtoMapper.mapProperties(registrationUserDTO, foundUser);
+        usersService.update(foundUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -42,7 +42,8 @@
 
       <div class="col-auto my-3">
         <button type="submit"
-                class="btn btn-outline-primary text-nowrap">Submit</button>
+                class="btn btn-outline-primary text-nowrap"
+                [disabled]="!userForm.form.valid">Submit</button>
       </div>
 
       <div class="col-md-12 my-3"></div>

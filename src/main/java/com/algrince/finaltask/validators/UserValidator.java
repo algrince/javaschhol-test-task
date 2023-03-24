@@ -27,7 +27,7 @@ public class UserValidator implements Validator {
         Optional<User> userFromDB = usersService.loadByEmail(user.getEmail());
 
         Long userFromDBId = userFromDB.map(User::getId).orElse(null);
-        Long targetUserId = ((User) target).getId();
+        Long targetUserId = user.getId();
 
 //        Check if email is repeated
         if (userFromDB.isPresent() && userFromDBId != targetUserId) {
