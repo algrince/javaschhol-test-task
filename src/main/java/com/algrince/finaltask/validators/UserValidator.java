@@ -24,10 +24,13 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
-        Optional<User> clientFromDB = usersService.loadByEmail(user.getEmail());
+        Optional<User> userFromDB = usersService.loadByEmail(user.getEmail());
+
+        Long userFromDBId = userFromDB.map(User::getId).orElse(null);
+        Long targetUserId = ((User) target).getId();
 
 //        Check if email is repeated
-        if (clientFromDB.isPresent()) {
+        if (userFromDB.isPresent() && userFromDBId != targetUserId) {
            errors.rejectValue(
                    "email",
                    "user.email.exists",
@@ -49,8 +52,8 @@ public class UserValidator implements Validator {
 
 //        Check if password at least one lowercase letter, one uppercase letter, one digit, and one special character
         String password = ((User) target).getPassword();
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@$!%*?&])[A-Za-z\\\\d@$!%*?&]*$";
-        if (password != null & !password.matches(regex)) {
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]*$";
+        if (password != null && !password.matches(regex)) {
             errors.rejectValue("password", "user.password.invalid",
                     "Password should contain at least one lowercase letter, one uppercase letter, one digit, and one special character");
         }

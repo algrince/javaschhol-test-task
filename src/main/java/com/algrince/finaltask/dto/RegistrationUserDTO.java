@@ -29,7 +29,6 @@ public class RegistrationUserDTO {
 
     @NotNull(message = "Date of birth should not be empty")
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;
 
 

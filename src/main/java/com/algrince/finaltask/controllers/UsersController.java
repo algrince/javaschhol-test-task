@@ -8,13 +8,16 @@ import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -29,7 +32,7 @@ public class UsersController {
 
     private final UsersService usersService;
     private final DTOMapper dtoMapper;
-    private final AccessValidator accessValidator;
+    private final UserValidator userValidator;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
@@ -59,10 +62,22 @@ public class UsersController {
     public ResponseEntity<Object> updateUser(
             @PathVariable(value = "id") Long userId,
             @Valid @RequestBody RegistrationUserDTO registrationUserDTO,
-            Principal principal) {
+            Principal principal, BindingResult bindingResult) {
         User foundUser = usersService.findById(userId);
         usersService.checkAccess(principal, foundUser);
         dtoMapper.mapProperties(registrationUserDTO, foundUser);
+
+        userValidator.validate(foundUser, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.warn("There was a problem during user validation");
+
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+            return new ResponseEntity<>(errors, HttpStatus.OK);
+        }
+
         usersService.save(foundUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
