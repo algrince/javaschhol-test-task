@@ -34,7 +34,7 @@ public class OrderValidator implements Validator {
 
             if (productInOrderStock < productQuantity) {
                 errors.rejectValue(
-                        "quantity",
+                        "orderProducts",
                         "order.orderProducts.quantity.invalid",
                         "You are trying to buy too much of " + productInOrder.getTitle() +
                         ". The current stock of the product is: " + productInOrderStock);

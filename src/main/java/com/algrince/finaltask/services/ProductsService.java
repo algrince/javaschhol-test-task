@@ -5,6 +5,7 @@ import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.models.ProductProperty;
 import com.algrince.finaltask.repositories.ProductsRepository;
+import com.algrince.finaltask.utils.FilterManager;
 import com.algrince.finaltask.utils.ProductSpecification;
 import com.algrince.finaltask.utils.SearchCriteria;
 import jakarta.persistence.EntityManager;
@@ -32,7 +33,9 @@ public class ProductsService {
     private final ProductsRepository productsRepository;
     private final CategoriesService categoriesService;
     private final ProductPropertiesService productPropertiesService;
-    private final EntityManager entityManager;
+    private final FilterManager filterManager;
+
+    private final String DELETED_PRODUCT_FILTER = "deletedProductFilter";
 
     public Page<Product> selectProducts(
             Long categoryId,
@@ -75,9 +78,10 @@ public class ProductsService {
         productSpecs.add(minPriceSpec);
         productSpecs.add(maxPriceSpec);
 
-
+        filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
         Page<Product> products = productsRepository.findAll(
                 Specification.allOf(productSpecs), paging);
+        filterManager.disableFilter(DELETED_PRODUCT_FILTER);
 //        Page<Product> products = productsRepository.findAll(
 //                Specification.allOf(categorySpec, minPriceSpec, maxPriceSpec), paging);
         return products;
@@ -85,24 +89,25 @@ public class ProductsService {
 
     @Transactional(readOnly = true)
     public Page<Product> findAll(Pageable paging) {
-        Session session = entityManager.unwrap(Session.class);
-        Filter filter = session.enableFilter("deletedProductFilter");
-        filter.setParameter("isDeleted", false);
+        filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
         Page<Product> products = productsRepository.findAll(paging);
-        session.disableFilter("deletedProductFilter");
+        filterManager.disableFilter(DELETED_PRODUCT_FILTER);
         return products;
     }
 
     @Transactional(readOnly = true)
     public Page<Product> findAllByCategory(Category category, Pageable paging) {
+        filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
         Page<Product> products = productsRepository.findAllByCategory(category, paging);
+        filterManager.disableFilter(DELETED_PRODUCT_FILTER);
         return products;
     }
 
     @Transactional(readOnly = true)
     public Product findById(Long id) {
+        filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
         Optional<Product> foundProduct = productsRepository.findById(id);
-        // Add find by id deleted condition
+        filterManager.disableFilter(DELETED_PRODUCT_FILTER);
         return foundProduct.orElseThrow(()
                 -> new ResourceNotFoundException("Product not found with id: " + id));
     }
@@ -125,4 +130,6 @@ public class ProductsService {
                 foundProduct.getStock() - boughtQuantity);
         productsRepository.save(foundProduct);
     }
+
+
 }
