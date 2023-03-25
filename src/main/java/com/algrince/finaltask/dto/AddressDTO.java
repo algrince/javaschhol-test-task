@@ -45,4 +45,6 @@ public class AddressDTO {
     private String door;
 
     private LoggedUserDTO owner;
+
+    private boolean isDeleted;
 }

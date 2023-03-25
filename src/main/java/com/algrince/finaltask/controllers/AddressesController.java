@@ -9,6 +9,7 @@ import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.AddressesService;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.AccessValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,9 @@ import java.util.List;
 public class AddressesController {
 
     private final AddressesService addressesService;
-    private final DTOMapper dtoMapper;
+    private final AccessValidator accessValidator;
     private final UsersService usersService;
+    private final DTOMapper dtoMapper;
 
 
     @GetMapping
@@ -42,14 +44,16 @@ public class AddressesController {
         User associatedUser = usersService.findById(user);
         usersService.checkAccess(principal, associatedUser);
 
-        List<Address> addresses = addressesService.findByUser(associatedUser);
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        List<Address> addresses = addressesService.findByUser(associatedUser, isAdmin);
         return dtoMapper.mapList(addresses, AddressDTO.class);
     }
 
     @GetMapping("all")
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public List<AddressDTO> getAddresses() {
-        List<Address> addresses = addressesService.findAll();
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        List<Address> addresses = addressesService.findAll(isAdmin);
         return dtoMapper.mapList(addresses, AddressDTO.class);
     }
     @PostMapping
@@ -77,7 +81,9 @@ public class AddressesController {
     public ResponseEntity<Object> getAddress(
             @PathVariable("id") Long id,
             Principal principal) {
-        Address foundAddress = addressesService.findById(id);
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        Address foundAddress = addressesService.findById(id, isAdmin);
+
         User associatedUser = foundAddress.getOwner();
         usersService.checkAccess(principal, associatedUser);
 

@@ -3,19 +3,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Order, OrderStatus, PaymentStatus, PaymentMethod, DeliveryMethod }  from '../../../model/order';
 import { OrderService } from '../../../service/order.service';
 
-
 @Component({
-  selector: 'app-order-user-list',
-  templateUrl: './order-user-list.component.html',
-  styleUrls: ['./order-user-list.component.css']
+  selector: 'app-order-admin-list',
+  templateUrl: './order-admin-list.component.html',
+  styleUrls: ['./order-admin-list.component.css']
 })
-export class OrderUserListComponent implements OnInit {
+export class OrderAdminListComponent implements OnInit {
 
     orders: Order[];
     order: Order;
     orderId: number;
-    role: string;
-    userId: number;
 
     constructor(
         private orderService: OrderService,
@@ -23,9 +20,8 @@ export class OrderUserListComponent implements OnInit {
         private route: ActivatedRoute) {}
 
     ngOnInit() {
-        this.userId = this.route.snapshot.params['id'];
 
-        this.orderService.findAll({user: this.userId})
+        this.orderService.findAllForAdmin()
             .subscribe(data => {this.orders = data});
 
     }
@@ -38,11 +34,12 @@ export class OrderUserListComponent implements OnInit {
         return method.toString().toLowerCase().replace('_', ' ');
     }
 
-    getNumericValue(status: PaymentStatus): number {
-        if (status.toString() == "PENDING") {
-            return 0;
-        }
-        return 1;
+    getPaymentStatusDisplayValue(status: PaymentStatus): string {
+        return status.toString().toLowerCase().replace('_', ' ');
+    }
+
+    getPaymentMethodDisplayValue(method: PaymentMethod): string {
+        return method.toString().toLowerCase().replace('_', ' ');
     }
 
 }

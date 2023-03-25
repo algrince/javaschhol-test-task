@@ -1,0 +1,41 @@
+<div class="my-5 row justify-content-center align-items-center" style="margin-right: 20px;">
+    <div class="col-md-11">
+        <p class="fs-3">All orders</p>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="col-1 text-center">#</th>
+                <th scope="col" class="col-2 text-center">User</th>
+                <th scope="col" class="col-2 text-center">Date</th>
+                <th scope="col" class="col-1 text-center">Total</th>
+                <th scope="col" class="col-1 text-center">Delivery method</th>
+                <th scope="col" class="col-1 text-center">Order status</th>
+                <th scope="col" class="col-1 text-center">Payment status</th>
+                <th scope="col" class="col-3 text-center">Ordered products</th>
+                <th scope="col" class="col-1 text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let order of orders" >
+                <td class="text-center">{{ order.id }}</td>
+                <td class="text-center">
+                    <a class="text-reset" routerLink="users/{{ order.user.id }}">{{ order.user.email }}</a>
+                </td>
+                <td class="text-center">{{ order.createdDate | date:'yyyy-MM-dd' }}</td>
+                <td class="text-center">{{ order.orderSum }} €</td>
+                <td class="text-center">{{ getDeliveryMethodDisplayValue(order.deliveryMethod) }}</td>
+                <td class="text-center">{{ getOrderStatusDisplayValue(order.orderStatus) }}</td>
+                <td class="text-center">{{ getPaymentStatusDisplayValue(order.paymentStatus) }} ({{ getPaymentMethodDisplayValue(order.paymentMethod) }})</td>
+                <td><ul class="list-unstyled">
+                    <li *ngFor="let orderProduct of order.orderProducts">
+                        <a routerLink="/products/{{ orderProduct.product.id }}" class="text-reset">{{ orderProduct.product.title }}</a></li>
+                </ul></td>
+                <td class="text-center d-flex justify-content-center">
+                        <a routerLink="/orders/{{ order.id }}/update"
+                           class="btn btn-outline-primary text-nowrap">Change status</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

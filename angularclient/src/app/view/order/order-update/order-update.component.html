@@ -1,20 +1,22 @@
-<div class="row d-flex my-4 justify-content-center">
-    <p class="h4 col-auto">Update order</p>
+<div class="row d-flex my-4 justify-content-center" style="margin-right: 20px;">
+    <p class="fs-3 col-auto">Update order</p>
     <div class="col-md-12"></div>
 </div>
 
 
-<form (ngSubmit)="onSubmit()" #orderForm="ngForm" class="card-body row d-flex justify-content-center">
+<form (ngSubmit)="onSubmit()" #orderForm="ngForm" class="card-body row d-flex justify-content-center" style="margin-right: 20px;">
 
-    <div class="row g-3 col-md-6 col-sm-4 col-xs-12">
-        <div class="col-auto">
+    <div class="col-md-6">
             <p class="fs-4">Proceed to pay and then press submit button to apply changes</p>
+            <div class="col-auto my-4 text-center">
             <button type="button" (click)="setOrderAsPaid()"
                     class="btn btn-outline-primary text-nowrap">Pay</button>
-        </div>
+            </div>
+
+        <div [hidden] = "!roleExists || (roleExists && role === 'BUYER')">
         <div class="col-md-12"><hr/></div>
 
-        <p class="fs-4">Company employee can change order status</p>
+        <p class="fs-4">Change order status</p>
         <mat-radio-group
                 aria-labelledby="order_status"
                 name="orderStatus"
@@ -24,9 +26,10 @@
             <mat-radio-button [value]="2">Shipped</mat-radio-button>
             <mat-radio-button [value]="3">Delivered</mat-radio-button>
         </mat-radio-group>
+        </div>
     </div>
     <div class="col-md-12"></div>
-    <div class="col-auto">
+    <div class="col-auto mt-5">
         <button type="submit"
                 class="btn btn-outline-primary text-nowrap">Submit</button>
     </div>

@@ -41,6 +41,7 @@ import { PropertyValueDeleteComponent } from './view/property-value/property-val
 import { OrderFormComponent } from './view/order/order-form/order-form.component';
 import { OrderUserListComponent } from './view/order/order-user-list/order-user-list.component'
 import { OrderUpdateComponent } from './view/order/order-update/order-update.component';
+import { OrderAdminListComponent } from './view/order/order-admin-list/order-admin-list.component';
 
 import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
 
@@ -77,10 +78,11 @@ const routes: Routes = [
   { path: 'propertyValues/:id/update', component: PropertyValueUpdateComponent },
   { path: 'propertyValues/:id/delete', component: PropertyValueDeleteComponent },
   { path: 'orders/new', component: OrderFormComponent },
-  { path: 'orders', component: OrderUserListComponent },
+  { path: 'users/:id/orders', component: OrderUserListComponent },
   { path: 'orders/:id/update', component: OrderUpdateComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
-  { path: 'admin/addresses', component: AddressAdminListComponent},
+  { path: 'admin/addresses', component: AddressAdminListComponent },
+  { path: 'admin/orders', component: OrderAdminListComponent }
 ];
 
 @NgModule({

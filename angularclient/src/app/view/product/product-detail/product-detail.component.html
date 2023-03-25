@@ -13,9 +13,12 @@
             <p class="fs-6"><span class="fw-bolder">Stock: </span>{{ product.stock }}</p>
             <form class="col-md-8">
 
-                <div class="btn-group my-2" role="group">
+                <div class="btn-group my-2" role="group" *ngIf="product.stock !== 0">
                     <button (click)="addToCart(product)" class="btn btn-outline-success">Add to cart</button>
                     <a routerLink="/orders/new" class="btn btn-outline-success" (click)="addToCart(product)">Shop now</a>
+                </div>
+                <div *ngIf="product.stock === 0">
+                    <p class="text-danger fs-5">OUT OF STOCK</p>
                 </div>
             </form>
         </div>

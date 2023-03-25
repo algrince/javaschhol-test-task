@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
         private cartService: CartService,
         private cartItemService: CartItemService,
         private sanitizer: DomSanitizer,
-        private cookieService: CookieService,) {
+        private cookieService: CookieService) {
             this.product = new Product();
         }
 

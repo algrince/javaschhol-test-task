@@ -106,7 +106,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ product.title }}</h5>
                     <p class="card-text">{{ product.category.name }}</p>
-                    <p class="card-text text-primary fs-5">{{ product.price }} €</p>
+                    <p class="card-text text-primary fs-5" *ngIf="product.stock !== 0">{{ product.price }} €</p>
+                    <p class="card-text text-danger fs-5" *ngIf="product.stock === 0">OUT OF STOCK</p>
                     <a routerLink="./{{ product.id }}" class="stretched-link"></a>
                 </div>
             </div>

@@ -10,4 +10,5 @@ export class Address {
     apartment: number;
     door: string;
     owner: User;
+    deleted: boolean;
 }
