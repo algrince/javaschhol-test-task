@@ -81,7 +81,7 @@ export class OrderFormComponent implements OnInit {
         for (const item of this.items) {
             const orderProduct = new OrderProduct();
             orderProduct.quantity = item.quantity;
-            orderProduct.product = item.id;
+            orderProduct.productId = item.id;
 
             orderProducts.push(orderProduct);
         }

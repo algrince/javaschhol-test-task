@@ -1,5 +1,6 @@
 package com.algrince.finaltask.dto;
 
+import com.algrince.finaltask.models.Product;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,5 +9,7 @@ import lombok.Setter;
 public class OrderProductDTO {
 
     private int quantity;
-    private Long product;
+    private Long productId;
+
+    private ProductsDTO product;
 }

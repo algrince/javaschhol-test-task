@@ -71,7 +71,7 @@ public class OrdersController {
 
         for (OrderProductDTO productInfo: orderDTO.getOrderProducts()) {
             OrderProduct newProductInOrder = new OrderProduct();
-            Long productId = productInfo.getProduct();
+            Long productId = productInfo.getProductId();
             Product foundProduct = productsService.findById(productId);
             newProductInOrder.setProduct(foundProduct);
             newProductInOrder.setQuantity(productInfo.getQuantity());
