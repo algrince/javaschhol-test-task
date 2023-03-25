@@ -4,4 +4,5 @@ export class PropertyValue {
     id: number;
     property: Property;
     propertyValue: string;
+    deleted: boolean;
 }

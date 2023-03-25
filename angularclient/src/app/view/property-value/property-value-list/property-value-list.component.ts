@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyValue } from '../../../model/property-value';
 import { PropertyValueService } from '../../../service/property-value.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-property-value-list',
@@ -10,12 +11,16 @@ import { PropertyValueService } from '../../../service/property-value.service';
 export class PropertyValueListComponent implements OnInit {
 
     propertyValues: PropertyValue[];
+    role: string;
 
-    constructor(private propertyValueService: PropertyValueService) {}
+    constructor(private propertyValueService: PropertyValueService,
+    private cookieService: CookieService) {}
 
     ngOnInit() {
         this.propertyValueService.findAll()
-            .subscribe(data => {this.propertyValues = data})
+            .subscribe(data => {this.propertyValues = data});
+
+        this.role = this.cookieService.get("userRole");
     }
 
 }

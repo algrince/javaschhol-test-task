@@ -7,4 +7,5 @@ export class User {
     dateOfBirth: Date;
     role: string;
     newPassword: String;
+    deleted: boolean;
 }

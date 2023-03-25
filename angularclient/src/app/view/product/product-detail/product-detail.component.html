@@ -27,8 +27,7 @@
 
 
     <div class="col-md-12 my-4"></div>
-    <div class="card col-md-4">
-        <p class="my-2">Employee's card</p>
+    <div class="col-auto" [hidden] = "!roleExists || (roleExists && role === 'BUYER')">
         <div class="btn-group my-2" role="group">
             <a routerLink="./update" class="btn btn-outline-success">Update product</a>
             <a routerLink="./delete" class="btn btn-outline-danger">Delete product</a>

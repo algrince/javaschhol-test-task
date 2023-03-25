@@ -1,5 +1,5 @@
 <div class="my-5 row justify-content-center align-items-center">
-  <div class="col-md-6">
+  <div class="col-md-8">
     <p class="fs-3">All users</p>
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
@@ -10,6 +10,7 @@
         <th scope="col" class="text-center">Email</th>
         <th scope="col" class="text-center">Role</th>
         <th scope="col" class="text-center">Action</th>
+        <th scope="col" class="col-2 text-center" *ngIf="role === 'ADMIN'">State</th>
       </tr>
       </thead>
       <tbody>
@@ -22,7 +23,11 @@
         </td>
         <td class="text-center">{{ user.role }}</td>
         <td class="text-center">
-            <a routerLink="./{{ user.id }}/changeRole" class="btn btn-outline-primary text-nowrap">Change status</a></td>
+            <a routerLink="./{{ user.id }}/changeRole" class="btn btn-outline-primary text-nowrap">Change status</a>
+        </td>
+        <td class="text-center text-danger" *ngIf="role === 'ADMIN'">
+          <p *ngIf="user.deleted"> Deleted <a routerLink="#" class="text-reset">(restore)</a></p>
+        </td>
       </tr>
       </tbody>
     </table>

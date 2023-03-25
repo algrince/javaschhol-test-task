@@ -34,7 +34,6 @@ public class ProductsService {
     private final CategoriesService categoriesService;
     private final ProductPropertiesService productPropertiesService;
     private final FilterManager filterManager;
-
     private final String DELETED_PRODUCT_FILTER = "deletedProductFilter";
 
     public Page<Product> selectProducts(

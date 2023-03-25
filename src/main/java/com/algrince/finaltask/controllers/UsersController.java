@@ -10,6 +10,7 @@ import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.UsersService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.validators.PasswordValidator;
 import com.algrince.finaltask.validators.UserValidator;
 import jakarta.validation.Valid;
@@ -30,16 +31,17 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class UsersController {
-
+    private final PasswordValidator passwordValidator;
+    private final AccessValidator accessValidator;
+    private final UserValidator userValidator;
     private final UsersService usersService;
     private final DTOMapper dtoMapper;
-    private final UserValidator userValidator;
-    private final PasswordValidator passwordValidator;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public List<UserListDTO> userIndex() {
-        List<User> users = usersService.findAll();
+    public List<UserListDTO> getUsers() {
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        List<User> users = usersService.findAll(isAdmin);
         return dtoMapper.mapList(users, UserListDTO.class);
     }
 
@@ -53,7 +55,8 @@ public class UsersController {
     public ResponseEntity<Object> getUser(
             @PathVariable("id") Long id,
             Principal principal) {
-        User foundUser = usersService.findById(id);
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        User foundUser = usersService.findById(id, isAdmin);
         usersService.checkAccess(principal, foundUser);
         DetailedUserDTO foundUserDTO = dtoMapper.mapClass(foundUser, DetailedUserDTO.class);
         return ResponseEntity.ok().body(foundUserDTO);

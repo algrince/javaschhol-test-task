@@ -9,6 +9,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -20,6 +23,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@FilterDef(name = "deletedUserFilter", parameters = @ParamDef(
+        name = "isDeleted",
+        type = org.hibernate.type.descriptor.java.BooleanJavaType.class))
+@Filter(name = "deletedUserFilter", condition = "deleted = :isDeleted")
 public class User {
     @Id
     @Column(name = "id")

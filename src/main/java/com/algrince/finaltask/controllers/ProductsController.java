@@ -1,7 +1,7 @@
 package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.CategoryDTO;
-import com.algrince.finaltask.dto.ProductsDTO;
+import com.algrince.finaltask.dto.ProductDTO;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.services.ProductsService;
@@ -14,14 +14,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -34,7 +30,7 @@ public class ProductsController {
     private final DTOMapper dtoMapper;
 
     @GetMapping
-    public Page<ProductsDTO> getProducts(
+    public Page<ProductDTO> getProducts(
             @RequestParam(required = false) Long category,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
@@ -49,13 +45,13 @@ public class ProductsController {
                 sortField, sortDir,
                 minPrice, maxPrice,
                 prValues);
-        return dtoMapper.mapPage(products, ProductsDTO.class);
+        return dtoMapper.mapPage(products, ProductDTO.class);
     }
 
     @PostMapping
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<Object> addProduct(
-            @Valid @RequestBody ProductsDTO productsDTO,
+            @Valid @RequestBody ProductDTO productDTO,
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -65,16 +61,16 @@ public class ProductsController {
             return new ResponseEntity<>(errors, HttpStatus.OK);
         }
 
-        Product product = dtoMapper.mapClass(productsDTO, Product.class);
+        Product product = dtoMapper.mapClass(productDTO, Product.class);
         productsService.save(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductsDTO> getProduct (@PathVariable("id") Long id) {
+    public ResponseEntity<ProductDTO> getProduct (@PathVariable("id") Long id) {
 
         Product foundProduct = productsService.findById(id);
-        ProductsDTO foundProductDTO = dtoMapper.mapClass(foundProduct, ProductsDTO.class);
+        ProductDTO foundProductDTO = dtoMapper.mapClass(foundProduct, ProductDTO.class);
 
         Category foundProductCategory = foundProduct.getCategory();
         foundProductDTO.setCategory(dtoMapper.mapClass(foundProductCategory, CategoryDTO.class));
@@ -85,9 +81,9 @@ public class ProductsController {
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> updateProduct(
             @PathVariable(value = "id") Long productId,
-            @Valid @RequestBody ProductsDTO productsDTO) {
+            @Valid @RequestBody ProductDTO productDTO) {
         Product foundProduct = productsService.findById(productId);
-        dtoMapper.mapProperties(productsDTO, foundProduct);
+        dtoMapper.mapProperties(productDTO, foundProduct);
         productsService.save(foundProduct);
         return new ResponseEntity<>(HttpStatus.OK);
     }

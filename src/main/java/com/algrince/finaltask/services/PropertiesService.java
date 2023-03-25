@@ -4,6 +4,7 @@ import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Property;
 import com.algrince.finaltask.repositories.PropertiesRepository;
+import com.algrince.finaltask.utils.FilterManager;
 import com.algrince.finaltask.validators.PropertyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,34 @@ import java.util.Optional;
 public class PropertiesService {
 
     private final PropertiesRepository propertiesRepository;
+    private final FilterManager filterManager;
+    private final String DELETED_PROPERTY_FILTER = "deletedPropertyFilter";
 
     @Transactional(readOnly = true)
-    public List<Property> findAll() {
-        return propertiesRepository.findAll();
+    public List<Property> findAll(boolean isAdmin) {
+        List<Property> properties = null;
+        if (isAdmin) {
+            properties = propertiesRepository.findAll();
+        } else {
+            filterManager.enableDeletedFilter(DELETED_PROPERTY_FILTER);
+            properties = propertiesRepository.findAll();
+            filterManager.disableFilter(DELETED_PROPERTY_FILTER);
+        }
+        return properties;
+    }
+
+    @Transactional(readOnly = true)
+    public Property findById(Long id, boolean isAdmin) {
+        Optional<Property> foundProperty;
+        if (isAdmin) {
+            foundProperty = propertiesRepository.findById(id);
+        } else {
+            filterManager.enableDeletedFilter(DELETED_PROPERTY_FILTER);
+            foundProperty = propertiesRepository.findById(id);
+            filterManager.disableFilter(DELETED_PROPERTY_FILTER);
+        }
+        return foundProperty.orElseThrow(()
+                -> new ResourceNotFoundException("Property not found with id: " + id));
     }
 
     @Transactional(readOnly = true)

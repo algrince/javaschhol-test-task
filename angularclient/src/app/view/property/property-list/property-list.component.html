@@ -7,6 +7,7 @@
                 <th scope="col" class="col-1 text-center">#</th>
                 <th scope="col" class="col-1 text-center">Name</th>
                 <th scope="col" class="col-1 text-center">Action</th>
+                <th scope="col" class="col-1 text-center" *ngIf="role === 'ADMIN'">State</th>
             </tr>
             </thead>
             <tbody>
@@ -19,6 +20,9 @@
                         <a routerLink="./{{ property.id }}/delete" class="btn btn-outline-danger">Delete</a>
                     </div>
                 </td>
+                <td class="text-center text-danger" *ngIf="role === 'ADMIN'">
+                    <p *ngIf="property.deleted"> Deleted <a routerLink="#" class="text-reset">(restore)</a></p>
+                    </td>
             </tr>
             </tbody>
         </table>

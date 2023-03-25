@@ -5,6 +5,7 @@ import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.Property;
 import com.algrince.finaltask.services.PropertiesService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.validators.PropertyValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,18 +27,22 @@ public class PropertiesController {
 
     private final PropertiesService propertiesService;
     private final PropertyValidator propertyValidator;
+    private final AccessValidator accessValidator;
     private final DTOMapper dtoMapper;
 
+
     @GetMapping
-    public List<PropertyDTO> propertiesIndex() {
-        List<Property> properties = propertiesService.findAll();
+    public List<PropertyDTO> getProperties() {
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        List<Property> properties = propertiesService.findAll(isAdmin);
         return  dtoMapper.mapList(properties, PropertyDTO.class);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<PropertyDTO> getProperty(
             @PathVariable("id") Long id) {
-        Property foundProperty = propertiesService.findById(id);
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        Property foundProperty = propertiesService.findById(id, isAdmin);
         PropertyDTO foundPropertyDTO = dtoMapper.mapClass(foundProperty, PropertyDTO.class);
         return ResponseEntity.ok().body(foundPropertyDTO);
     }

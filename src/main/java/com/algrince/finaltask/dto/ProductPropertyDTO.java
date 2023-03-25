@@ -19,4 +19,6 @@ public class ProductPropertyDTO {
     @NotEmpty(message = "Property value cannot be empty")
     @Length(max = 45, message = "The property value cannot be longer than 45 characters")
     private String propertyValue;
+
+    private boolean isDeleted;
 }

@@ -5,6 +5,7 @@ import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.ProductProperty;
 import com.algrince.finaltask.services.ProductPropertiesService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.validators.ProductPropertyValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,18 +27,21 @@ public class ProductPropertiesController {
 
     private final ProductPropertiesService productPropertiesService;
     private final ProductPropertyValidator productPropertyValidator;
+    private final AccessValidator accessValidator;
     private final DTOMapper dtoMapper;
 
     @GetMapping
     public List<ProductPropertyDTO> propertiesValuesIndex() {
-        List<ProductProperty> productProperties = productPropertiesService.findAll();
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        List<ProductProperty> productProperties = productPropertiesService.findAll(isAdmin);
         return dtoMapper.mapList(productProperties, ProductPropertyDTO.class);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<ProductPropertyDTO> getProductProperty(
             @PathVariable("id") Long id) {
-        ProductProperty foundProductProperty = productPropertiesService.findById(id);
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        ProductProperty foundProductProperty = productPropertiesService.findById(id, isAdmin);
         ProductPropertyDTO foundProductPropertyDTO = dtoMapper.mapClass(foundProductProperty, ProductPropertyDTO.class);
         return ResponseEntity.ok().body(foundProductPropertyDTO);
     }

@@ -20,7 +20,12 @@ public class AccessValidator {
             Principal principal,
             User foundUser) {
 
+        return (authUserIsEmployee() ||
+                authUserIsAdmin() ||
+                Objects.equals(principal.getName(), foundUser.getEmail()));
+    }
 
+    public String getRole() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         List<String> roles = new ArrayList<>();
@@ -28,10 +33,14 @@ public class AccessValidator {
             roles.add(authority.getAuthority());
         }
 
-        String role = roles.get(0);
+        return roles.get(0);
+    }
 
-        return (Objects.equals(role, "ROLE_EMPLOYEE") ||
-                Objects.equals(role, "ROLE_ADMIN") ||
-                Objects.equals(principal.getName(), foundUser.getEmail()));
+    public boolean authUserIsEmployee() {
+        return getRole().equals("ROLE_EMPLOYEE");
+    }
+
+    public boolean authUserIsAdmin() {
+        return getRole().equals("ROLE_ADMIN");
     }
 }

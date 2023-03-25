@@ -10,4 +10,5 @@ export class Product {
     weight: number;
     category: Category;
     propertyValues: PropertyValue[];
+    deleted: boolean;
 }

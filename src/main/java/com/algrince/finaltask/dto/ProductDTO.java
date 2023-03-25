@@ -7,7 +7,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class ProductsDTO {
+public class ProductDTO {
 
     private Long id;
 
@@ -24,4 +24,6 @@ public class ProductsDTO {
     private CategoryDTO category;
 
     private List<ProductPropertyDTO> propertyValues;
+
+    private boolean isDeleted;
 }

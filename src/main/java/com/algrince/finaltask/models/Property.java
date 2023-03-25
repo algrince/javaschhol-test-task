@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
@@ -14,6 +17,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@FilterDef(name = "deletedPropertyFilter", parameters = @ParamDef(
+        name = "isDeleted",
+        type = org.hibernate.type.descriptor.java.BooleanJavaType.class))
+@Filter(name = "deletedPropertyFilter", condition = "deleted = :isDeleted")
 public class Property {
 
     @Id

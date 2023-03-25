@@ -5,6 +5,7 @@ import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.services.CategoriesService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.validators.CategoryValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,16 +27,19 @@ public class CategoriesController {
 
     private final CategoriesService categoriesService;
     private final CategoryValidator categoryValidator;
+    private final AccessValidator accessValidator;
     private final DTOMapper dtoMapper;
 
     @GetMapping
-    public List<CategoryDTO> categoriesIndex() {
-        List<Category> categories = categoriesService.findAll();
+    public List<CategoryDTO> getCategories() {
+        boolean isAdmin = accessValidator.authUserIsAdmin();
+        List<Category> categories = categoriesService.findAll(isAdmin);
         return dtoMapper.mapList(categories, CategoryDTO.class);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<CategoryDTO> getCategory (@PathVariable("id") Long id) {
+    public ResponseEntity<CategoryDTO> getCategory(
+            @PathVariable("id") Long id) {
         Category foundCategory = categoriesService.findById(id);
         CategoryDTO foundCategoryDTO = dtoMapper.mapClass(foundCategory, CategoryDTO.class);
         return ResponseEntity.ok().body(foundCategoryDTO);

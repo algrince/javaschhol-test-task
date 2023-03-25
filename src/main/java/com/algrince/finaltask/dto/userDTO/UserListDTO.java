@@ -21,4 +21,6 @@ public class UserListDTO {
     private String email;
 
     private UserRole role;
+
+    private boolean isDeleted;
 }
