@@ -1,21 +1,20 @@
-<div class="row d-flex my-4 justify-content-center">
-    <p class="h4 col-auto">Update property</p>
-    <div class="col-md-12"></div></div>
+<div class="row d-flex my-4 justify-content-center" style="margin-right: 20px;">
+    <p class="fs-3 col-auto">Update property</p>
+</div>
 
-<form (ngSubmit)="onSubmit()" #propertyForm="ngForm" class="card-body row d-flex justify-content-center">
+<form (ngSubmit)="onSubmit()" #propertyForm="ngForm" class="row justify-content-center" style="margin-right: 20px;">
 
-    <div class="row g-3 col-md-6 col-sm-4 col-xs-12">
+    <div class="col-md-3">
 
-        <div *ngIf="errors">
-            <div class="alert alert-danger col-md-6" role="alert">
-                <p>Your form contains following errors:</p>
-                <ul *ngFor="let error of errors">
-                    <li>{{ error }}</li>
-                </ul>
-            </div>
-        </div>
+    <div class="alert alert-danger col-md-6" role="alert" *ngIf="errors">
+        <p>Your form contains following errors:</p>
+        <ul *ngFor="let error of errors">
+            <li>{{ error }}</li>
+        </ul>
+    </div>
 
-        <div class="form-group col-md-6">
+
+        <div class="form-group">
             <label for="name" class="form-label">Name</label>
             <input type="text" [(ngModel)]="property.name"
                    class="form-control mb-3"
@@ -25,10 +24,10 @@
                    required #title="ngModel">
         </div>
 
-        <div class="col-md-12"></div>
-        <div class="col-auto">
+        <div class="d-flex justify-content-center my-4">
             <button type="submit"
-                    class="btn btn-outline-primary text-nowrap">Submit</button>
+                    class="btn btn-outline-primary text-nowrap"
+                    [disabled]="!propertyForm.form.valid">Submit</button>
         </div>
     </div>
 </form>
