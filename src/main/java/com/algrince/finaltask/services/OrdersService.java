@@ -22,17 +22,6 @@ public class OrdersService {
     private final UsersService usersService;
     private final OrderProductsService orderProductsService;
 
-    public List<Order> selectOrders(Long userId) {
-        List<Order> orders = null;
-        if (userId != null) {
-            User foundUser = usersService.findById(userId);
-            orders = ordersRepository.findByUser(foundUser);
-        } else {
-            orders = ordersRepository.findAll();
-        }
-        return orders;
-    }
-
     @Transactional(readOnly = true)
     public Order findById(Long id) {
         Optional<Order> foundOrder = ordersRepository.findById(id);
@@ -50,15 +39,20 @@ public class OrdersService {
         ordersRepository.save(order);
     }
 
-//    @Transactional
-//    public void saveAndApplyChanges(Order order) {
-//        Order savedOrder = save(order);
-////        orderProductsService.updateProductStock(savedOrder.getId());
-//    }
+    @Transactional
+    public void saveAndApplyChanges(Order order) {
+        Order savedOrder = ordersRepository.save(order);
+        orderProductsService.updateProductStock(savedOrder.getId());
+    }
 
     @Transactional
     public void softDelete(Order order) {
         order.setDeleted(true);
         ordersRepository.save(order);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Order> findByUser(User user) {
+        return ordersRepository.findByUser(user);
     }
 }

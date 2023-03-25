@@ -16,7 +16,7 @@
     <tr *ngFor="let order of orders" >
         <td><ul class="list-unstyled">
             <li *ngFor="let orderProduct of order.orderProducts">
-                <a routerLink="/products/{{ orderProduct.productId }}" class="text-reset">{{ orderProduct.product.title }}</a></li>
+                <a routerLink="/products/{{ orderProduct.product.id }}" class="text-reset">{{ orderProduct.product.title }}</a></li>
         </ul></td>
         <td class="text-center">{{ order.createdDate | date:'yyyy-MM-dd' }}</td>
         <td class="text-center">{{ order.orderSum }} €</td>

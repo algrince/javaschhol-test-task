@@ -18,17 +18,6 @@ public class AddressesService {
     private final AddressesRepository addressesRepository;
     private final UsersService usersService;
 
-    public List<Address> selectAddresses(Long userId) {
-        List<Address> addresses = null;
-        if (userId != null) {
-            User foundUser = usersService.findById(userId);
-            addresses = addressesRepository.findByOwner(foundUser);
-        } else {
-            addresses = addressesRepository.findAll();
-        }
-        return addresses;
-    }
-
     @Transactional
     public void save(Address address) {
         addressesRepository.save(address);
@@ -52,7 +41,7 @@ public class AddressesService {
         addressesRepository.save(address);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Address> findByUser(User owner) {
         return addressesRepository.findByOwner(owner);
     }

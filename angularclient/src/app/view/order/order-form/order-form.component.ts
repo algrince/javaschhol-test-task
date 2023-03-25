@@ -28,6 +28,7 @@ export class OrderFormComponent implements OnInit {
     userId: number;
     user: User;
     product: Product;
+    errors: string[];
 
 
     constructor(
@@ -81,25 +82,27 @@ export class OrderFormComponent implements OnInit {
         for (const item of this.items) {
             const orderProduct = new OrderProduct();
             orderProduct.quantity = item.quantity;
-            orderProduct.productId = item.id;
+            orderProduct.addedProductId = item.id;
 
             orderProducts.push(orderProduct);
         }
         this.order.orderProducts = orderProducts;
 
-
-
         this.order.orderSum = this.total;
 
         this.order.user = this.user;
 
-        console.log(this.order);
 
         this.orderService.save(this.order)
-            .subscribe(result => {
-                this.cartService.clearCart(this.items);
-                this.gotoProductList();
-            });
+            .subscribe(
+                result => {
+                    if (Array.isArray(result)) {
+                        this.errors = result;
+                    } else {
+                        this.cartService.clearCart(this.items);
+                        this.gotoProductList();
+                    }
+                });
 
     }
 
