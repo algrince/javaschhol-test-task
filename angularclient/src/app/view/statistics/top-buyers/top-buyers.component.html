@@ -1,0 +1,35 @@
+<div class="my-5 row justify-content-center align-items-center" style="margin-right: 20px;">
+    <div class="col-md-6">
+        <p class="fs-3">Top 10 buyers</p>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Name</th>
+                <th scope="col" class="text-center">Surname</th>
+                <th scope="col" class="text-center">Times ordered</th>
+                <th scope="col" class="text-center">Deleted</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let userStat of userStats">
+                <td class="text-center">{{ userStat.user.id }}</td>
+                <td class="text-center">
+                    <a *ngIf="!userStat.user.deleted"
+                       routerLink="/users/{{ userStat.user.id }}"
+                       class="text-reset">{{ userStat.user.email }}</a>
+                    <p *ngIf="userStat.user.deleted">{{ userStat.user.email }}</p>
+                </td>
+                <td class="text-center">{{ userStat.user.name }}</td>
+                <td class="text-center">{{ userStat.user.surname }}</td>
+                <td class="text-center">{{ userStat.occurrence }}</td>
+                <td class="text-center">
+                    <p *ngIf="userStat.user.deleted" class="text-danger">Deleted</p>
+                    <p *ngIf="!userStat.user.deleted" class="text-danger"></p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

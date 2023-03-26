@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RevenueResult } from '../model/revenue-result'
 import { ProductStat } from '../model/product-stat';
+import { UserStat } from '../model/user-stat';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,10 @@ export class StatisticsService {
     public getTop10Products(): Observable<ProductStat[]> {
         const topProductsUrl = `${this.statisticsRev}/top_products`;
         return this.http.get<ProductStat[]>(topProductsUrl);
+    }
+
+    public getTop10Buyers(): Observable<UserStat[]> {
+        const topUsersUrl = `${this.statisticsRev}/top_buyers`;
+        return this.http.get<UserStat[]>(topUsersUrl);
     }
 }

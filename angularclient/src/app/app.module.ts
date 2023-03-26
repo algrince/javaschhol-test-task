@@ -66,6 +66,7 @@ import { UserChangeRoleComponent } from './view/user/user-change-role/user-chang
 import { OrderAdminListComponent } from './view/order/order-admin-list/order-admin-list.component';
 import { RevenueComponent } from './view/statistics/revenue/revenue.component';
 import { TopProductsComponent } from './view/statistics/top-products/top-products.component';
+import { TopBuyersComponent } from './view/statistics/top-buyers/top-buyers.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { TopProductsComponent } from './view/statistics/top-products/top-product
     UserChangeRoleComponent,
     OrderAdminListComponent,
     RevenueComponent,
-    TopProductsComponent
+    TopProductsComponent,
+    TopBuyersComponent
   ],
   imports: [
     BrowserModule,

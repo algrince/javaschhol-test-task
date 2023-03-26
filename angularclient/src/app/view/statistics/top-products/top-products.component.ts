@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductStat } from '../../../model/product-stat';
 import { StatisticsService } from '../../../service/statistics.service';
 
-
 @Component({
   selector: 'app-top-products',
   templateUrl: './top-products.component.html',
