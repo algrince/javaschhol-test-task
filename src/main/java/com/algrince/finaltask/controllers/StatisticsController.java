@@ -22,7 +22,14 @@ public class StatisticsController {
     @GetMapping("monthly_revenue")
     public Map<String, Double> getMonthlyRevenue() {
         List<List<Calendar>> months = statisticsService.getMonths();
-        Map<String, Double> revenue = statisticsService.getPeriodRevenue(months);
+        Map<String, Double> revenue = statisticsService.getPeriodRevenue(months, "month");
+        return revenue;
+    }
+
+    @GetMapping("weekly_revenue")
+    public Map<String, Double> getWeeklyRevenue() {
+        List<List<Calendar>> weeks = statisticsService.getWeeks();
+        Map<String, Double> revenue = statisticsService.getPeriodRevenue(weeks, "week");
         return revenue;
     }
 }
