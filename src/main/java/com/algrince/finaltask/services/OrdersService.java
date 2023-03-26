@@ -61,4 +61,9 @@ public class OrdersService {
     public List<Order> findAllPaidInPeriod(Calendar start, Calendar finish) {
         return ordersRepository.findAllPaidBetweenStartAndFinishCreationDate(start, finish);
     }
+
+    @Transactional(readOnly = true)
+    public List<Object[]> findTop10ByUsers() {
+        return ordersRepository.findTop10ByUsers();
+    }
 }

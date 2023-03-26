@@ -18,4 +18,7 @@ public interface OrdersRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order o where o.paymentStatus = 'PAID' and o.createdDate between :start and :finish")
     List<Order> findAllPaidBetweenStartAndFinishCreationDate(@Param("start") Calendar start,
                                                          @Param("finish") Calendar finish);
+
+    @Query("select o.user, count(o.id) as occurrences from Order o group by o.user order by occurrences desc")
+    List<Object[]> findTop10ByUsers();
 }

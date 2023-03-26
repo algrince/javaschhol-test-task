@@ -39,4 +39,9 @@ public class StatisticsController {
     public List<LinkedHashMap<Object, Object>> getTop10Products() {
         return statisticsService.getTop10Products();
     }
+
+    @GetMapping("top_buyers")
+    public List<LinkedHashMap<Object, Object>> getTop10Buyers() {
+        return statisticsService.getTop10Buyers();
+    }
 }

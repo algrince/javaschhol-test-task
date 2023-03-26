@@ -1,9 +1,10 @@
 package com.algrince.finaltask.services;
 
 import com.algrince.finaltask.dto.ProductDTO;
+import com.algrince.finaltask.dto.userDTO.UserListDTO;
 import com.algrince.finaltask.models.Order;
-import com.algrince.finaltask.models.OrderProduct;
 import com.algrince.finaltask.models.Product;
+import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.utils.DTOMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -152,8 +153,6 @@ public class StatisticsService {
         for (Object[] productAndOccurrence : top10OrderProducts) {
             LinkedHashMap<Object, Object> topProductInfo = new LinkedHashMap<>();
 
-//            OrderProduct orderProduct = (OrderProduct) productAndOccurrence[0];
-//            Product product = orderProduct.getProduct();
             Product product = (Product) productAndOccurrence[0];
             Long occurrence = (Long) productAndOccurrence[1];
 
@@ -163,5 +162,26 @@ public class StatisticsService {
             topOfProducts.add(topProductInfo);
         }
         return topOfProducts;
+    }
+
+
+    public List<LinkedHashMap<Object, Object>> getTop10Buyers() {
+        List<Object[]> top10OrderBuyers = ordersService.findTop10ByUsers();
+
+        List<LinkedHashMap<Object, Object>> topOfBuyers = new ArrayList<>();
+
+        for (Object[] userAndOccurrence : top10OrderBuyers) {
+            LinkedHashMap<Object, Object> topUserInfo = new LinkedHashMap<>();
+
+            User user = (User) userAndOccurrence[0];
+            Long occurrence = (Long) userAndOccurrence[1];
+
+            topUserInfo.put(
+                    "user", dtoMapper.mapClass(user, UserListDTO.class));
+            topUserInfo.put("occurrence", occurrence);
+            topOfBuyers.add(topUserInfo);
+        }
+
+        return topOfBuyers;
     }
 }
