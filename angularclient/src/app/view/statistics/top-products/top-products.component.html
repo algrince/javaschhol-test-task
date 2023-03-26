@@ -1,1 +1,30 @@
-<p>top-products works!</p>
+<div class="my-5 row justify-content-center align-items-center" style="margin-right: 20px;">
+    <div class="col-md-6">
+        <p class="fs-3">Top 10 products</p>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Title</th>
+                <th scope="col" class="text-center">Times bought</th>
+                <th scope="col" class="text-center">Deleted</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let productStat of productStats">
+                <td class="text-center">{{ productStat.product.id }}</td>
+                <td class="text-center">
+                    <a *ngIf="!productStat.product.deleted"
+                       routerLink="/products/{{ productStat.product.id }}"
+                       class="text-reset">{{ productStat.product.title }}</a>
+                    <p *ngIf="productStat.product.deleted">{{ productStat.product.title }}</p>
+                </td>
+                <td class="text-center">{{ productStat.occurrence }}</td>
+                <td class="text-center">
+                    <p *ngIf="productStat.product.deleted" class="text-danger">Deleted</p>
+                    <p *ngIf="!productStat.product.deleted" class="text-danger"></p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

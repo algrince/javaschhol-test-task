@@ -46,6 +46,7 @@ import { OrderAdminListComponent } from './view/order/order-admin-list/order-adm
 import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
 
 import { RevenueComponent } from './view/statistics/revenue/revenue.component';
+import { TopProductsComponent } from './view/statistics/top-products/top-products.component';
 
 
 const routes: Routes = [
@@ -85,7 +86,8 @@ const routes: Routes = [
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'admin/addresses', component: AddressAdminListComponent },
   { path: 'admin/orders', component: OrderAdminListComponent },
-  { path: 'admin/statistics/revenue', component: RevenueComponent }
+  { path: 'admin/statistics/revenue', component: RevenueComponent },
+  { path: 'admin/statistics/top-10-products', component: TopProductsComponent }
 ];
 
 @NgModule({

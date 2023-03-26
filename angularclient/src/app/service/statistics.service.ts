@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RevenueResult } from '../model/revenue-result'
+import { ProductStat } from '../model/product-stat';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,10 @@ export class StatisticsService {
         const params = request;
         const weeklyRevUrl = `${this.statisticsRev}/weekly_revenue`;
         return this.http.get<RevenueResult[]>(weeklyRevUrl, {params});
+    }
+
+    public getTop10Products(): Observable<ProductStat[]> {
+        const topProductsUrl = `${this.statisticsRev}/top_products`;
+        return this.http.get<ProductStat[]>(topProductsUrl);
     }
 }
