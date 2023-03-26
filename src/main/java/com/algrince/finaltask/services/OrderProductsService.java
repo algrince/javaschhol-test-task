@@ -31,4 +31,9 @@ public class OrderProductsService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public List<Object[]> findTop10ByProduct() {
+        return orderProductRepository.findTop10ByProduct();
+    }
+
 }

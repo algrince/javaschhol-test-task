@@ -1,6 +1,10 @@
 package com.algrince.finaltask.services;
 
+import com.algrince.finaltask.dto.ProductDTO;
 import com.algrince.finaltask.models.Order;
+import com.algrince.finaltask.models.OrderProduct;
+import com.algrince.finaltask.models.Product;
+import com.algrince.finaltask.utils.DTOMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +18,9 @@ import java.util.*;
 @RequiredArgsConstructor
 public class StatisticsService {
 
+    private final OrderProductsService orderProductsService;
     private final OrdersService ordersService;
+    private final DTOMapper dtoMapper;
 
     public Double getRevenue(Calendar start, Calendar finish) {
 
@@ -118,7 +124,7 @@ public class StatisticsService {
             String periodName = "";
             if (typeOfRevenue.equals("month")) {
                 int month = start.get(Calendar.MONTH);
-                periodName = new DateFormatSymbols().getMonths()[month-1];
+                periodName = new DateFormatSymbols().getMonths()[month];
             } else if (typeOfRevenue.equals("week")) {
                 SimpleDateFormat dateFormatForWeek = new SimpleDateFormat("dd.MM");
                 String startDate = dateFormatForWeek.format(start.getTime());
@@ -135,4 +141,26 @@ public class StatisticsService {
 
         return revenueOfAllPeriods;
         }
+
+
+    public List<LinkedHashMap<Object, Object>> getTop10Products() {
+        List<Object[]> top10OrderProducts =
+                orderProductsService.findTop10ByProduct();
+
+        List<LinkedHashMap<Object, Object>> topOfProducts = new ArrayList<>();
+
+        for (Object[] productAndOccurrence : top10OrderProducts) {
+            LinkedHashMap<Object, Object> topProductInfo = new LinkedHashMap<>();
+
+            OrderProduct orderProduct = (OrderProduct) productAndOccurrence[0];
+            Product product = orderProduct.getProduct();
+            Long occurrence = (Long) productAndOccurrence[1];
+
+            topProductInfo.put(
+                    "product", dtoMapper.mapClass(product, ProductDTO.class));
+            topProductInfo.put("occurrence", occurrence);
+            topOfProducts.add(topProductInfo);
+        }
+        return topOfProducts;
+    }
 }

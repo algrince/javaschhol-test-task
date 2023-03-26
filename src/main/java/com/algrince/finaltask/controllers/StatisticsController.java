@@ -34,4 +34,9 @@ public class StatisticsController {
         List<LinkedHashMap<Object, Object>> revenue = statisticsService.getPeriodRevenue(weeks, "week");
         return revenue;
     }
+
+    @GetMapping("top_products")
+    public List<LinkedHashMap<Object, Object>> getTop10Products() {
+        return statisticsService.getTop10Products();
+    }
 }
