@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -32,9 +33,7 @@ public class StatisticsService {
         Calendar today = Calendar.getInstance();
         Calendar firstDayCurrentMonth = Calendar.getInstance();
 
-        log.info("Before: " + firstDayCurrentMonth.getTime());
         firstDayCurrentMonth.set(Calendar.DAY_OF_MONTH, 1);
-        log.info("After: " + firstDayCurrentMonth.getTime());
         List<Calendar> lastPeriod = new ArrayList<>();
         lastPeriod.add(firstDayCurrentMonth);
         lastPeriod.add(today);
@@ -42,7 +41,7 @@ public class StatisticsService {
         List<List<Calendar>> listOfPeriods = new ArrayList<>();
 
 
-        for (int i = monthCount; i >= 1; i--) {
+        for (int i = monthCount; i > 1; i--) {
             int month = i - 1;
 
             Calendar startDay = Calendar.getInstance();
@@ -71,6 +70,7 @@ public class StatisticsService {
     public List<List<Calendar>> getWeeks(int weekCount) {
         Calendar today = Calendar.getInstance();
         Calendar firstDayCurrentWeek = Calendar.getInstance();
+
         firstDayCurrentWeek.set(Calendar.DAY_OF_WEEK, 2);
         List<Calendar> lastPeriod = new ArrayList<>();
         lastPeriod.add(firstDayCurrentWeek);
@@ -79,7 +79,7 @@ public class StatisticsService {
         List<List<Calendar>> listOfPeriods = new ArrayList<>();
 
 
-        for (int i = weekCount; i >= 1; i--) {
+        for (int i = weekCount; i > 1; i--) {
             int week = i - 1;
 
 
@@ -108,7 +108,7 @@ public class StatisticsService {
 
     public List<LinkedHashMap<Object, Object>> getPeriodRevenue(List<List<Calendar>> periods, String typeOfRevenue) {
         List<LinkedHashMap<Object, Object>> revenueOfAllPeriods = new ArrayList<>();
-        int week = 1;
+        int week = periods.size();
 
         for (List<Calendar> period : periods) {
             LinkedHashMap<Object, Object> revenueByPeriod = new LinkedHashMap<>();
@@ -118,10 +118,14 @@ public class StatisticsService {
             String periodName = "";
             if (typeOfRevenue.equals("month")) {
                 int month = start.get(Calendar.MONTH);
-                periodName = new DateFormatSymbols().getMonths()[month];
+                periodName = new DateFormatSymbols().getMonths()[month-1];
             } else if (typeOfRevenue.equals("week")) {
-                periodName = "Week " + week;
-                week++;
+                SimpleDateFormat dateFormatForWeek = new SimpleDateFormat("dd.MM");
+                String startDate = dateFormatForWeek.format(start.getTime());
+                String finishDate = dateFormatForWeek.format(finish.getTime());
+
+                periodName = String.format("Week %s (%s - %s)", week, startDate, finishDate);
+                week--;
             }
             Double revenue = getRevenue(start, finish);
             revenueByPeriod.put("period", periodName);
