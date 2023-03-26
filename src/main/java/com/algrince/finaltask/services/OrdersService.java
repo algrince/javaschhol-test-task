@@ -10,6 +10,7 @@ import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +55,10 @@ public class OrdersService {
     @Transactional(readOnly = true)
     public List<Order> findByUser(User user) {
         return ordersRepository.findByUser(user);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Order> findAllPaidInPeriod(Calendar start, Calendar finish) {
+        return ordersRepository.findAllPaidBetweenStartAndFinishCreationDate(start, finish);
     }
 }

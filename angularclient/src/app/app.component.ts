@@ -32,7 +32,9 @@ export class AppComponent implements OnInit {
   }
 
   buildLink() {
-    if (this.cookieService.check('userId')) {
+    if (this.role === 'ADMIN' || this.role === 'EMPLOYEE') {
+        return `/admin`
+    } else if (this.cookieService.check('userId')) {
         const userId = this.cookieService.get('userId');
         return `./users/${userId}`;
     } else {
