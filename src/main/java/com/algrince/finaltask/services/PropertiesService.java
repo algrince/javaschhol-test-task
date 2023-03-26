@@ -66,9 +66,15 @@ public class PropertiesService {
         property.setDeleted(true);
         propertiesRepository.save(property);
     }
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Property> loadByName(String name) {
         return propertiesRepository.findByName(name);
+    }
+
+    @Transactional
+    public void restore(Property property) {
+        property.setDeleted(false);
+        propertiesRepository.save(property);
     }
 
 }

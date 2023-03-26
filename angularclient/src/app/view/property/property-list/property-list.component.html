@@ -1,7 +1,7 @@
 <div class="my-5 row justify-content-center align-items-center" style="margin-right: 20px;">
 <div class="col-md-6">
     <p class="fs-3">All properties</p>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered">
             <thead class="thead-dark">
             <tr>
                 <th scope="col" class="col-1 text-center">#</th>
@@ -17,12 +17,16 @@
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <a routerLink="./{{ property.id }}/update" class="btn btn-outline-success">Update</a>
-                        <a routerLink="./{{ property.id }}/delete" class="btn btn-outline-danger">Delete</a>
+                        <a routerLink="./{{ property.id }}/delete"
+                           class="btn btn-outline-danger"
+                           *ngIf="!property.deleted">Delete</a>
                     </div>
                 </td>
                 <td class="text-center text-danger" *ngIf="role === 'ADMIN'">
-                    <p *ngIf="property.deleted"> Deleted <a routerLink="#" class="text-reset">(restore)</a></p>
-                    </td>
+                    <div *ngIf="property.deleted">
+                    <button class="btn btn-link link text-reset" (click)="restore(property.id)">Deleted (restore)</button>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>

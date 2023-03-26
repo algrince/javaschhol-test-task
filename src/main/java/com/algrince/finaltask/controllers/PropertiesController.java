@@ -86,10 +86,19 @@ public class PropertiesController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public ResponseEntity<String> deleteProperty (
+    public ResponseEntity<String> deleteProperty(
             @PathVariable(value = "id") Long propertyId) {
         Property propertyToDelete = propertiesService.findById(propertyId);
         propertiesService.softDelete(propertyToDelete);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("{id}/restore")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> restoreProperty(
+            @PathVariable(value = "id") Long propertyId) {
+        Property propertyToRestore = propertiesService.findById(propertyId);
+        propertiesService.restore(propertyToRestore);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

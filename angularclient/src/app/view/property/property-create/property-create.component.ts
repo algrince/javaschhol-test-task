@@ -34,6 +34,6 @@ export class PropertyCreateComponent {
     }
 
     gotoPropertiesList() {
-        this.router.navigate(['/properties'])
+        this.router.navigate(['/admin/properties'])
     }
 }

@@ -49,7 +49,7 @@ import { AdminPageComponent } from './view/admin-page/admin-page.component';
 import { RevenueComponent } from './view/statistics/revenue/revenue.component';
 import { TopProductsComponent } from './view/statistics/top-products/top-products.component';
 import { TopBuyersComponent } from './view/statistics/top-buyers/top-buyers.component';
-import { StatisticsMainComponent } from './view/statistics/statistics-main/statistics-main.component';
+
 
 
 const routes: Routes = [
@@ -90,7 +90,6 @@ const routes: Routes = [
   { path: 'admin/addresses', component: AddressAdminListComponent },
   { path: 'admin/orders', component: OrderAdminListComponent },
   { path: 'admin', component: AdminPageComponent },
-  { path: 'admin/statistics', component: StatisticsMainComponent },
   { path: 'admin/statistics/revenue', component: RevenueComponent },
   { path: 'admin/statistics/top-10-products', component: TopProductsComponent },
   { path: 'admin/statistics/top-10-buyers', component: TopBuyersComponent }

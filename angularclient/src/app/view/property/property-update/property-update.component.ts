@@ -42,6 +42,6 @@ export class PropertyUpdateComponent implements OnInit {
     }
 
     gotoPropertiesList() {
-        this.router.navigate(['/properties']);
+        this.router.navigate(['/admin/properties']);
     }
 }
