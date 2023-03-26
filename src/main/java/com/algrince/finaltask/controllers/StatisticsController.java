@@ -1,13 +1,13 @@
 package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.services.StatisticsService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,16 +20,18 @@ public class StatisticsController {
     private final StatisticsService statisticsService;
 
     @GetMapping("monthly_revenue")
-    public Map<String, Double> getMonthlyRevenue() {
-        List<List<Calendar>> months = statisticsService.getMonths();
-        Map<String, Double> revenue = statisticsService.getPeriodRevenue(months, "month");
+    public List<LinkedHashMap<Object, Object>> getMonthlyRevenue(
+            @RequestParam(required = true) int number) throws JsonProcessingException {
+        List<List<Calendar>> months = statisticsService.getMonths(number);
+        List<LinkedHashMap<Object, Object>>  revenue = statisticsService.getPeriodRevenue(months, "month");
         return revenue;
     }
 
     @GetMapping("weekly_revenue")
-    public Map<String, Double> getWeeklyRevenue() {
-        List<List<Calendar>> weeks = statisticsService.getWeeks();
-        Map<String, Double> revenue = statisticsService.getPeriodRevenue(weeks, "week");
+    public List<LinkedHashMap<Object, Object>> getWeeklyRevenue(
+            @RequestParam(required = true) int number) {
+        List<List<Calendar>> weeks = statisticsService.getWeeks(number);
+        List<LinkedHashMap<Object, Object>> revenue = statisticsService.getPeriodRevenue(weeks, "week");
         return revenue;
     }
 }

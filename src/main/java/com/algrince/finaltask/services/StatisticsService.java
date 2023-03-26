@@ -28,7 +28,7 @@ public class StatisticsService {
         return revenue;
     }
 
-    public List<List<Calendar>> getMonths() {
+    public List<List<Calendar>> getMonths(int monthCount) {
         Calendar today = Calendar.getInstance();
         Calendar firstDayCurrentMonth = Calendar.getInstance();
 
@@ -41,10 +41,9 @@ public class StatisticsService {
 
         List<List<Calendar>> listOfPeriods = new ArrayList<>();
 
-        int monthCount = 6;
 
         for (int i = monthCount; i >= 1; i--) {
-            int month = i;
+            int month = i - 1;
 
             Calendar startDay = Calendar.getInstance();
             startDay.set(Calendar.DAY_OF_MONTH, 1);
@@ -69,30 +68,31 @@ public class StatisticsService {
     }
 
 
-    public List<List<Calendar>> getWeeks() {
+    public List<List<Calendar>> getWeeks(int weekCount) {
         Calendar today = Calendar.getInstance();
         Calendar firstDayCurrentWeek = Calendar.getInstance();
-        firstDayCurrentWeek.set(Calendar.DAY_OF_WEEK, 1);
+        firstDayCurrentWeek.set(Calendar.DAY_OF_WEEK, 2);
         List<Calendar> lastPeriod = new ArrayList<>();
         lastPeriod.add(firstDayCurrentWeek);
         lastPeriod.add(today);
 
         List<List<Calendar>> listOfPeriods = new ArrayList<>();
 
-        int weekCount = 4;
 
         for (int i = weekCount; i >= 1; i--) {
-            int week = i;
+            int week = i - 1;
+
 
             Calendar startDay = Calendar.getInstance();
-            startDay.set(Calendar.DAY_OF_WEEK, 1);
+            startDay.set(Calendar.DAY_OF_WEEK, 2);
             startDay.add(Calendar.WEEK_OF_YEAR, -week);
 
             week--;
             Calendar finishDay = Calendar.getInstance();
-            finishDay.set(Calendar.DAY_OF_WEEK, 1);
+            finishDay.set(Calendar.DAY_OF_WEEK, 2);
             finishDay.add(Calendar.WEEK_OF_YEAR, -week);
             finishDay.add(Calendar.DAY_OF_WEEK, -1);
+
 
             List<Calendar> period = new ArrayList<>();
             period.add(startDay);
@@ -106,9 +106,12 @@ public class StatisticsService {
         return listOfPeriods;
     }
 
-    public Map<String, Double> getPeriodRevenue(List<List<Calendar>> periods, String typeOfRevenue) {
-        Map<String, Double> revenueByPeriod = new HashMap<>();
+    public List<LinkedHashMap<Object, Object>> getPeriodRevenue(List<List<Calendar>> periods, String typeOfRevenue) {
+        List<LinkedHashMap<Object, Object>> revenueOfAllPeriods = new ArrayList<>();
+        int week = 1;
+
         for (List<Calendar> period : periods) {
+            LinkedHashMap<Object, Object> revenueByPeriod = new LinkedHashMap<>();
             Calendar start = period.get(0);
             Calendar finish = period.get(1);
 
@@ -117,13 +120,15 @@ public class StatisticsService {
                 int month = start.get(Calendar.MONTH);
                 periodName = new DateFormatSymbols().getMonths()[month];
             } else if (typeOfRevenue.equals("week")) {
-                int week = 1;
                 periodName = "Week " + week;
+                week++;
             }
             Double revenue = getRevenue(start, finish);
-            revenueByPeriod.put(periodName, revenue);
+            revenueByPeriod.put("period", periodName);
+            revenueByPeriod.put("revenue", revenue);
+            revenueOfAllPeriods.add(revenueByPeriod);
             }
 
-        return revenueByPeriod;
+        return revenueOfAllPeriods;
         }
 }

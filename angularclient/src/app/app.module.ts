@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
@@ -63,6 +64,7 @@ import { UserChangePasswordComponent } from './view/user/user-change-password/us
 import { AddressAdminListComponent } from './view/address/address-admin-list/address-admin-list.component';
 import { UserChangeRoleComponent } from './view/user/user-change-role/user-change-role.component';
 import { OrderAdminListComponent } from './view/order/order-admin-list/order-admin-list.component';
+import { RevenueComponent } from './view/statistics/revenue/revenue.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,8 @@ import { OrderAdminListComponent } from './view/order/order-admin-list/order-adm
     UserChangePasswordComponent,
     AddressAdminListComponent,
     UserChangeRoleComponent,
-    OrderAdminListComponent
+    OrderAdminListComponent,
+    RevenueComponent
   ],
   imports: [
     BrowserModule,
@@ -115,6 +118,7 @@ import { OrderAdminListComponent } from './view/order/order-admin-list/order-adm
     MatInputModule,
     MatCheckboxModule,
     MatTableModule,
+    NgxChartsModule
   ],
   providers: [
     UserService,
