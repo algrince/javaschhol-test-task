@@ -17,11 +17,16 @@ export class UserListComponent implements OnInit {
     private userService: UserService,
     private cookieService: CookieService) {}
 
-  ngOnInit() {
+    ngOnInit() {
     this.userService.findAll()
         .subscribe(data => {this.users = data});
 
     this.role = this.cookieService.get('userRole');
-  }
+    }
+
+      restore(userId: number) {
+          this.userService.restore(userId)
+              .subscribe(result => location.reload());
+      }
 
 }

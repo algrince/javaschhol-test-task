@@ -12,13 +12,14 @@
             <p class="fs-6"><span class="fw-bolder">Volume: </span>{{ product.volume }}</p>
             <p class="fs-6"><span class="fw-bolder">Stock: </span>{{ product.stock }}</p>
             <form class="col-md-8">
-
+                <div *ngIf="!product.deleted">
                 <div class="btn-group my-2" role="group" *ngIf="product.stock !== 0">
                     <button (click)="addToCart(product)" class="btn btn-outline-success">Add to cart</button>
                     <a routerLink="/orders/new" class="btn btn-outline-success" (click)="addToCart(product)">Shop now</a>
                 </div>
                 <div *ngIf="product.stock === 0">
                     <p class="text-danger fs-5">OUT OF STOCK</p>
+                </div>
                 </div>
             </form>
         </div>
@@ -32,8 +33,9 @@
     <div class="col-md-12 my-4"></div>
     <div class="col-auto" [hidden] = "!roleExists || (roleExists && role === 'BUYER')">
         <div class="btn-group my-2" role="group">
-            <a routerLink="./update" class="btn btn-outline-success">Update product</a>
-            <a routerLink="./delete" class="btn btn-outline-danger">Delete product</a>
+            <a routerLink="/admin/products/{{ product.id }}/update" class="btn btn-outline-success">Update product</a>
+            <a *ngIf="!product.deleted" routerLink="/admin/products/{{ product.id }}/delete" class="btn btn-outline-danger">Delete product</a>
+            <button *ngIf="product.deleted && role === 'ADMIN'" class="btn btn-outline-danger" (click)="restore(product.id)">Restore product</button>
         </div>
     </div>
 

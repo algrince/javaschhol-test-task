@@ -59,4 +59,9 @@ export class ProductService {
         const deleteUrl = `${this.productsUrl}/${id}`;
         return this.http.delete<Product>(deleteUrl);
    }
+
+   public restore(id: number) {
+        const restoreUrl = `${this.productsUrl}/${id}/restore`;
+        return this.http.put<Product>(restoreUrl, null);
+   }
 }

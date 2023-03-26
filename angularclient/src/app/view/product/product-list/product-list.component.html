@@ -108,6 +108,10 @@
                     <p class="card-text">{{ product.category.name }}</p>
                     <p class="card-text text-primary fs-5" *ngIf="product.stock !== 0">{{ product.price }} €</p>
                     <p class="card-text text-danger fs-5" *ngIf="product.stock === 0">OUT OF STOCK</p>
+                    <p class="card-text text-danger fs-5"
+                       *ngIf="product.deleted && role === 'ADMIN'">DELETED</p>
+                    <p class="card-text text-success fs-5"
+                       *ngIf="!product.deleted && role === 'ADMIN'">NOT DELETED</p>
                     <a routerLink="./{{ product.id }}" class="stretched-link"></a>
                 </div>
             </div>
@@ -126,6 +130,6 @@
 
     <div class="card-body row d-flex justify-content-center my-4" style="margin-right: 20px;">
         <div class="col-auto">
-            <a routerLink="./new" [hidden] = "!roleExists || (roleExists && role === 'BUYER')" class="btn btn-outline-primary">New product</a>
+            <a routerLink="/admin/products/new" [hidden] = "!roleExists || (roleExists && role === 'BUYER')" class="btn btn-outline-primary">New product</a>
         </div>
     </div>

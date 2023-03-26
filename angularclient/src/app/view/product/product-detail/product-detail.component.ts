@@ -67,4 +67,9 @@ export class ProductDetailComponent implements OnInit {
         }
     }
 
+    restore(productId: number) {
+    this.productService.restore(productId)
+                .subscribe(result => location.reload());
+    }
+
 }

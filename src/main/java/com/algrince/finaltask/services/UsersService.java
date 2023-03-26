@@ -106,4 +106,9 @@ public class UsersService {
             throw new AccessDeniedException("User has no rights to access this information");
         }
     }
+
+    public void restore(User user) {
+        user.setDeleted(false);
+        usersRepository.save(user);
+    }
 }

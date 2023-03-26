@@ -6,6 +6,7 @@ import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.services.ProductsService;
 import com.algrince.finaltask.utils.DTOMapper;
+import com.algrince.finaltask.validators.AccessValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ import java.util.List;
 public class ProductsController {
 
     private final ProductsService productsService;
+    private final AccessValidator accessValidator;
     private final DTOMapper dtoMapper;
 
     @GetMapping
@@ -39,12 +41,14 @@ public class ProductsController {
             @RequestParam(required = false) Double minPrice,
             @RequestParam(required = false) Double maxPrice,
             @RequestParam(required = false) List<Long> prValues) {
+
+        boolean isAdmin = accessValidator.authUserIsAdmin();
         Page<Product> products = productsService.selectProducts(
                 category,
                 page, size,
                 sortField, sortDir,
                 minPrice, maxPrice,
-                prValues);
+                prValues, isAdmin);
         return dtoMapper.mapPage(products, ProductDTO.class);
     }
 
@@ -67,9 +71,11 @@ public class ProductsController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductDTO> getProduct (@PathVariable("id") Long id) {
+    public ResponseEntity<ProductDTO> getProduct (
+            @PathVariable("id") Long id) {
+        boolean isAdmin = accessValidator.authUserIsAdmin();
 
-        Product foundProduct = productsService.findById(id);
+        Product foundProduct = productsService.findById(id, isAdmin);
         ProductDTO foundProductDTO = dtoMapper.mapClass(foundProduct, ProductDTO.class);
 
         Category foundProductCategory = foundProduct.getCategory();
@@ -94,6 +100,15 @@ public class ProductsController {
             @PathVariable(value = "id") Long productId) {
         Product productToDelete = productsService.findById(productId);
         productsService.softDelete(productToDelete);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("{id}/restore")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> restoreProduct(
+            @PathVariable(value = "id") Long productId) {
+        Product productToRestore = productsService.findById(productId);
+        productsService.restore(productToRestore);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -54,4 +54,9 @@ export class UserService {
   public login(user: User): Observable<object> {
     return this.http.post<User>(this.loginUrl, user);
   }
+
+  public restore(id: number) {
+    const updateRoleUrl = `${this.usersUrl}/${id}/restore`;
+    return this.http.put<User>(updateRoleUrl, null);
+  }
 }

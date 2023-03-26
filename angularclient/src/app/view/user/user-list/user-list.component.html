@@ -19,14 +19,16 @@
         <td class="text-center">{{ user.name }}</td>
         <td class="text-center">{{ user.surname }}</td>
         <td class="text-center">
-          <a routerLink="./{{ user.id}}">{{ user.email }}</a>
+          <a routerLink="/users/{{ user.id}}">{{ user.email }}</a>
         </td>
         <td class="text-center">{{ user.role }}</td>
         <td class="text-center">
             <a routerLink="./{{ user.id }}/changeRole" class="btn btn-outline-primary text-nowrap">Change status</a>
         </td>
         <td class="text-center text-danger" *ngIf="role === 'ADMIN'">
-          <p *ngIf="user.deleted"> Deleted <a routerLink="#" class="text-reset">(restore)</a></p>
+          <div *ngIf="user.deleted">
+            <button class="btn btn-link link text-reset" (click)="restore(user.id)">Deleted (restore)</button>
+          </div>
         </td>
       </tr>
       </tbody>

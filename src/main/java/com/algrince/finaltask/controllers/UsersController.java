@@ -131,4 +131,13 @@ public class UsersController {
         usersService.softDelete(userToDelete);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("{id}/restore")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> restoreUser(
+            @PathVariable(value = "id") Long userId) {
+        User userToRestore = usersService.findById(userId);
+        usersService.restore(userToRestore);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

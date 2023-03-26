@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +42,8 @@ public class ProductsService {
             int page, int size,
             String sortField, String sortDir,
             Double minPrice, Double maxPrice,
-            List<Long> propertyValues) {
+            List<Long> propertyValues,
+            boolean isAdmin) {
 
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
 
@@ -77,36 +79,67 @@ public class ProductsService {
         productSpecs.add(minPriceSpec);
         productSpecs.add(maxPriceSpec);
 
-        filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
-        Page<Product> products = productsRepository.findAll(
-                Specification.allOf(productSpecs), paging);
-        filterManager.disableFilter(DELETED_PRODUCT_FILTER);
-//        Page<Product> products = productsRepository.findAll(
-//                Specification.allOf(categorySpec, minPriceSpec, maxPriceSpec), paging);
+        Page<Product> products;
+        if (isAdmin) {
+            products = productsRepository.findAll(
+                    Specification.allOf(productSpecs), paging);
+        } else {
+            filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
+            products = productsRepository.findAll(
+                    Specification.allOf(productSpecs), paging);
+            filterManager.disableFilter(DELETED_PRODUCT_FILTER);
+        }
         return products;
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findAll(Pageable paging) {
-        filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
-        Page<Product> products = productsRepository.findAll(paging);
-        filterManager.disableFilter(DELETED_PRODUCT_FILTER);
+    public Page<Product> findAll(Pageable paging, boolean isAdmin) {
+        Page<Product> products;
+
+        if (isAdmin) {
+            products = productsRepository.findAll(paging);
+        } else {
+            filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
+            products = productsRepository.findAll(paging);
+            filterManager.disableFilter(DELETED_PRODUCT_FILTER);
+        }
         return products;
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> findAllByCategory(Category category, Pageable paging) {
-        filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
-        Page<Product> products = productsRepository.findAllByCategory(category, paging);
-        filterManager.disableFilter(DELETED_PRODUCT_FILTER);
+    public Page<Product> findAllByCategory(
+            Category category, Pageable paging,
+            boolean isAdmin) {
+        Page<Product> products;
+
+        if (isAdmin) {
+            products = productsRepository.findAllByCategory(category, paging);
+        } else {
+            filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
+            products = productsRepository.findAllByCategory(category, paging);
+            filterManager.disableFilter(DELETED_PRODUCT_FILTER);
+        }
         return products;
+    }
+
+    @Transactional(readOnly = true)
+    public Product findById(Long id, boolean isAdmin) {
+        Optional<Product> foundProduct;
+
+        if (isAdmin) {
+            foundProduct = productsRepository.findById(id);
+        } else {
+            filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
+            foundProduct = productsRepository.findById(id);
+            filterManager.disableFilter(DELETED_PRODUCT_FILTER);
+        }
+        return foundProduct.orElseThrow(()
+                -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     @Transactional(readOnly = true)
     public Product findById(Long id) {
-        filterManager.enableDeletedFilter(DELETED_PRODUCT_FILTER);
         Optional<Product> foundProduct = productsRepository.findById(id);
-        filterManager.disableFilter(DELETED_PRODUCT_FILTER);
         return foundProduct.orElseThrow(()
                 -> new ResourceNotFoundException("Product not found with id: " + id));
     }
@@ -130,5 +163,9 @@ public class ProductsService {
         productsRepository.save(foundProduct);
     }
 
-
+    @Transactional
+    public void restore(Product product) {
+        product.setDeleted(false);
+        productsRepository.save(product);
+    }
 }
