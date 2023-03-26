@@ -152,8 +152,9 @@ public class StatisticsService {
         for (Object[] productAndOccurrence : top10OrderProducts) {
             LinkedHashMap<Object, Object> topProductInfo = new LinkedHashMap<>();
 
-            OrderProduct orderProduct = (OrderProduct) productAndOccurrence[0];
-            Product product = orderProduct.getProduct();
+//            OrderProduct orderProduct = (OrderProduct) productAndOccurrence[0];
+//            Product product = orderProduct.getProduct();
+            Product product = (Product) productAndOccurrence[0];
             Long occurrence = (Long) productAndOccurrence[1];
 
             topProductInfo.put(
