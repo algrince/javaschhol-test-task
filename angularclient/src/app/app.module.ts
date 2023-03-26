@@ -68,6 +68,7 @@ import { RevenueComponent } from './view/statistics/revenue/revenue.component';
 import { TopProductsComponent } from './view/statistics/top-products/top-products.component';
 import { TopBuyersComponent } from './view/statistics/top-buyers/top-buyers.component';
 import { AdminPageComponent } from './view/admin-page/admin-page.component';
+import { CategoryAdminListComponent } from './view/category/category-admin-list/category-admin-list.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { AdminPageComponent } from './view/admin-page/admin-page.component';
     RevenueComponent,
     TopProductsComponent,
     TopBuyersComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    CategoryAdminListComponent
   ],
   imports: [
     BrowserModule,

@@ -27,6 +27,7 @@ import { CategoryCreateComponent } from './view/category/category-create/categor
 import { CategoryPageComponent } from './view/category/category-page/category-page.component';
 import { CategoryUpdateComponent } from './view/category/category-update/category-update.component';
 import { CategoryDeleteComponent } from './view/category/category-delete/category-delete.component';
+import { CategoryAdminListComponent } from './view/category/category-admin-list/category-admin-list.component';
 
 import { PropertyListComponent } from './view/property/property-list/property-list.component';
 import { PropertyCreateComponent } from './view/property/property-create/property-create.component';
@@ -70,10 +71,10 @@ const routes: Routes = [
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'products/:id/update', component: ProductUpdateComponent },
   { path: 'products/:id/delete', component: ProductDeleteComponent },
-  { path: 'category/new', component: CategoryCreateComponent },
-  { path: 'category/:id', component: CategoryPageComponent },
-  { path: 'category/:id/update', component: CategoryUpdateComponent },
-  { path: 'category/:id/delete', component: CategoryDeleteComponent },
+  { path: 'admin/categories/new', component: CategoryCreateComponent },
+  { path: 'categories/:id', component: CategoryPageComponent },
+  { path: 'admin/categories/:id/update', component: CategoryUpdateComponent },
+  { path: 'admin/categories/:id/delete', component: CategoryDeleteComponent },
   { path: 'admin/properties', component: PropertyListComponent },
   { path: 'admin/properties/new', component: PropertyCreateComponent },
   { path: 'admin/properties/:id/update', component: PropertyUpdateComponent },
@@ -89,6 +90,7 @@ const routes: Routes = [
   { path: 'admin/users', component: UserListComponent },
   { path: 'admin/addresses', component: AddressAdminListComponent },
   { path: 'admin/orders', component: OrderAdminListComponent },
+  { path: 'admin/categories', component: CategoryAdminListComponent },
   { path: 'admin', component: AdminPageComponent },
   { path: 'admin/statistics/revenue', component: RevenueComponent },
   { path: 'admin/statistics/top-10-products', component: TopProductsComponent },

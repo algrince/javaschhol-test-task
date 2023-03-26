@@ -69,4 +69,10 @@ public class ProductPropertiesService {
     public Optional<ProductProperty> loadByValue(String value) {
         return productPropertyRepository.findByPropertyValue(value);
     }
+
+    @Transactional
+    public void restore(ProductProperty productProperty) {
+        productProperty.setDeleted(false);
+        productPropertyRepository.save(productProperty);
+    }
 }

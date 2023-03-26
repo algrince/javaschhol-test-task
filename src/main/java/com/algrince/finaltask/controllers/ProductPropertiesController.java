@@ -87,8 +87,19 @@ public class ProductPropertiesController {
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
     public ResponseEntity<String> deleteProductProperty(
             @PathVariable(value = "id") Long productPropertyId) {
-        ProductProperty productPropertyToDelete = productPropertiesService.findById(productPropertyId);
+        ProductProperty productPropertyToDelete =
+                productPropertiesService.findById(productPropertyId);
         productPropertiesService.softDelete(productPropertyToDelete);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("{id}/restore")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> restoreProductProperty(
+            @PathVariable(value = "id") Long productPropertyId) {
+        ProductProperty productPropertyToRestore =
+                productPropertiesService.findById(productPropertyId);
+        productPropertiesService.restore(productPropertyToRestore);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -33,6 +33,6 @@ export class CategoryDeleteComponent implements OnInit {
     }
 
     gotoProductList() {
-        this.router.navigate(['/products']);
+        this.router.navigate(['/admin/categories']);
     }
 }

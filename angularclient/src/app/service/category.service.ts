@@ -36,4 +36,9 @@ export class CategoryService {
         const deleteUrl = `${this.categoriesUrl}/${id}`;
         return this.http.delete<Category>(deleteUrl);
      }
+
+     public restore(id: number) {
+         const restoreUrl = `${this.categoriesUrl}/${id}/restore`
+         return this.http.put<Category>(restoreUrl, null);
+     }
 }

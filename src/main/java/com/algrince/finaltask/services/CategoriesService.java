@@ -68,4 +68,10 @@ public class CategoriesService {
     public Optional<Category> loadByName(String name) {
         return categoriesRepository.findByName(name);
     }
+
+    @Transactional
+    public void restore(Category category) {
+        category.setDeleted(false);
+        categoriesRepository.save(category);
+    }
 }

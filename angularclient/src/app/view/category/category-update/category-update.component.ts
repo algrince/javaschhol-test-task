@@ -42,6 +42,6 @@ export class CategoryUpdateComponent implements OnInit {
     }
 
     gotoCategory() {
-        this.router.navigate(['/category/1']);
+        this.router.navigate(['/admin/categories']);
     }
 }

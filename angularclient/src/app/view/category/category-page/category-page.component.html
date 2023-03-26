@@ -2,9 +2,11 @@
     <div class="container d-flex flex-wrap">
         <ul class="nav" *ngFor="let category of categories">
             <li class="nav-item">
-                <a routerLink="/category/{{ category.id }}"
+                <a routerLink="/categories/{{ category.id }}"
+                   (click)="changeCategory(category.id)"
                    class="nav-link link-dark px-2 active"
-                   aria-current="page">{{ category.name }}</a>
+                   aria-current="page"
+                    >{{ category.name }}</a>
             </li>
         </ul>
     </div>
@@ -128,11 +130,11 @@
 
 <div class="card-body row d-flex justify-content-center" style="margin-right: 20px;">
     <div class="btn-group my-4 col-md-4" role="group" [hidden] = "!roleExists || (roleExists && role === 'BUYER')">
-        <a routerLink="./update" class="btn btn-outline-success">Update category</a>
-        <a routerLink="./delete" class="btn btn-outline-danger">Delete category</a>
+        <a routerLink="/admin/categories/{{ category.id }}/update" class="btn btn-outline-success">Update category</a>
+        <a routerLink="/admin/categories/{{ category.id }}/delete" class="btn btn-outline-danger">Delete category</a>
     </div>
     <div class="col-md-12"></div>
     <div class="col-auto" [hidden] = "!roleExists || (roleExists && role === 'BUYER')">
-        <a routerLink="/category/new" class="btn btn-outline-primary">New category</a>
+        <a routerLink="/admin/categories/new" class="btn btn-outline-primary">New category</a>
     </div>
 </div>

@@ -36,4 +36,9 @@ export class PropertyValueService {
         const deleteUrl = `${this.propertyValuesUrl}/${id}`;
         return this.http.delete<PropertyValue>(deleteUrl);
     }
+
+    public restore(id: number) {
+        const restoreUrl = `${this.propertyValuesUrl}/${id}/restore`
+        return this.http.put<PropertyValue>(restoreUrl, null);
+    }
 }

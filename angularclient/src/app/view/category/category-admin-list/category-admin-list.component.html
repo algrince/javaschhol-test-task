@@ -1,32 +1,30 @@
 <div class="my-5 row justify-content-center align-items-center" style="margin-right: 20px;">
     <div class="col-md-6">
-        <p class="fs-3">All property values</p>
+        <p class="fs-3">All categories</p>
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
             <tr>
                 <th scope="col" class="col-1 text-center">#</th>
-                <th scope="col" class="col-2 text-center">Property</th>
-                <th scope="col" class="col-2 text-center">Value</th>
+                <th scope="col" class="col-2 text-center">Category</th>
                 <th scope="col" class="col-2 text-center">Action</th>
                 <th scope="col" class="col-3 text-center" *ngIf="role === 'ADMIN'">State</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let propertyValue of propertyValues">
-                <td class="text-center">{{ propertyValue.id }}</td>
-                <td class="text-center">{{ propertyValue.property.name }}</td>
-                <td class="text-center">{{ propertyValue.propertyValue }}</td>
+            <tr *ngFor="let category of categories">
+                <td class="text-center">{{ category.id }}</td>
+                <td class="text-center">{{ category.name }}</td>
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
-                        <a routerLink="./{{ propertyValue.id }}/update" class="btn btn-outline-success">Update</a>
-                        <a routerLink="./{{ propertyValue.id }}/delete"
+                        <a routerLink="./{{ category.id }}/update" class="btn btn-outline-success">Update</a>
+                        <a routerLink="./{{ category.id }}/delete"
                            class="btn btn-outline-danger"
-                           *ngIf="!propertyValue.deleted">Delete</a>
+                           *ngIf="!category.deleted">Delete</a>
                     </div>
                 </td>
                 <td class="text-center text-danger" *ngIf="role === 'ADMIN'">
-                    <div *ngIf="propertyValue.deleted">
-                        <button class="btn btn-link link text-reset" (click)="restore(propertyValue.id)">Deleted (restore)</button>
+                    <div *ngIf="category.deleted">
+                        <button class="btn btn-link link text-reset" (click)="restore(category.id)">Deleted (restore)</button>
                     </div>
                 </td>
             </tr>
@@ -36,7 +34,8 @@
 
     <div class="card-body row d-flex justify-content-center my-4">
         <div class="col-auto">
-            <a routerLink="./new" class="btn btn-outline-primary">New property value</a>
+            <a routerLink="./new" class="btn btn-outline-primary">New category</a>
         </div>
     </div>
 </div>
+

@@ -84,9 +84,19 @@ public class CategoriesController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public ResponseEntity<String> deleteCategory (@PathVariable(value = "id") Long categoryId) {
+    public ResponseEntity<String> deleteCategory (
+            @PathVariable(value = "id") Long categoryId) {
         Category categoryToDelete = categoriesService.findById(categoryId);
         categoriesService.softDelete(categoryToDelete);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("{id}/restore")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> restoreCategory(
+            @PathVariable(value = "id") Long categoryId) {
+        Category categoryToRestore = categoriesService.findById(categoryId);
+        categoriesService.restore(categoryToRestore);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

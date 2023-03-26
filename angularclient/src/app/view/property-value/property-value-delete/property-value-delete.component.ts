@@ -33,6 +33,6 @@ export class PropertyValueDeleteComponent implements OnInit {
     }
 
     gotoPropertyValues() {
-        this.router.navigate(['/propertyValues']);
+        this.router.navigate(['/admin/propertyValues']);
     }
 }

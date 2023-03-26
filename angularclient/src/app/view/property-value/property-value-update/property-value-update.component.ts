@@ -48,6 +48,6 @@ export class PropertyValueUpdateComponent implements OnInit {
     }
 
     gotoPropertyValuesList() {
-        this.router.navigate(['/propertyValues']);
+        this.router.navigate(['/admin/propertyValues']);
     }
 }

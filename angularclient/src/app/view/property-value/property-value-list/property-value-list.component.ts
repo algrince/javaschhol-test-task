@@ -23,4 +23,9 @@ export class PropertyValueListComponent implements OnInit {
         this.role = this.cookieService.get("userRole");
     }
 
+    restore(propertyValueId: number) {
+        this.propertyValueService.restore(propertyValueId)
+            .subscribe(result => location.reload());
+    }
+
 }

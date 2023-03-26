@@ -48,13 +48,17 @@ export class CategoryPageComponent implements OnInit{
     }
 
     ngOnInit() {
+
         this.route.paramMap.subscribe(
             (routeParam) => {
                 const id = parseInt(routeParam.get("id"));
                 this.categoryId = id;
-                this.getCategory();
-
-                this.getProducts({category: this.categoryId, page: this.page, size: this.size});
+                this.categoryService.findOneCategory(this.categoryId)
+                            .subscribe(
+                            (data) => {
+                            this.category = data;
+                             this.getProducts({category: this.categoryId, page: this.page, size: this.size});
+                            });
 
                 this.categoryService.findAll()
                     .subscribe(data => {this.categories = data})
@@ -68,10 +72,22 @@ export class CategoryPageComponent implements OnInit{
         this.role = this.cookieService.get("userRole");
     }
 
-    public getCategory() {
-        this.categoryId = this.route.snapshot.params['id'];
-        this.categoryService.findOneCategory(this.categoryId)
-            .subscribe(data => {this.category = data});
+    changeCategory(id: number) {
+        this.router.navigate(['/home']);
+        this.router.navigate(['/categories/{id}']);
+        this.page = 0;
+        this.categoryId = id;
+        this.categoryService.findOneCategory(id)
+            .subscribe((data) => {
+                this.category = data;
+                this.getProducts({category: id, page: 0, size: this.size});
+                });
+
+        this.categoryService.findAll()
+            .subscribe(data => {this.categories = data})
+
+        this.propertyValueService.findAll()
+            .subscribe(data => {this.propertyValues = data});
     }
 
     private getProducts(request) {

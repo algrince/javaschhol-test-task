@@ -15,4 +15,6 @@ public class CategoryDTO {
     @Length(max = 45, message = "The category name cannot be longer than 45 characters")
     private String name;
 
+    private boolean isDeleted;
+
 }
