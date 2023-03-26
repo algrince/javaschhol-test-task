@@ -11,13 +11,10 @@
            class="nav-link link-dark px-2">Products</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark px-2">Pricing</a>
-      </li>
-      <li class="nav-item">
         <a href="#" class="nav-link link-dark px-2">About</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/users"
+        <a routerLink="/admin/users"
            class="nav-link link-dark px-2"
            [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Users</a>
       </li>
@@ -32,14 +29,14 @@
            [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Orders</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/properties"
+        <a routerLink="/admin/properties"
            class="nav-link link-dark px-2"
            [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Properties</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/propertyValues"
+        <a routerLink="/admin/propertyValues"
            class="nav-link link-dark px-2"
-           [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Property Values</a>
+           [hidden] = "!roleExists || (roleExists && role == 'BUYER')">Property values</a>
       </li>
     </ul>
     <div>
@@ -134,8 +131,6 @@
 <footer class="py-3 my-4">
   <ul class="nav justify-content-center border-bottom pb-3 mb-3">
     <li class="nav-item"><a routerLink="/home" class="nav-link px-2 text-muted">Home</a></li>
-    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
     <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
     <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
   </ul>

@@ -45,15 +45,16 @@ import { OrderAdminListComponent } from './view/order/order-admin-list/order-adm
 
 import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
 
+import { AdminPageComponent } from './view/admin-page/admin-page.component';
 import { RevenueComponent } from './view/statistics/revenue/revenue.component';
 import { TopProductsComponent } from './view/statistics/top-products/top-products.component';
 import { TopBuyersComponent } from './view/statistics/top-buyers/top-buyers.component';
+import { StatisticsMainComponent } from './view/statistics/statistics-main/statistics-main.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'users', component: UserListComponent },
   { path: 'registration', component: UserFormComponent },
   { path: 'login', component: LoginComponent },
   { path: 'users/:id', component: UserPageComponent },
@@ -73,20 +74,23 @@ const routes: Routes = [
   { path: 'category/:id', component: CategoryPageComponent },
   { path: 'category/:id/update', component: CategoryUpdateComponent },
   { path: 'category/:id/delete', component: CategoryDeleteComponent },
-  { path: 'properties', component: PropertyListComponent },
-  { path: 'properties/new', component: PropertyCreateComponent },
-  { path: 'properties/:id/update', component: PropertyUpdateComponent },
-  { path: 'properties/:id/delete', component: PropertyDeleteComponent },
-  { path: 'propertyValues', component: PropertyValueListComponent },
-  { path: 'propertyValues/new', component: PropertyValueCreateComponent },
-  { path: 'propertyValues/:id/update', component: PropertyValueUpdateComponent },
-  { path: 'propertyValues/:id/delete', component: PropertyValueDeleteComponent },
+  { path: 'admin/properties', component: PropertyListComponent },
+  { path: 'admin/properties/new', component: PropertyCreateComponent },
+  { path: 'admin/properties/:id/update', component: PropertyUpdateComponent },
+  { path: 'admin/properties/:id/delete', component: PropertyDeleteComponent },
+  { path: 'admin/propertyValues', component: PropertyValueListComponent },
+  { path: 'admin/propertyValues/new', component: PropertyValueCreateComponent },
+  { path: 'admin/propertyValues/:id/update', component: PropertyValueUpdateComponent },
+  { path: 'admin/propertyValues/:id/delete', component: PropertyValueDeleteComponent },
   { path: 'orders/new', component: OrderFormComponent },
   { path: 'users/:id/orders', component: OrderUserListComponent },
   { path: 'orders/:id/update', component: OrderUpdateComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'admin/users', component: UserListComponent },
   { path: 'admin/addresses', component: AddressAdminListComponent },
   { path: 'admin/orders', component: OrderAdminListComponent },
+  { path: 'admin', component: AdminPageComponent },
+  { path: 'admin/statistics', component: StatisticsMainComponent },
   { path: 'admin/statistics/revenue', component: RevenueComponent },
   { path: 'admin/statistics/top-10-products', component: TopProductsComponent },
   { path: 'admin/statistics/top-10-buyers', component: TopBuyersComponent }

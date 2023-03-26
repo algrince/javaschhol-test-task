@@ -67,6 +67,8 @@ import { OrderAdminListComponent } from './view/order/order-admin-list/order-adm
 import { RevenueComponent } from './view/statistics/revenue/revenue.component';
 import { TopProductsComponent } from './view/statistics/top-products/top-products.component';
 import { TopBuyersComponent } from './view/statistics/top-buyers/top-buyers.component';
+import { StatisticsMainComponent } from './view/statistics/statistics-main/statistics-main.component';
+import { AdminPageComponent } from './view/admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,9 @@ import { TopBuyersComponent } from './view/statistics/top-buyers/top-buyers.comp
     OrderAdminListComponent,
     RevenueComponent,
     TopProductsComponent,
-    TopBuyersComponent
+    TopBuyersComponent,
+    StatisticsMainComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,
