@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../service/user.service';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthenticationService } from '../../../service/authentication.service';
 
 @Component({
   selector: 'app-user-delete',
@@ -10,15 +12,19 @@ import { UserService } from '../../../service/user.service';
 export class UserDeleteComponent implements OnInit {
 
     userId: number;
+    role: string;
 
     constructor(
         private userService : UserService,
         private router : Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private cookieService: CookieService,
+        private authenticationService: AuthenticationService
     ) {}
 
     ngOnInit() {
         this.userId = this.route.snapshot.params['id'];
+        this.role = this.cookieService.get('userRole');
     }
 
     onSubmit() {
@@ -26,7 +32,13 @@ export class UserDeleteComponent implements OnInit {
     }
 
     gotoHomepage() {
-        this.router.navigate(['/home']);
+        if (this.role === 'BUYER') {
+            this.authenticationService.logOut();
+            this.router.navigate(['/home']);
+        } else {
+            this.router.navigate(['/admin/users']);
+        }
+
     }
 
 }

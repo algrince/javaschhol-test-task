@@ -28,7 +28,6 @@ export class AuthenticationService {
                 this.cookieService.set('token', token);
                 this.cookieService.set('userId', userData.id.toString());
                 this.cookieService.set('userRole', userData.role);
-                this.cookieService.set('email', userData.email);
 
             })
         );
@@ -45,7 +44,6 @@ export class AuthenticationService {
       this.cookieService.delete('token');
       this.cookieService.delete('userId');
       this.cookieService.delete('userRole');
-      this.cookieService.delete('email');
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 100);
