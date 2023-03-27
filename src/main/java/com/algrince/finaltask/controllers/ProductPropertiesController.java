@@ -3,6 +3,7 @@ package com.algrince.finaltask.controllers;
 import com.algrince.finaltask.dto.ProductPropertyDTO;
 import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.ProductProperty;
+import com.algrince.finaltask.models.Property;
 import com.algrince.finaltask.services.ProductPropertiesService;
 import com.algrince.finaltask.utils.DTOMapper;
 import com.algrince.finaltask.validators.AccessValidator;
@@ -70,6 +71,7 @@ public class ProductPropertiesController {
             BindingResult bindingResult) {
 
         ProductProperty foundProductProperty = productPropertiesService.findById(productPropertyId);
+        foundProductProperty.setProperty(new Property());
         dtoMapper.mapProperties(productPropertyDTO, foundProductProperty);
         productPropertyValidator.validate(foundProductProperty, bindingResult);
 

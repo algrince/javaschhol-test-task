@@ -23,7 +23,7 @@ public class ProductImagesService {
         String imagePath = "/default.png";
 
         if (id != null) {
-            imagePath = "/" + Long.toString(id) + ".png";
+            imagePath = "/" + id + ".png";
             Path path = Paths.get(defaultPath + imagePath);
             if (Files.notExists(path)) {
                 log.warn("Image does not exist with path: " + defaultPath + imagePath);
@@ -36,4 +36,5 @@ public class ProductImagesService {
 
         return Base64.getEncoder().encodeToString(fileContent);
     }
+
 }

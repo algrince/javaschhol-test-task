@@ -69,6 +69,7 @@ import { TopProductsComponent } from './view/statistics/top-products/top-product
 import { TopBuyersComponent } from './view/statistics/top-buyers/top-buyers.component';
 import { AdminPageComponent } from './view/admin-page/admin-page.component';
 import { CategoryAdminListComponent } from './view/category/category-admin-list/category-admin-list.component';
+import { NotFoundComponent } from './util/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { CategoryAdminListComponent } from './view/category/category-admin-list/
     TopProductsComponent,
     TopBuyersComponent,
     AdminPageComponent,
-    CategoryAdminListComponent
+    CategoryAdminListComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

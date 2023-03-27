@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from './util/admin.guard';
+import { AuthGuard } from './util/auth.guard';
 
 import { HomeComponent } from './view/home/home.component'
 
@@ -45,6 +47,7 @@ import { OrderUpdateComponent } from './view/order/order-update/order-update.com
 import { OrderAdminListComponent } from './view/order/order-admin-list/order-admin-list.component';
 
 import { UnauthorizedComponent } from './util/unauthorized/unauthorized.component';
+import { NotFoundComponent } from './util/not-found/not-found.component';
 
 import { AdminPageComponent } from './view/admin-page/admin-page.component';
 import { RevenueComponent } from './view/statistics/revenue/revenue.component';
@@ -58,43 +61,44 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'registration', component: UserFormComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'users/:id', component: UserPageComponent },
-  { path: 'users/:id/update', component: UserUpdateComponent },
-  { path: 'users/:id/delete', component: UserDeleteComponent },
-  { path: 'users/:id/changePassword', component: UserChangePasswordComponent },
-  { path: 'users/:id/changeRole', component: UserChangeRoleComponent },
+  { path: 'users/:id', component: UserPageComponent, canActivate: [AuthGuard] },
+  { path: 'users/:id/update', component: UserUpdateComponent, canActivate: [AuthGuard] },
+  { path: 'users/:id/delete', component: UserDeleteComponent, canActivate: [AuthGuard] },
+  { path: 'users/:id/changePassword', component: UserChangePasswordComponent, canActivate: [AuthGuard] },
+  { path: 'users/:id/changeRole', component: UserChangeRoleComponent, canActivate: [AdminGuard] },
   { path: 'addresses/new', component: AddressFormComponent },
   { path: 'addresses/:id/update', component: AddressUpdateComponent },
   { path: 'addresses/:id/delete', component: AddressDeleteComponent },
   { path: 'products', component: ProductListComponent },
-  { path: 'admin/products/new', component: ProductCreateComponent },
+  { path: 'admin/products/new', component: ProductCreateComponent, canActivate: [AdminGuard] },
   { path: 'products/:id', component: ProductDetailComponent },
-  { path: 'admin/products/:id/update', component: ProductUpdateComponent },
-  { path: 'admin/products/:id/delete', component: ProductDeleteComponent },
-  { path: 'admin/categories/new', component: CategoryCreateComponent },
+  { path: 'admin/products/:id/update', component: ProductUpdateComponent, canActivate: [AdminGuard] },
+  { path: 'admin/products/:id/delete', component: ProductDeleteComponent, canActivate: [AdminGuard] },
+  { path: 'admin/categories/new', component: CategoryCreateComponent, canActivate: [AdminGuard] },
   { path: 'categories/:id', component: CategoryPageComponent },
-  { path: 'admin/categories/:id/update', component: CategoryUpdateComponent },
-  { path: 'admin/categories/:id/delete', component: CategoryDeleteComponent },
-  { path: 'admin/properties', component: PropertyListComponent },
-  { path: 'admin/properties/new', component: PropertyCreateComponent },
-  { path: 'admin/properties/:id/update', component: PropertyUpdateComponent },
-  { path: 'admin/properties/:id/delete', component: PropertyDeleteComponent },
-  { path: 'admin/propertyValues', component: PropertyValueListComponent },
-  { path: 'admin/propertyValues/new', component: PropertyValueCreateComponent },
-  { path: 'admin/propertyValues/:id/update', component: PropertyValueUpdateComponent },
-  { path: 'admin/propertyValues/:id/delete', component: PropertyValueDeleteComponent },
+  { path: 'admin/categories/:id/update', component: CategoryUpdateComponent, canActivate: [AdminGuard] },
+  { path: 'admin/categories/:id/delete', component: CategoryDeleteComponent, canActivate: [AdminGuard] },
+  { path: 'admin/properties', component: PropertyListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/properties/new', component: PropertyCreateComponent, canActivate: [AdminGuard] },
+  { path: 'admin/properties/:id/update', component: PropertyUpdateComponent, canActivate: [AdminGuard] },
+  { path: 'admin/properties/:id/delete', component: PropertyDeleteComponent, canActivate: [AdminGuard] },
+  { path: 'admin/propertyValues', component: PropertyValueListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/propertyValues/new', component: PropertyValueCreateComponent, canActivate: [AdminGuard] },
+  { path: 'admin/propertyValues/:id/update', component: PropertyValueUpdateComponent, canActivate: [AdminGuard] },
+  { path: 'admin/propertyValues/:id/delete', component: PropertyValueDeleteComponent, canActivate: [AdminGuard] },
   { path: 'orders/new', component: OrderFormComponent },
   { path: 'users/:id/orders', component: OrderUserListComponent },
   { path: 'orders/:id/update', component: OrderUpdateComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
-  { path: 'admin/users', component: UserListComponent },
-  { path: 'admin/addresses', component: AddressAdminListComponent },
-  { path: 'admin/orders', component: OrderAdminListComponent },
-  { path: 'admin/categories', component: CategoryAdminListComponent },
-  { path: 'admin', component: AdminPageComponent },
-  { path: 'admin/statistics/revenue', component: RevenueComponent },
-  { path: 'admin/statistics/top-10-products', component: TopProductsComponent },
-  { path: 'admin/statistics/top-10-buyers', component: TopBuyersComponent }
+  { path: 'admin/users', component: UserListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/addresses', component: AddressAdminListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/orders', component: OrderAdminListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/categories', component: CategoryAdminListComponent, canActivate: [AdminGuard] },
+  { path: 'admin', component: AdminPageComponent, canActivate: [AdminGuard]},
+  { path: 'admin/statistics/revenue', component: RevenueComponent, canActivate: [AdminGuard] },
+  { path: 'admin/statistics/top-10-products', component: TopProductsComponent, canActivate: [AdminGuard] },
+  { path: 'admin/statistics/top-10-buyers', component: TopBuyersComponent, canActivate: [AdminGuard] },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

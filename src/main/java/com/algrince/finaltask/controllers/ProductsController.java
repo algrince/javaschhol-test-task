@@ -2,8 +2,10 @@ package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.CategoryDTO;
 import com.algrince.finaltask.dto.ProductDTO;
+import com.algrince.finaltask.exceptions.InvalidFormException;
 import com.algrince.finaltask.models.Category;
 import com.algrince.finaltask.models.Product;
+import com.algrince.finaltask.models.ProductProperty;
 import com.algrince.finaltask.services.ProductsService;
 import com.algrince.finaltask.utils.DTOMapper;
 import com.algrince.finaltask.validators.AccessValidator;
@@ -18,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -49,6 +52,7 @@ public class ProductsController {
                 sortField, sortDir,
                 minPrice, maxPrice,
                 prValues, isAdmin);
+
         return dtoMapper.mapPage(products, ProductDTO.class);
     }
 
@@ -59,10 +63,7 @@ public class ProductsController {
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return new ResponseEntity<>(errors, HttpStatus.OK);
+            throw new InvalidFormException(bindingResult);
         }
 
         Product product = dtoMapper.mapClass(productDTO, Product.class);
@@ -90,6 +91,7 @@ public class ProductsController {
             @Valid @RequestBody ProductDTO productDTO) {
         Product foundProduct = productsService.findById(productId);
         foundProduct.setCategory(new Category());
+        foundProduct.setPropertyValues(new ArrayList<ProductProperty>());
         dtoMapper.mapProperties(productDTO, foundProduct);
         productsService.save(foundProduct);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -97,7 +99,7 @@ public class ProductsController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public ResponseEntity<String> deleteProduct (
+    public ResponseEntity<String> deleteProduct(
             @PathVariable(value = "id") Long productId) {
         Product productToDelete = productsService.findById(productId);
         productsService.softDelete(productToDelete);

@@ -47,7 +47,7 @@ export class AddressFormComponent {
   }
 
   gotoUserList() {
-    this.router.navigate(['/users']);
+    this.router.navigate([`/home`]);
   }
 
 }

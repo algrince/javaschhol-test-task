@@ -16,11 +16,14 @@ export class OrderUserListComponent implements OnInit {
     orderId: number;
     role: string;
     userId: number;
+    newOrder: Order;
 
     constructor(
         private orderService: OrderService,
         private router: Router,
-        private route: ActivatedRoute) {}
+        private route: ActivatedRoute) {
+
+        }
 
     ngOnInit() {
         this.userId = this.route.snapshot.params['id'];
@@ -44,5 +47,6 @@ export class OrderUserListComponent implements OnInit {
         }
         return 1;
     }
+
 
 }

@@ -1,15 +1,14 @@
 <div class="card-body row d-flex justify-content-center my-4" style="margin-right: 20px;">
-        <div class="col-md-3">
+        <div class="col-md-3 mt-5">
             <p class="fs-2">{{ product.title }}</p>
             <p class="fs-5">{{ product.category.name }}</p>
             <p class="text-primary h4">{{ product.price }} €</p>
-            <div *ngFor="let propertyValue of product.propertyValues" class="mt-5">
-                <p class="fs-5">
-                    <span class="fw-bolder">{{ propertyValue.property.name }}:  </span>
-                    {{ propertyValue.propertyValue }} </p>
-            </div>
-            <p class="fs-6"><span class="fw-bolder">Weight: </span>{{ product.weight }}</p>
-            <p class="fs-6"><span class="fw-bolder">Volume: </span>{{ product.volume }}</p>
+            <ul class="list-unstyled" *ngFor="let propertyValue of product.propertyValues">
+                <li><p class="fs-6"><span class="fw-bolder">{{ propertyValue.property.name }}:  </span>
+                    {{ propertyValue.propertyValue }}</p></li>
+            </ul>
+            <p class="fs-6"><span class="fw-bolder">Weight: </span>{{ product.weight }} kg</p>
+            <p class="fs-6"><span class="fw-bolder">Volume: </span>{{ product.volume }} L</p>
             <p class="fs-6"><span class="fw-bolder">Stock: </span>{{ product.stock }}</p>
             <form class="col-md-8">
                 <div *ngIf="!product.deleted">

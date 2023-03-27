@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface OrderProductRepository extends JpaRepository<OrderProduct, Long> {
     List<OrderProduct> findAllByOrderId(Long id);
-    @Query("select o.product, count(o.id) as occurrences from OrderProduct o group by o.product order by occurrences desc")
+    @Query("select o.product, count(o.id) as occurrences from OrderProduct o group by o.product order by occurrences desc limit 10")
     List<Object[]> findTop10ByProduct();
 }
