@@ -66,7 +66,7 @@ public class ProductsService {
                 ProductSpecification productPropertySpec = new ProductSpecification(
                         new SearchCriteria(
                                 "propertyValues",
-                                ":", foundProductProperty)
+                                ":", foundProductProperty.getPropertyValue())
                 );
                 productSpecs.add(productPropertySpec);
             }

@@ -89,6 +89,7 @@ public class ProductsController {
             @PathVariable(value = "id") Long productId,
             @Valid @RequestBody ProductDTO productDTO) {
         Product foundProduct = productsService.findById(productId);
+        foundProduct.setCategory(new Category());
         dtoMapper.mapProperties(productDTO, foundProduct);
         productsService.save(foundProduct);
         return new ResponseEntity<>(HttpStatus.OK);
