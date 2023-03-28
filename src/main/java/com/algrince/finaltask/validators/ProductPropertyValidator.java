@@ -35,7 +35,7 @@ public class ProductPropertyValidator implements Validator {
         Long productPropertyFromDBId = productPropertyFromDB.map(ProductProperty::getId).orElse(null);
 
         if (productPropertyFromDB.isPresent()
-                && targetProductPropertyId != productPropertyFromDBId) {
+                && !targetProductPropertyId.equals(productPropertyFromDBId)) {
             errors.rejectValue(
                     "propertyValue",
                     "productProperty.propertyValue.exists",

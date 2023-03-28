@@ -18,18 +18,16 @@ public class StatisticsController {
 
     @GetMapping("monthly_revenue")
     public List<LinkedHashMap<Object, Object>> getMonthlyRevenue(
-            @RequestParam(required = true) int number) throws JsonProcessingException {
+            @RequestParam(required = true) int number) {
         List<List<Calendar>> months = statisticsService.getMonths(number);
-        List<LinkedHashMap<Object, Object>>  revenue = statisticsService.getPeriodRevenue(months, "month");
-        return revenue;
+        return statisticsService.getPeriodRevenue(months, "month");
     }
 
     @GetMapping("weekly_revenue")
     public List<LinkedHashMap<Object, Object>> getWeeklyRevenue(
             @RequestParam(required = true) int number) {
         List<List<Calendar>> weeks = statisticsService.getWeeks(number);
-        List<LinkedHashMap<Object, Object>> revenue = statisticsService.getPeriodRevenue(weeks, "week");
-        return revenue;
+        return statisticsService.getPeriodRevenue(weeks, "week");
     }
 
     @GetMapping("top_products")

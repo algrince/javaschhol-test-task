@@ -37,7 +37,7 @@ public class UserValidator implements Validator {
         Long targetUserId = user.getId();
 
 //        Check if email is repeated
-        if (userFromDB.isPresent() && userFromDBId != targetUserId) {
+        if (userFromDB.isPresent() && !userFromDBId.equals(targetUserId)) {
            errors.rejectValue(
                    "email",
                    "user.email.exists",

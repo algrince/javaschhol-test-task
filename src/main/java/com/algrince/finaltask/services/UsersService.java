@@ -50,8 +50,7 @@ public class UsersService {
 
     @Transactional(readOnly = true)
     public Optional<User> loadByEmail(String email) {
-        Optional<User> foundUser = usersRepository.findByEmail(email);
-        return foundUser;
+        return usersRepository.findByEmail(email);
     }
 
     @Transactional(readOnly = true)

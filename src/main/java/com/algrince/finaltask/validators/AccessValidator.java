@@ -1,7 +1,6 @@
 package com.algrince.finaltask.validators;
 
 import com.algrince.finaltask.models.User;
-import com.algrince.finaltask.security.UserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
