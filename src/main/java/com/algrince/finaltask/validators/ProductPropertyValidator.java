@@ -9,6 +9,11 @@ import org.springframework.validation.Validator;
 
 import java.util.Optional;
 
+/**
+ * Additional server-side validation for product properties. Prevents
+ * saving to the database of two product properties with the same name
+ */
+
 @Component
 @RequiredArgsConstructor
 public class ProductPropertyValidator implements Validator {

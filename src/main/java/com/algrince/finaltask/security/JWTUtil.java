@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
+/**
+ * Generates JWT-token and performs its validation
+ */
+
 @Component
 public class JWTUtil {
 

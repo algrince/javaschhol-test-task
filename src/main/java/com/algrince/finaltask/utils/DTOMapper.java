@@ -8,6 +8,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Maps properties between objects, object and class, list / page of
+ * objects and classes
+ */
+
 @Component
 @RequiredArgsConstructor
 public class DTOMapper {

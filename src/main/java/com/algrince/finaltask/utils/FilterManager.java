@@ -6,6 +6,11 @@ import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
+/**
+ * Enables and disables filter that makes invisible soft-deleted
+ * objects (any object with isDeleted=true)
+ */
+
 @Component
 @RequiredArgsConstructor
 public class FilterManager {

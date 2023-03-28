@@ -10,6 +10,13 @@ import org.springframework.validation.Validator;
 import java.time.LocalDate;
 import java.util.Optional;
 
+
+/**
+ * Performs additional validation of user. Checks if the email in unique,
+ * if the date of birth lies between stated period and also checks the
+ * minimal security of the password.
+ */
+
 @Component
 @RequiredArgsConstructor
 public class UserValidator implements Validator {

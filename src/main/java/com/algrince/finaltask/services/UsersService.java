@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +36,7 @@ public class UsersService {
             users = usersRepository.findAll();
             filterManager.disableFilter(DELETED_USER_FILTER);
         }
-        return usersRepository.findAll();
+        return users;
     }
 
     @Transactional(readOnly = true)

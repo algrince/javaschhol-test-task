@@ -9,6 +9,10 @@ import org.springframework.validation.Validator;
 
 import java.util.Optional;
 
+/**
+ * Additional server-side validation for categories. Prevents
+ * saving to the database of two categories with the same name
+ */
 @Component
 @RequiredArgsConstructor
 public class CategoryValidator implements Validator {

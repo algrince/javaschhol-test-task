@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 
+/**
+ * Handles ResourceNotFoundException, BadCredentialsException,
+ * AccessDeniedException, InvalidFormException and RunTimeException
+ */
 
 @Slf4j
 @ControllerAdvice

@@ -11,6 +11,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+/**
+ * Additional server-side validation for orders. Prevents
+ * saving order to the DB if the quantity of any products that is
+ * bought is less than the stock of this product in the DB.
+ */
+
 @Component
 @RequiredArgsConstructor
 public class OrderValidator implements Validator {

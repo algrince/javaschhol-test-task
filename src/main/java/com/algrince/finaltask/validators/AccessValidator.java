@@ -13,6 +13,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Validates access of the client user to the requested info.
+ * The access is granted if a user is authenticated and has
+ * ADMIN/EMPLOYEE role or is the same user whose info is requested
+ */
+
 @Component
 public class AccessValidator {
 

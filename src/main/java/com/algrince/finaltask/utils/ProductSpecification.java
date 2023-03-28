@@ -7,6 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
+/**
+ * Specification for filtering products by some queries or
+ * by combination of them.
+ */
+
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class ProductSpecification implements Specification<Product> {

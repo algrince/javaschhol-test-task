@@ -10,6 +10,12 @@ import org.springframework.validation.Validator;
 
 import java.util.Optional;
 
+/**
+ * Password validator used for updating user and updating password.
+ * All the information passed in the form won't be saved if given password
+ * does not match with one associated with DB.
+ */
+
 @Component
 @RequiredArgsConstructor
 public class PasswordValidator implements Validator {
