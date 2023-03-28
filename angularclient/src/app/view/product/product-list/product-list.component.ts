@@ -31,6 +31,7 @@ export class ProductListComponent implements OnInit {
     maxPrice?: number;
     role: string;
     roleExists: boolean;
+    productImages: { [productId: number]: string } = {};
 
     constructor(
         private productService: ProductService,
@@ -50,15 +51,25 @@ export class ProductListComponent implements OnInit {
         this.propertyValueService.findAll()
             .subscribe(data => {this.propertyValues = data});
 
+
         this.roleExists = this.cookieService.check("userRole");
         this.role = this.cookieService.get("userRole");
     }
 
-    getImage() {
-        this.imageService.getImage({id: 0})
+    getImage(id: number) {
+        this.imageService.getImage({id: id})
             .subscribe(data =>
                 {this.imageSrc = this.sanitizer
-                    .bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
+                    .bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);
+                this.productImages[id] = this.imageSrc;
+                });
+    }
+
+    getImages() {
+        for (var product of this.products) {
+            let id = product.id;
+            this.getImage(id);
+        }
     }
 
     onSubmit() {
@@ -73,12 +84,11 @@ export class ProductListComponent implements OnInit {
 
     private getProducts(request) {
 
-        this.getImage();
-
         this.productService.findAll(request)
             .subscribe(data => {
                 this.products = data['content'];
                 this.totalElements = data['totalElements'];
+                this.getImages();
             });
     }
 

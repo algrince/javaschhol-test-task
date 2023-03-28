@@ -34,6 +34,7 @@ export class CategoryPageComponent implements OnInit{
     maxPrice: any;
     role: string;
     roleExists: boolean;
+    productImages: { [productId: number]: string } = {};
 
     constructor(
         private productService: ProductService,
@@ -91,20 +92,31 @@ export class CategoryPageComponent implements OnInit{
     }
 
     private getProducts(request) {
-        this.getImage();
 
         this.productService.findAllByCategory(request)
             .subscribe(data => {
                 this.products = data['content'];
                 this.totalElements = data['totalElements'];
+                this.getImages();
             });
     }
 
-    getImage() {
-        this.imageService.getImage({id: 0})
+    getImage(id: number) {
+        this.imageService.getImage({id: id})
             .subscribe(data =>
-                {this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);});
+                {this.imageSrc = this.sanitizer
+                    .bypassSecurityTrustResourceUrl(`data:image/png;base64, ${data}`);
+                this.productImages[id] = this.imageSrc;
+                });
     }
+
+    getImages() {
+        for (var product of this.products) {
+            let id = product.id;
+            this.getImage(id);
+        }
+    }
+
 
 
     onSubmit() {

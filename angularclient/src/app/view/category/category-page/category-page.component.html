@@ -106,7 +106,7 @@
         <div class="col-md-8"></div>
         <div class="col" *ngFor="let product of products">
             <div class="card">
-                <img [src]="imageSrc" class="card-img-top" alt="Product image">
+                <img [src]="productImages[product.id]" class="card-img-top" alt="Product image">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.title }}</h5>
                     <p class="card-text">{{ product.category.name }}</p>
