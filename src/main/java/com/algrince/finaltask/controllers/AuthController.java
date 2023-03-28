@@ -25,7 +25,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     private final UserValidator userValidator;
@@ -67,21 +66,6 @@ public class AuthController {
         log.info("The user has been validated successfully");
 
         usersService.register(user);
-
-//        String token;
-//        try {
-//             token = authService.signup(registrationUserDTO, bindingResult);
-//        } catch (MethodArgumentNotValidException e) {
-//             log.info("Incorrect credentials given by the user");
-//             return new ResponseEntity<>("Incorrect credentials", HttpStatus.UNAUTHORIZED);
-//        }
-//
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.set("jwt-token", token);
-//        return ResponseEntity
-//                .ok()
-//                .headers(httpHeaders)
-//                .build();
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

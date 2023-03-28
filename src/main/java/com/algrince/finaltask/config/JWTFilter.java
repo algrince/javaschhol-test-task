@@ -50,7 +50,6 @@ public class JWTFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(
                                     userDetails.getUsername(), username, userDetails.getAuthorities());
-//                                    userDetails.getPassword(), userDetails.getAuthorities());
 
                     // Now user data is in security context
                     // Allow auth with exceptions (

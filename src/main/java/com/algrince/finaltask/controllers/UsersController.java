@@ -29,7 +29,6 @@ import java.util.List;
 @RestController
 @RequestMapping("users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class UsersController {
     private final PasswordValidator passwordValidator;
     private final AccessValidator accessValidator;
@@ -39,7 +38,7 @@ public class UsersController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public List<UserListDTO> getUsers() {
+    public List<UserListDTO> getUsersList() {
         boolean isAdmin = accessValidator.authUserIsAdmin();
         List<User> users = usersService.findAll(isAdmin);
         return dtoMapper.mapList(users, UserListDTO.class);
@@ -136,6 +135,8 @@ public class UsersController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> restoreUser(
             @PathVariable(value = "id") Long userId) {
+        // Adds possibility to restore soft-deleted user
+
         User userToRestore = usersService.findById(userId);
         usersService.restore(userToRestore);
         return new ResponseEntity<>(HttpStatus.OK);

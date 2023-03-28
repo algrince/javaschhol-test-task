@@ -9,7 +9,6 @@ import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.validators.CategoryValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,12 +16,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("categories")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class CategoriesController {
 
     private final CategoriesService categoriesService;
@@ -31,7 +28,7 @@ public class CategoriesController {
     private final DTOMapper dtoMapper;
 
     @GetMapping
-    public List<CategoryDTO> getCategories() {
+    public List<CategoryDTO> getCategoriesList() {
         boolean isAdmin = accessValidator.authUserIsAdmin();
         List<Category> categories = categoriesService.findAll(isAdmin);
         return dtoMapper.mapList(categories, CategoryDTO.class);
@@ -64,7 +61,7 @@ public class CategoriesController {
 
     @PutMapping("{id}")
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public ResponseEntity<Object> updateCategory (
+    public ResponseEntity<Object> updateCategory(
             @PathVariable(value = "id") Long categoryId,
             @Valid @RequestBody CategoryDTO categoryDTO,
             BindingResult bindingResult) {
@@ -84,7 +81,7 @@ public class CategoriesController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public ResponseEntity<String> deleteCategory (
+    public ResponseEntity<String> deleteCategory(
             @PathVariable(value = "id") Long categoryId) {
         Category categoryToDelete = categoriesService.findById(categoryId);
         categoriesService.softDelete(categoryToDelete);
@@ -95,6 +92,8 @@ public class CategoriesController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> restoreCategory(
             @PathVariable(value = "id") Long categoryId) {
+        // Adds possibility to restore soft-deleted categories
+
         Category categoryToRestore = categoriesService.findById(categoryId);
         categoriesService.restore(categoryToRestore);
         return new ResponseEntity<>(HttpStatus.OK);

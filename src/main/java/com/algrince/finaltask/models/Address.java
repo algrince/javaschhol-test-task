@@ -40,7 +40,6 @@ public class Address {
 
     @Column(name = "postal_code")
     @NotNull
-    // @Size(min = 5, max = 6)
     private int postalCode;
 
     @Column(name = "street")

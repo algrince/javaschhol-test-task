@@ -6,7 +6,6 @@ import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.repositories.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +18,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrdersService {
 
-    private final OrdersRepository ordersRepository;
-    private final UsersService usersService;
     private final OrderProductsService orderProductsService;
+    private final OrdersRepository ordersRepository;
+
 
     @Transactional(readOnly = true)
     public Order findById(Long id) {

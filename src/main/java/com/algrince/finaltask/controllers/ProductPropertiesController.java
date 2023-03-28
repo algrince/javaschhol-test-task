@@ -10,7 +10,6 @@ import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.validators.ProductPropertyValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,12 +17,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("propertyValues")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class ProductPropertiesController {
 
     private final ProductPropertiesService productPropertiesService;
@@ -32,7 +29,7 @@ public class ProductPropertiesController {
     private final DTOMapper dtoMapper;
 
     @GetMapping
-    public List<ProductPropertyDTO> propertiesValuesIndex() {
+    public List<ProductPropertyDTO> getProductPropertiesList() {
         boolean isAdmin = accessValidator.authUserIsAdmin();
         List<ProductProperty> productProperties = productPropertiesService.findAll(isAdmin);
         return dtoMapper.mapList(productProperties, ProductPropertyDTO.class);
@@ -71,6 +68,8 @@ public class ProductPropertiesController {
             BindingResult bindingResult) {
 
         ProductProperty foundProductProperty = productPropertiesService.findById(productPropertyId);
+
+        // For correct insertion in DB setting a new property is needed
         foundProductProperty.setProperty(new Property());
         dtoMapper.mapProperties(productPropertyDTO, foundProductProperty);
         productPropertyValidator.validate(foundProductProperty, bindingResult);
@@ -99,6 +98,8 @@ public class ProductPropertiesController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> restoreProductProperty(
             @PathVariable(value = "id") Long productPropertyId) {
+        // Adds possibility to restore soft-deleted property values
+
         ProductProperty productPropertyToRestore =
                 productPropertiesService.findById(productPropertyId);
         productPropertiesService.restore(productPropertyToRestore);

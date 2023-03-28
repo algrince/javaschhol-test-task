@@ -2,8 +2,6 @@ package com.algrince.finaltask.services;
 
 import com.algrince.finaltask.dto.userDTO.AuthenticationDTO;
 import com.algrince.finaltask.security.JWTUtil;
-import com.algrince.finaltask.utils.DTOMapper;
-import com.algrince.finaltask.validators.UserValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,9 +16,6 @@ public class AuthService {
 
     private final JWTUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
-    private final DTOMapper dtoMapper;
-    private final UserValidator userValidator;
-    private final UsersService usersService;
 
     public String login(AuthenticationDTO authenticationDTO) {
         UsernamePasswordAuthenticationToken authenticationInputToken =
@@ -36,23 +31,4 @@ public class AuthService {
 
         return jwtUtil.generateToken(authenticationDTO.getEmail());
     }
-    
-//    public String signup(
-//            RegistrationUserDTO registrationUserDTO,
-//            BindingResult bindingResult) throws MethodArgumentNotValidException {
-//
-//        User user = dtoMapper.mapClass(registrationUserDTO, User.class);
-//        userValidator.validate(user, bindingResult);
-//
-//        if (bindingResult.hasErrors()) {
-//
-//            log.warn("There was a problem during user validation");
-
-//            throw new MethodArgumentNotValidException(null, bindingResult);
-//        }
-//        log.info("The user has been validated successfully");
-//        usersService.register(user);
-//
-//        return jwtUtil.generateToken(user.getEmail());
-//    }
 }

@@ -1,6 +1,5 @@
 package com.algrince.finaltask.validators;
 
-import com.algrince.finaltask.models.Product;
 import com.algrince.finaltask.models.ProductProperty;
 import com.algrince.finaltask.services.ProductPropertiesService;
 import lombok.RequiredArgsConstructor;

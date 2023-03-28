@@ -8,17 +8,13 @@ import com.algrince.finaltask.repositories.ProductsRepository;
 import com.algrince.finaltask.utils.FilterManager;
 import com.algrince.finaltask.utils.ProductSpecification;
 import com.algrince.finaltask.utils.SearchCriteria;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Filter;
-import org.hibernate.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

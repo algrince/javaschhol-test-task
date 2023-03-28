@@ -11,7 +11,6 @@ import java.io.IOException;
 @RestController
 @RequestMapping("images")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class ProductImagesController {
 
     private final ProductImagesService productImagesService;

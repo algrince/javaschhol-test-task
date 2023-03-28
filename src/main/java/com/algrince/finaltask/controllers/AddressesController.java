@@ -3,7 +3,6 @@ package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.dto.AddressDTO;
 import com.algrince.finaltask.exceptions.InvalidFormException;
-import com.algrince.finaltask.exceptions.ResourceNotFoundException;
 import com.algrince.finaltask.models.Address;
 import com.algrince.finaltask.models.User;
 import com.algrince.finaltask.services.AddressesService;
@@ -13,7 +12,6 @@ import com.algrince.finaltask.validators.AccessValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +25,6 @@ import java.util.List;
 @RestController
 @RequestMapping("addresses")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class AddressesController {
 
     private final AddressesService addressesService;
@@ -38,7 +35,7 @@ public class AddressesController {
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
-    public List<AddressDTO> getUserAddresses(
+    public List<AddressDTO> getUserAddressesList(
             @RequestParam(required = true) Long user,
             Principal principal) {
         User associatedUser = usersService.findById(user);
@@ -51,7 +48,7 @@ public class AddressesController {
 
     @GetMapping("all")
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public List<AddressDTO> getAddresses() {
+    public List<AddressDTO> getAddressesList() {
         boolean isAdmin = accessValidator.authUserIsAdmin();
         List<Address> addresses = addressesService.findAll(isAdmin);
         return dtoMapper.mapList(addresses, AddressDTO.class);

@@ -1,6 +1,5 @@
 package com.algrince.finaltask.controllers;
 
-import com.algrince.finaltask.dto.AddressDTO;
 import com.algrince.finaltask.dto.OrderDTO;
 import com.algrince.finaltask.dto.OrderProductDTO;
 import com.algrince.finaltask.dto.UpdateOrderDTO;
@@ -16,7 +15,6 @@ import com.algrince.finaltask.utils.DTOMapper;
 import com.algrince.finaltask.validators.OrderValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,7 +28,6 @@ import java.util.List;
 @RestController
 @RequestMapping("orders")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class OrdersController {
 
     private final OrdersService ordersService;
@@ -41,7 +38,7 @@ public class OrdersController {
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
-    public List<OrderDTO> getUserOrders(
+    public List<OrderDTO> getUserOrdersList(
             @RequestParam(required = true) Long user,
             Principal principal) {
         User associatedUser = usersService.findById(user);
@@ -53,7 +50,7 @@ public class OrdersController {
 
     @GetMapping("all")
     @PreAuthorize("hasAnyRole('EMPLOYEE', 'ADMIN')")
-    public List<OrderDTO> getOrders() {
+    public List<OrderDTO> getOrdersList() {
         List<Order> orders = ordersService.findAll();
         return dtoMapper.mapList(orders, OrderDTO.class);
     }
@@ -111,7 +108,7 @@ public class OrdersController {
 
     @PutMapping("{id}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Object> updateOrder (
+    public ResponseEntity<Object> updateOrder(
             @PathVariable(value = "id") Long orderId,
             @Valid @RequestBody UpdateOrderDTO updateOrderDTO,
             Principal principal,

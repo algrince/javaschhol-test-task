@@ -15,9 +15,6 @@ import org.springframework.validation.Validator;
 @RequiredArgsConstructor
 public class OrderValidator implements Validator {
 
-    private final OrdersService ordersService;
-    private final ProductsService productsService;
-
     @Override
     public boolean supports(Class<?> aClass) {
         return Order.class.equals(aClass);
@@ -40,8 +37,5 @@ public class OrderValidator implements Validator {
                         ". The current stock of the product is: " + productInOrderStock);
             }
         }
-
-        User buyer = order.getUser();
-        // Add unpaid orders validation
     }
 }

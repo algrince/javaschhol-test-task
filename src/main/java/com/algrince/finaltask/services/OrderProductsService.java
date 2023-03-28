@@ -1,6 +1,5 @@
 package com.algrince.finaltask.services;
 
-import com.algrince.finaltask.models.Order;
 import com.algrince.finaltask.models.OrderProduct;
 import com.algrince.finaltask.repositories.OrderProductRepository;
 import lombok.RequiredArgsConstructor;

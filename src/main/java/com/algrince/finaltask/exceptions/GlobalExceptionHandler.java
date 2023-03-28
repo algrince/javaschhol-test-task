@@ -53,19 +53,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessageDTO);
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ResponseEntity<ErrorMessageDTO> handleRunTimeException(
-//            RuntimeException e) {
-//
-//        log.warn(e.getLocalizedMessage());
-//        ErrorMessageDTO errorMessageDTO = new ErrorMessageDTO();
-//
-//        errorMessageDTO.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-//        errorMessageDTO.setMessage("There was an error while processing your request. Is the problem persists, please contact admin.");
-//
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessageDTO);
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleRunTimeException(
+            RuntimeException e) {
+
+        log.warn(e.getLocalizedMessage());
+        ErrorMessageDTO errorMessageDTO = new ErrorMessageDTO();
+
+        errorMessageDTO.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        errorMessageDTO.setMessage("There was an error while processing your request. Is the problem persists, please contact admin.");
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessageDTO);
+    }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)

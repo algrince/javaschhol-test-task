@@ -9,20 +9,17 @@ import com.algrince.finaltask.validators.AccessValidator;
 import com.algrince.finaltask.validators.PropertyValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("properties")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class PropertiesController {
 
     private final PropertiesService propertiesService;
@@ -97,6 +94,8 @@ public class PropertiesController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> restoreProperty(
             @PathVariable(value = "id") Long propertyId) {
+        // Adds possibility to restore soft-deleted property
+
         Property propertyToRestore = propertiesService.findById(propertyId);
         propertiesService.restore(propertyToRestore);
         return new ResponseEntity<>(HttpStatus.OK);

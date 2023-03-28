@@ -2,19 +2,16 @@ package com.algrince.finaltask.controllers;
 
 import com.algrince.finaltask.services.StatisticsService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("statistics")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class StatisticsController {
 
     private final StatisticsService statisticsService;

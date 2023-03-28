@@ -12,7 +12,6 @@ import com.algrince.finaltask.validators.AccessValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,6 @@ import java.util.List;
 @RestController
 @RequestMapping("products")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class ProductsController {
 
     private final ProductsService productsService;
@@ -35,7 +33,7 @@ public class ProductsController {
     private final DTOMapper dtoMapper;
 
     @GetMapping
-    public Page<ProductDTO> getProducts(
+    public Page<ProductDTO> getProductsList(
             @RequestParam(required = false) Long category,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
@@ -72,7 +70,7 @@ public class ProductsController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductDTO> getProduct (
+    public ResponseEntity<ProductDTO> getProduct(
             @PathVariable("id") Long id) {
         boolean isAdmin = accessValidator.authUserIsAdmin();
 
@@ -90,8 +88,11 @@ public class ProductsController {
             @PathVariable(value = "id") Long productId,
             @Valid @RequestBody ProductDTO productDTO) {
         Product foundProduct = productsService.findById(productId);
+
+        // For correct insertion to the DB new Category and ProductProperties must be added
         foundProduct.setCategory(new Category());
         foundProduct.setPropertyValues(new ArrayList<ProductProperty>());
+
         dtoMapper.mapProperties(productDTO, foundProduct);
         productsService.save(foundProduct);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -110,6 +111,8 @@ public class ProductsController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> restoreProduct(
             @PathVariable(value = "id") Long productId) {
+        // Adds possibility to restore soft-deleted product
+
         Product productToRestore = productsService.findById(productId);
         productsService.restore(productToRestore);
         return new ResponseEntity<>(HttpStatus.OK);
