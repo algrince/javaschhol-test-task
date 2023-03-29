@@ -61,11 +61,11 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'registration', component: UserFormComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'users/:id', component: UserPageComponent, canActivate: [AuthGuard] },
-  { path: 'users/:id/update', component: UserUpdateComponent, canActivate: [AuthGuard] },
-  { path: 'users/:id/delete', component: UserDeleteComponent, canActivate: [AuthGuard] },
-  { path: 'users/:id/changePassword', component: UserChangePasswordComponent, canActivate: [AuthGuard] },
-  { path: 'users/:id/changeRole', component: UserChangeRoleComponent, canActivate: [AdminGuard] },
+  { path: 'users/:id', component: UserPageComponent },
+  { path: 'users/:id/update', component: UserUpdateComponent},
+  { path: 'users/:id/delete', component: UserDeleteComponent},
+  { path: 'users/:id/changePassword', component: UserChangePasswordComponent},
+  { path: 'admin/users/:id/changeRole', component: UserChangeRoleComponent, canActivate: [AdminGuard] },
   { path: 'addresses/new', component: AddressFormComponent },
   { path: 'addresses/:id/update', component: AddressUpdateComponent },
   { path: 'addresses/:id/delete', component: AddressDeleteComponent },
@@ -98,7 +98,8 @@ const routes: Routes = [
   { path: 'admin/statistics/revenue', component: RevenueComponent, canActivate: [AdminGuard] },
   { path: 'admin/statistics/top-10-products', component: TopProductsComponent, canActivate: [AdminGuard] },
   { path: 'admin/statistics/top-10-buyers', component: TopBuyersComponent, canActivate: [AdminGuard] },
-  { path: '**', component: NotFoundComponent }
+  { path: 'not-found', component: NotFoundComponent},
+  { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];
 
 @NgModule({

@@ -115,7 +115,7 @@ public class UsersController {
             LoggedUserDTO loggedUserDTO) {
         User userToPromote = usersService.findById(userId);
         userToPromote.setRole(loggedUserDTO.getRole());
-        usersService.save(userToPromote);
+        usersService.update(userToPromote);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -1,12 +1,14 @@
 package com.algrince.finaltask.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CategoryDTO {
 
     private Long id;
